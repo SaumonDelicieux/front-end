@@ -1,0 +1,11 @@
+# Build project
+dist/
+
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env.local
+
+# Misc
+.DS_STORE

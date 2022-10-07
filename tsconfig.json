@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "useUnknownInCatchVariables": false,
+        "useDefineForClassFields": true,
+        "esModuleInterop": true,
+        "isolatedModules": false,
+        "jsx": "react-jsx",
+        "types": ["node", "vite/client", "@types/jest"],
+        "typeRoots": ["./src/types"],
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "moduleResolution": "node",
+        "module": "ESNext",
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "target": "ESNext",
+        "baseUrl": "."
+    },
+    "exclude": ["node_modules", "jest.config.cjs", "tailwind.config.cjs", "postcss.config.cjs"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+}
