@@ -1,5 +1,5 @@
 {
-  "name": "pin-notes",
+  "name": "pi-notes",
   "version": "1.0.0",
   "description": "Note web app",
   "main": "index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/SaumonDelicieux/pin-notes.git"
+    "url": "git+ssh://git@github.com/SaumonDelicieux/pi-notes.git"
   },
   "keywords": [
     "typescript",
@@ -25,13 +25,15 @@
   "author": "Enzo Candotti <enzo.candotti16@hotmail.com>",
   "contributors": [
     "Lamine Adel <>",
-    "Walid Mokhtari <>"
+    "Walid Mokhtari <>",
+    "Melly Lucas <>",
+    "Swann Jumpertz <>"
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SaumonDelicieux/pin-notes/issues"
+    "url": "https://github.com/SaumonDelicieux/pi-notes/issues"
   },
-  "homepage": "https://github.com/SaumonDelicieux/pin-notes#readme",
+  "homepage": "https://github.com/SaumonDelicieux/pi-notes#readme",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
