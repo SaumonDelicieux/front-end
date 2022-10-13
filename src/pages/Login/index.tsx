@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import ReactLoading from 'react-loading'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
+import Button from '../../components/Button'
 import Input from '../../components/Input'
 
 import { IUserLogin } from '../../types/IUserLogin'
@@ -42,25 +43,12 @@ const Login: React.FC = () => {
                             onChange={e => setUserLogin({ ...userLogin, password: e })}
                             size="large"
                         />
-
                         <div className="text-red-800 mb-5">{error}</div>
-                        <div>
-                            <button
-                                type="submit"
-                                className="rounded-full py-4 px-8 text-slate-50 bg-green-800 hover:bg-green-700 transition-colors"
-                            >
-                                {isLoading ? (
-                                    <ReactLoading
-                                        type="spin"
-                                        color="white"
-                                        height={27}
-                                        width={27}
-                                    />
-                                ) : (
-                                    'Se connecter'
-                                )}
-                            </button>
-                        </div>
+                        <Button
+                            isLoading={isLoading}
+                            onClick={(e: any) => handleLogin(e)}
+                            title="Se connecter"
+                        />
                     </form>
                 </div>
             </div>
