@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 
 import { urls } from '../../helpers/urls'
@@ -54,13 +53,13 @@ const Login: React.FC = () => {
                             title="Se connecter"
                         />
                         <Button
-                            onClick={() => navigate(urls.FORGETPASSWORD)}
+                            onClick={() => navigate(urls.APP.FORGETPASSWORD)}
                             title="Mot de passe oublié ?"
                             isLink
                         />
                         <Button
                             isLoading={isLoading}
-                            onClick={() => navigate(urls.REGISTER)}
+                            onClick={() => navigate(urls.APP.REGISTER)}
                             title="Pas de compte ? Inscrivez vous"
                             isLink={true}
                         />
