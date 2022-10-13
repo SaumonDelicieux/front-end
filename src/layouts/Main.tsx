@@ -1,14 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 
-import AuthContext from '../context/AuthContext'
-
 const Main: React.FC = () => {
-    const { user } = useContext(AuthContext)
+    const auth = false
 
-    return user?.token ? <Dashboard /> : <Login />
+    return auth ? <Dashboard /> : <Login />
 }
 
 export default Main
