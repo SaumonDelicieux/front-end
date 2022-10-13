@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
