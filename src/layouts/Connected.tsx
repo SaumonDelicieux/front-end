@@ -5,6 +5,8 @@ import { urls } from '../helpers/urls'
 
 import AuthContext from '../contexts/AuthContext'
 
+import Navbar from '../components/Navbar'
+
 const Connected: React.FC = () => {
     const { user } = useContext(AuthContext)
 
@@ -14,6 +16,7 @@ const Connected: React.FC = () => {
 
     return (
         <>
+            <Navbar />
             <Outlet />
         </>
     )
