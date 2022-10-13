@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
-import React from 'react'
+import React, { createContext, useState } from 'react'
 
 import { IUser } from '../types/IUser'
 import { IAuthContext } from '../types/contexts/IAuthContext'
@@ -15,14 +14,6 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthContextProvider: React.FC<ContextProps> = ({ children }) => {
     const [user, setUser] = useState<IUser>()
-
-    useEffect(() => {
-        if (window.localStorage.getItem('token')) {
-            setUser({ ...user, token: window.localStorage.getItem('token') ?? undefined })
-        } else {
-            setUser(undefined)
-        }
-    })
 
     const context = {
         user,

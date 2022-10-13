@@ -1,5 +1,8 @@
 export const urls = {
-    LOGIN: '/login',
-    REGISTER: '/register',
-    DASHBOARD: '/dashboard',
+    APP: {
+        LOGIN: '/login',
+        REGISTER: '/register',
+        DASHBOARD: '/dashboard',
+    },
+    API: {},
 }
