@@ -4,5 +4,10 @@ export const urls = {
         REGISTER: '/register',
         DASHBOARD: '/dashboard',
     },
-    API: {},
+    API: {
+        GET_ALL_FOLDERS: '',
+        GET_ALL_NOTES: '',
+        CREATE_FOLDER: '',
+        CREATE_NOTES: '',
+    },
 }
