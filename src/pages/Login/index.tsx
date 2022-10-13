@@ -91,7 +91,7 @@ const Login: React.FC = () => {
                         <Button
                             isLoading={isLoading}
                             onClick={(e: any) => handleLogin(e)}
-                            title="Salut"
+                            title="Se connecter"
                         />
                     </form>
                 </div>
