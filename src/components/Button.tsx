@@ -5,14 +5,19 @@ interface ButtonProps {
     onClick: any
     title: string
     isLoading?: boolean
+    isLink?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, title, isLoading }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, title, isLoading, isLink }) => {
     return (
         <div>
             <button
                 onClick={onClick}
-                className="rounded-full py-4 px-8 text-slate-50 bg-green-800 hover:bg-green-700 transition-colors"
+                className={
+                    isLink
+                        ? 'rounded-full py-4 px-8 text-black underline underline-offset-1 text-xs'
+                        : 'rounded-full py-4 px-8 text-blue-900 bg-white transition-colors'
+                }
             >
                 {isLoading ? (
                     <ReactLoading type="spin" color="white" height={27} width={27} />
