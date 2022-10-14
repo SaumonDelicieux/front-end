@@ -20,9 +20,11 @@ const Button: React.FC<ButtonProps> = ({
         <div>
             <button
                 onClick={onClick}
-                className={`rounded-full ${
-                    !noBg && 'py-4 px-8 text-slate-50 bg-green-800 hover:bg-green-700'
-                } transition-colors`}
+                className={
+                    noBg
+                        ? 'rounded-full py-0 px-8 text-gray-200 underline underline-offset-1 text-xs'
+                        : 'rounded-full py-4 px-8 text-blue-900 bg-slate-200 transition-colors'
+                }
             >
                 {isLoading ? (
                     <ReactLoading type="spin" color="white" height={27} width={27} />

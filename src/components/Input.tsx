@@ -2,7 +2,7 @@ import React, { useState, HTMLInputTypeAttribute } from 'react'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 interface InputProps {
-    label: string
+    label?: string
     required?: boolean
     size: 'default' | 'large'
     placeholder?: string
@@ -26,10 +26,10 @@ const Input: React.FC<InputProps> = ({
         e.preventDefault()
 
         if (hide) {
-            document.getElementById(label)?.setAttribute('type', 'text')
+            document.getElementById(label ?? '')?.setAttribute('type', 'text')
             setHide(false)
         } else {
-            document.getElementById(label)?.setAttribute('type', 'password')
+            document.getElementById(label ?? '')?.setAttribute('type', 'password')
             setHide(true)
         }
     }
