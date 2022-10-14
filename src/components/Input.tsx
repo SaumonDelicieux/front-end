@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
         <div className="relative flex flex-col">
             {label && (
                 <div className="flex justify-between items-center mb-2">
-                    <label htmlFor={label} className="mb-1 text-left cursor-pointer text-slate-800">
+                    <label htmlFor={label} className="mb-1 text-left cursor-pointer text-slate-200">
                         {label}
                     </label>
                 </div>
@@ -58,7 +58,7 @@ const Input: React.FC<InputProps> = ({
                 id={label}
                 required={required}
                 onChange={e => onChange(e.target.value)}
-                className={`mb-10 focus:outline-none focus:ring-1 focus:ring-green-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
+                className={`mb-10 focus:outline-none focus:ring-1 focus:ring-blue-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
             />
             {type === 'password' && (
                 <button
