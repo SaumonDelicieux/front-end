@@ -8,7 +8,7 @@ import AuthContext from '../contexts/AuthContext'
 const Unconnected: React.FC = () => {
     const { user } = useContext(AuthContext)
 
-    if (user) {
+    if (user?.token) {
         return <Navigate to={urls.APP.DASHBOARD} />
     }
 

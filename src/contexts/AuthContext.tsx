@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
+import jwtDecode from 'jwt-decode'
 
 import { IUser } from '../types/IUser'
 import { IAuthContext } from '../types/contexts/IAuthContext'
@@ -14,6 +15,24 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthContextProvider: React.FC<ContextProps> = ({ children }) => {
     const [user, setUser] = useState<IUser>()
+
+    useEffect(() => {
+        const hydrateToken = () => {
+            const tokenUser = localStorage.getItem('token')
+            if (tokenUser) {
+                const { token, firstName, lastName, isPremium }: IUser = jwtDecode(tokenUser)
+
+                setUser({
+                    token,
+                    firstName,
+                    lastName,
+                    isPremium,
+                })
+            }
+        }
+
+        hydrateToken()
+    }, [])
 
     const context = {
         user,

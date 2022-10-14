@@ -5,15 +5,18 @@ import { urls } from '../helpers/urls'
 
 import AuthContext from '../contexts/AuthContext'
 
+import Navbar from '../components/Navbar'
+
 const Connected: React.FC = () => {
     const { user } = useContext(AuthContext)
 
-    if (!user) {
+    if (!user?.token) {
         return <Navigate to={urls.APP.LOGIN} />
     }
 
     return (
         <>
+            <Navbar />
             <Outlet />
         </>
     )
