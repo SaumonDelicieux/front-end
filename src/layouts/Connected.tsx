@@ -15,10 +15,10 @@ const Connected: React.FC = () => {
     }
 
     return (
-        <>
+        <div className="bg-slate-900 h-full w-full">
             <Navbar />
             <Outlet />
-        </>
+        </div>
     )
 }
 
