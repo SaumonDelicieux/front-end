@@ -1,19 +1,28 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Main from '../layouts/Main'
+import Connected from '../layouts/Connected'
+import Unconnected from '../layouts/Unconnected'
 
-import Login from '../pages/Dashboard'
-import Dashboard from '../pages/Login'
+import Login from '../pages/Login'
+import Dashboard from '../pages/Dashboard'
+import Register from '../pages/Register'
+import ForgottenPassword from '../pages/ForgottenPassword'
 
 import { urls } from '../helpers/urls'
 
 const RoutesStack: React.FC = () => {
     return (
         <Routes>
-            <Route path="/" element={<Main />}>
-                <Route path={urls.LOGIN} element={<Login />} />
-                <Route path={urls.DASHBOARD} element={<Dashboard />} />
+            <Route element={<Unconnected />}>
+                <Route path={urls.APP.LOGIN} element={<Login />} />
+                <Route path={urls.APP.REGISTER} element={<Register />} />
+            </Route>
+            <Route path="/" element={<Connected />}>
+                <Route path={urls.APP.DASHBOARD} element={<Dashboard />} />
+            </Route>
+            <Route element={<Unconnected />}>
+                <Route path={urls.APP.FORGOTTEN_PASSWORD} element={<ForgottenPassword />} />
             </Route>
         </Routes>
     )

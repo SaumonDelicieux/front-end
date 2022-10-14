@@ -1,108 +1,102 @@
-import React, { useState } from 'react'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
-import ReactLoading from 'react-loading'
+import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+
+import AuthContext from '../../contexts/AuthContext'
+
+import Button from '../../components/Button'
+import Input from '../../components/Input'
+
+import api from '../../helpers/api'
+import { urls } from '../../helpers/urls'
 
 import { IUserLogin } from '../../types/IUserLogin'
+import { IUser } from '../../types/IUser'
 
 const Login: React.FC = () => {
-    const [hide, setHide] = useState(true)
+    const navigate = useNavigate()
+    const { setUser } = useContext(AuthContext)
+
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
 
     const [userLogin, setUserLogin] = useState<IUserLogin>({
-        username: '',
+        identifer: '',
         password: '',
     })
-
-    const hidePass = (e: Event) => {
-        e.preventDefault()
-        if (hide) {
-            document.getElementById('password')?.setAttribute('type', 'text')
-            setHide(false)
-        } else {
-            document.getElementById('password')?.setAttribute('type', 'password')
-            setHide(true)
-        }
-    }
 
     const handleLogin = async (e: Event) => {
         e.preventDefault()
 
-        setIsLoading(true)
+        console.log(userLogin)
+        try {
+            setIsLoading(true)
+            const { data } = await api.post(urls.API.LOGIN, {
+                identifer: userLogin.identifer,
+                password: userLogin.password,
+            })
+            setIsLoading(false)
+
+            const { firstName, lastName, isPremium }: IUser = jwtDecode(data.token)
+            localStorage.setItem('token', data.token)
+
+            setUser({
+                token: data.token,
+                firstName,
+                lastName,
+                isPremium,
+            })
+        } catch (error) {
+            console.log(error)
+            setError('Erreur de connexion')
+            setIsLoading(false)
+        }
     }
 
     return (
-        <div className="w-screen h-screen relative bg-slate-200 text-p-2 text-base transition-colors">
-            <div className="w-full h-full flex flex-col items-center justify-center">
-                <div className="text-center w-80 z-10">
-                    <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl text-slate-800 select-none">
+        <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
+            <div className="w-full h-full flex flex-col items-center justify-center ">
+                <div className="text-center w-80 z-10 bg-blue-900 p-10 rounded-lg text-slate-200">
+                    <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
                         <div>
-                            <span className="text-green-700 mr-2">Pin Notes</span>
+                            <span className="mr-2">Pi'Notes</span>
                             📌
                         </div>
                     </div>
                     <form className="flex flex-col" onSubmit={handleLogin as any}>
-                        <div className="flex justify-between items-center mb-2">
-                            <label
-                                htmlFor="Identifiant"
-                                className="mb-1 text-left cursor-pointer text-slate-800"
-                            >
-                                Identifiant
-                            </label>
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="john.doe"
-                            name="Identifiant"
-                            id="Identifiant"
-                            required
-                            onChange={e => setUserLogin({ ...userLogin, username: e.target.value })}
-                            className="mb-10 focus:outline-none focus:ring-1 focus:ring-green-700 rounded-xl p-4 justify-end text-slate-800 bg-slate-100"
+                        <Input
+                            label="Identifiant"
+                            onChange={e => setUserLogin({ ...userLogin, identifer: e })}
+                            placeholder="john.doe@pinotes.com"
+                            size="large"
                         />
-                        <div className="flex justify-between items-center mb-2">
-                            <label
-                                htmlFor="password"
-                                className="mb-1 text-left cursor-pointer text-slate-800"
-                            >
-                                Mot de passe
-                            </label>
-                        </div>
-                        <div className="relative mb-5 h-16">
-                            <input
-                                type="password"
-                                placeholder="**********"
-                                name="password"
-                                id="password"
-                                required
-                                onChange={e =>
-                                    setUserLogin({ ...userLogin, password: e.target.value })
-                                }
-                                className="absolute left-0 w-full focus:outline-none focus:ring-1 focus:ring-green-700 rounded-xl p-4 justify-end text-slate-800 bg-slate-100"
+                        <Input
+                            label="Mot de passe"
+                            type="password"
+                            onChange={e => setUserLogin({ ...userLogin, password: e })}
+                            placeholder="**********"
+                            size="large"
+                        />
+
+                        <div className="text-red-800 mb-3">{error}</div>
+
+                        <Button
+                            isLoading={isLoading}
+                            onClick={(e: any) => handleLogin(e)}
+                            title="Se connecter"
+                        />
+
+                        <div className="mt-4">
+                            <Button
+                                onClick={() => navigate(urls.APP.FORGOTTEN_PASSWORD)}
+                                title="Mot de passe oublié ?"
+                                noBg
                             />
-                            <button
-                                className="absolute right-4 bottom-7 text-slate-800"
-                                onClick={hidePass as any}
-                            >
-                                {hide ? <FiEyeOff /> : <FiEye />}
-                            </button>
-                        </div>
-                        <div className="text-red-800 mb-5">{error}</div>
-                        <div>
-                            <button
-                                type="submit"
-                                className="rounded-full py-4 px-8 text-slate-50 bg-green-800 hover:bg-green-700 transition-colors"
-                            >
-                                {isLoading ? (
-                                    <ReactLoading
-                                        type="spin"
-                                        color="white"
-                                        height={27}
-                                        width={27}
-                                    />
-                                ) : (
-                                    'Se connecter'
-                                )}
-                            </button>
+                            <Button
+                                onClick={() => navigate(urls.APP.REGISTER)}
+                                title="Pas de compte ? Inscrivez vous"
+                                noBg
+                            />
                         </div>
                     </form>
                 </div>
