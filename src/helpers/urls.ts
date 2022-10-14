@@ -8,6 +8,7 @@ export const urls = {
     API: {
         LOGIN: '/users/login',
         REGISTER: '/users/register',
+        FORGOTTEN_PASSWORD: '/users/forgottenPassword',
         GET_ALL_FOLDERS: '',
         GET_ALL_NOTES: '',
         CREATE_FOLDER: '',
