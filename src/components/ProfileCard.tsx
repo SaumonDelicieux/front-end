@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
 
 import AuthContext from '../contexts/AuthContext'
+
+import { urls } from '../helpers/urls'
 
 import Button from './Button'
 
@@ -14,6 +17,9 @@ const ProfileCard: React.FC = () => {
     const handleLogout = (e: Event) => {
         e.preventDefault()
         setIsLoading(true)
+
+        setUser({})
+        navigate(urls.APP.LOGIN)
 
         setIsLoading(false)
     }
@@ -31,7 +37,12 @@ const ProfileCard: React.FC = () => {
                     <div className="text-sm text-slate-50">{`${user?.firstName} ${user?.lastName?.[0]}.`}</div>
                 </div>
             </div>
-            <Button title="O" onClick={(e: any) => handleLogout(e)} isLoading={isLoading} />
+            <Button
+                Icon={() => <RiLogoutCircleRLine className="text-red-500 " size={26} />}
+                onClick={(e: any) => handleLogout(e)}
+                isLoading={isLoading}
+                noBg
+            />
         </div>
     )
 }

@@ -5,11 +5,10 @@ const staging = import.meta.env.VITE_MODE === 'staging'
 
 const api = axios.create({
     baseURL: dev
-        ? import.meta.env.API_BASE_DEV
+        ? import.meta.env.VITE_API_BASE_DEV
         : staging
-        ? import.meta.env.API_BASE_STAGING
-        : import.meta.env.API_BASE,
-    withCredentials: true,
+        ? import.meta.env.VITE_API_BASE_STAGING
+        : import.meta.env.VITE_API_BASE,
     headers: {
         'Access-Control-Allow-Origin': '*',
         Accept: 'application/json',

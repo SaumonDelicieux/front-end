@@ -1,23 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import jwtDecode from 'jwt-decode'
+
+import AuthContext from '../../contexts/AuthContext'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 
+import api from '../../helpers/api'
+import { urls } from '../../helpers/urls'
+
 import { IUserLogin } from '../../types/IUserLogin'
+import { IUser } from '../../types/IUser'
 
 const Login: React.FC = () => {
+    const { setUser } = useContext(AuthContext)
+
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
 
     const [userLogin, setUserLogin] = useState<IUserLogin>({
-        username: '',
+        identifer: '',
         password: '',
     })
 
     const handleLogin = async (e: Event) => {
         e.preventDefault()
 
-        setIsLoading(true)
+        console.log(userLogin)
+        try {
+            setIsLoading(true)
+            const { data } = await api.post(urls.API.LOGIN, {
+                identifer: userLogin.identifer,
+                password: userLogin.password,
+            })
+            setIsLoading(false)
+
+            const { firstName, lastName, isPremium }: IUser = jwtDecode(data.token)
+            localStorage.setItem('token', data.token)
+
+            setUser({
+                token: data.token,
+                firstName,
+                lastName,
+                isPremium,
+            })
+        } catch (error) {
+            console.log(error)
+            setError('Erreur de connexion')
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -33,13 +64,15 @@ const Login: React.FC = () => {
                     <form className="flex flex-col" onSubmit={handleLogin as any}>
                         <Input
                             label="Identifiant"
-                            onChange={e => setUserLogin({ ...userLogin, username: e })}
+                            onChange={e => setUserLogin({ ...userLogin, identifer: e })}
+                            placeholder="john.doe@pinotes.com"
                             size="large"
                         />
                         <Input
                             label="Mot de passe"
                             type="password"
                             onChange={e => setUserLogin({ ...userLogin, password: e })}
+                            placeholder="**********"
                             size="large"
                         />
                         <div className="text-red-800 mb-5">{error}</div>
