@@ -6,6 +6,7 @@ import Unconnected from '../layouts/Unconnected'
 
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
+import Register from '../pages/Register'
 import ForgottenPassword from '../pages/ForgottenPassword'
 
 import { urls } from '../helpers/urls'
@@ -15,6 +16,7 @@ const RoutesStack: React.FC = () => {
         <Routes>
             <Route element={<Unconnected />}>
                 <Route path={urls.APP.LOGIN} element={<Login />} />
+                <Route path={urls.APP.REGISTER} element={<Register />} />
             </Route>
             <Route path="/" element={<Connected />}>
                 <Route path={urls.APP.DASHBOARD} element={<Dashboard />} />

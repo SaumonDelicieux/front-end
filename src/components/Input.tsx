@@ -8,6 +8,7 @@ interface InputProps {
     placeholder?: string
     type?: HTMLInputTypeAttribute
     onChange: (e: string) => void
+    className?: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,6 +18,7 @@ const Input: React.FC<InputProps> = ({
     placeholder,
     type = 'text',
     onChange,
+    className,
 }) => {
     const [hide, setHide] = useState(true)
 
@@ -35,15 +37,15 @@ const Input: React.FC<InputProps> = ({
     const sizeRender = () => {
         switch (size) {
             case 'large':
-                return 'p-4'
+                return 'p-2 sm:p-4'
             case 'default':
-                return 'p-2'
+                return 'p-1 sm:p-2'
             default:
-                return 'p-2'
+                return 'p-1 sm:p-2'
         }
     }
     return (
-        <div className="relative flex flex-col">
+        <div className={`relative flex flex-col ${className && className}`}>
             {label && (
                 <div className="flex justify-between items-center mb-2">
                     <label htmlFor={label} className="mb-1 text-left cursor-pointer text-slate-200">
@@ -58,11 +60,11 @@ const Input: React.FC<InputProps> = ({
                 id={label}
                 required={required}
                 onChange={e => onChange(e.target.value)}
-                className={`mb-10 focus:outline-none focus:ring-1 focus:ring-blue-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
+                className={`focus:outline-none focus:ring-1 focus:ring-blue-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
             />
             {type === 'password' && (
                 <button
-                    className="absolute right-4 bottom-14 text-slate-800"
+                    className="absolute right-2 sm:right-4 bottom-3 sm:bottom-5 text-slate-800"
                     type="button"
                     onClick={hidePass as any}
                 >
