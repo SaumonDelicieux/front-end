@@ -15,8 +15,8 @@ const Button: React.FC<ButtonProps> = ({ onClick, title, isLoading, isLink }) =>
                 onClick={onClick}
                 className={
                     isLink
-                        ? 'rounded-full py-4 px-8 text-black underline underline-offset-1 text-xs'
-                        : 'rounded-full py-4 px-8 text-blue-900 bg-white transition-colors'
+                        ? 'rounded-full py-0 px-8 text-gray-200 underline underline-offset-1 text-xs'
+                        : 'rounded-full py-4 px-8 text-blue-900 bg-slate-200 transition-colors'
                 }
             >
                 {isLoading ? (
