@@ -56,10 +56,10 @@ const Login: React.FC = () => {
     return (
         <div className="w-screen h-screen relative bg-slate-200 text-p-2 text-base transition-colors">
             <div className="w-full h-full flex flex-col items-center justify-center ">
-                <div className="text-center w-80 z-10 bg-blue-900 py-2">
-                    <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl text-slate-800 select-none">
+                <div className="text-center w-80 z-10 bg-blue-900 p-10 rounded-lg text-slate-200">
+                    <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
                         <div>
-                            <span className="text-green-700 mr-2">Pi'Notes</span>
+                            <span className="mr-2">Pi'Notes</span>
                             📌
                         </div>
                     </div>
@@ -78,23 +78,26 @@ const Login: React.FC = () => {
                             size="large"
                         />
 
-                        <div className="text-red-800 mb-5">{error}</div>
+                        <div className="text-red-800 mb-3">{error}</div>
+
                         <Button
                             isLoading={isLoading}
                             onClick={(e: any) => handleLogin(e)}
                             title="Se connecter"
                         />
-                        <Button
-                            onClick={() => navigate(urls.APP.FORGETPASSWORD)}
-                            title="Mot de passe oublié ?"
-                            noBg
-                        />
-                        <Button
-                            isLoading={isLoading}
-                            onClick={() => navigate(urls.APP.REGISTER)}
-                            title="Pas de compte ? Inscrivez vous"
-                            noBg
-                        />
+
+                        <div className="mt-4">
+                            <Button
+                                onClick={() => navigate(urls.APP.FORGOTTEN_PASSWORD)}
+                                title="Mot de passe oublié ?"
+                                noBg
+                            />
+                            <Button
+                                onClick={() => navigate(urls.APP.REGISTER)}
+                                title="Pas de compte ? Inscrivez vous"
+                                noBg
+                            />
+                        </div>
                     </form>
                 </div>
             </div>

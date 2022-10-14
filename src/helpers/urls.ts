@@ -2,6 +2,7 @@ export const urls = {
     APP: {
         LOGIN: '/login',
         REGISTER: '/register',
+        FORGOTTEN_PASSWORD: '/forgottenPassword',
         DASHBOARD: '/dashboard',
     },
     API: {
