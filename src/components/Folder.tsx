@@ -69,7 +69,7 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
     return (
         <div className="pl-2 mb-3">
             <div className="flex justify-between items-center cursor-pointer mb-1">
-                <span className="font-bold" onClick={() => setIsActive(prev => !prev)}>
+                <span className="font-bold w-full" onClick={() => setIsActive(prev => !prev)}>
                     {title}
                 </span>
                 <div className="flex items-center">
