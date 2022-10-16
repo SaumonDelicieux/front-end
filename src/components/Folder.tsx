@@ -100,6 +100,10 @@ const Folder: React.FC<FolderProps> = ({ folders, parentId = undefined, id, titl
             </div>
             {folders?.map((folder: IFolder) => {
                 if (folder.parentId === id) {
+                    const notesFiltered = notes?.filter(
+                        (note: INote) => folder?._id === note?.folderId,
+                    )
+
                     return (
                         <Folder
                             key={folder._id}
@@ -107,7 +111,7 @@ const Folder: React.FC<FolderProps> = ({ folders, parentId = undefined, id, titl
                             parentId={folder.parentId}
                             id={folder._id}
                             folders={folders}
-                            notes={notes}
+                            notes={notesFiltered}
                         />
                     )
                 } else {
