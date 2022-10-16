@@ -22,8 +22,8 @@ const Button: React.FC<ButtonProps> = ({
                 onClick={onClick}
                 className={
                     noBg
-                        ? 'rounded-full py-0 px-8 text-gray-200 underline underline-offset-1 text-xs'
-                        : 'rounded-full py-4 px-8 text-blue-900 bg-slate-200 transition-colors'
+                        ? 'rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all'
+                        : 'rounded-xl py-4 px-8 text-blue-900 bg-slate-200 transition-colors'
                 }
             >
                 {isLoading ? (
@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
                 ) : title ? (
                     title
                 ) : Icon ? (
-                    <Icon />
+                    Icon
                 ) : (
                     ''
                 )}

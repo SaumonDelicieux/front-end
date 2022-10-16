@@ -1,26 +1,54 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+
+import AuthContext from '../../contexts/AuthContext'
 
 import { urls } from '../../helpers/urls'
+import api from '../../helpers/api'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 
 import { IUserRegister } from '../../types/IUserRegister'
+import { IUser } from '../../types/IUser'
 
 const Register: React.FC = () => {
+    const { setUser } = useContext(AuthContext)
+
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
 
-    const [userRegister, setUserRegister] = useState<IUserRegister>({
-        username: '',
-        password: '',
-        confirmPassword: '',
-    })
+    const [userRegister, setUserRegister] = useState<IUserRegister>()
 
     const handleRegister = async (e: Event) => {
         e.preventDefault()
+
+        try {
+            setIsLoading(true)
+            const { data } = await api.post(urls.API.REGISTER, {
+                identifer: userRegister?.identifer,
+                password: userRegister?.password,
+                confirmPassword: userRegister?.confirmPassword,
+            })
+            setIsLoading(false)
+
+            const { id, firstName, lastName, isPremium }: IUser = jwtDecode(data.token)
+            localStorage.setItem('token', data.token)
+
+            setUser({
+                id,
+                token: data.token,
+                firstName,
+                lastName,
+                isPremium,
+            })
+        } catch (error) {
+            console.log(error)
+            setError('Erreur de connexion')
+            setIsLoading(false)
+        }
 
         setIsLoading(true)
     }
@@ -38,7 +66,7 @@ const Register: React.FC = () => {
                     <form className="flex flex-col" onSubmit={handleRegister as any}>
                         <Input
                             label="Identifiant"
-                            onChange={e => setUserRegister({ ...userRegister, username: e })}
+                            onChange={e => setUserRegister({ ...userRegister, identifer: e })}
                             size="large"
                             className="mb-4"
                         />

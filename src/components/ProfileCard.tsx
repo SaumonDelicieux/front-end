@@ -19,6 +19,7 @@ const ProfileCard: React.FC = () => {
         setIsLoading(true)
 
         setUser({})
+        localStorage.removeItem('token')
         navigate(urls.APP.LOGIN)
 
         setIsLoading(false)
@@ -38,7 +39,7 @@ const ProfileCard: React.FC = () => {
                 </div>
             </div>
             <Button
-                Icon={() => <RiLogoutCircleRLine className="text-red-500 " size={26} />}
+                Icon={<RiLogoutCircleRLine className="text-red-500 " size={26} />}
                 onClick={(e: any) => handleLogout(e)}
                 isLoading={isLoading}
                 noBg

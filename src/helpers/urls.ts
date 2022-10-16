@@ -9,9 +9,9 @@ export const urls = {
         LOGIN: '/users/login',
         REGISTER: '/users/register',
         FORGOTTEN_PASSWORD: '/users/forgottenPassword',
-        GET_ALL_FOLDERS: '',
-        GET_ALL_NOTES: '',
-        CREATE_FOLDER: '',
-        CREATE_NOTES: '',
+        GET_ALL_FOLDERS: '/folders/getAll',
+        GET_ALL_NOTES: '/notes/getAll',
+        CREATE_FOLDER: '/folders/createFolder',
+        CREATE_NOTES: '/notes/createNote',
     },
 }

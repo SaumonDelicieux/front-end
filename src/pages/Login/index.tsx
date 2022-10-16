@@ -28,7 +28,6 @@ const Login: React.FC = () => {
     const handleLogin = async (e: Event) => {
         e.preventDefault()
 
-        console.log(userLogin)
         try {
             setIsLoading(true)
             const { data } = await api.post(urls.API.LOGIN, {
@@ -69,6 +68,7 @@ const Login: React.FC = () => {
                             onChange={e => setUserLogin({ ...userLogin, identifer: e })}
                             placeholder="john.doe@pinotes.com"
                             size="large"
+                            className="mb-5"
                         />
                         <Input
                             label="Mot de passe"
@@ -76,6 +76,7 @@ const Login: React.FC = () => {
                             onChange={e => setUserLogin({ ...userLogin, password: e })}
                             placeholder="**********"
                             size="large"
+                            className="mb-5"
                         />
 
                         <div className="text-red-800 mb-3">{error}</div>

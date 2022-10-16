@@ -20,10 +20,11 @@ export const AuthContextProvider: React.FC<ContextProps> = ({ children }) => {
         const hydrateToken = () => {
             const tokenUser = localStorage.getItem('token')
             if (tokenUser) {
-                const { token, firstName, lastName, isPremium }: IUser = jwtDecode(tokenUser)
+                const { id, firstName, lastName, isPremium }: IUser = jwtDecode(tokenUser)
 
                 setUser({
-                    token,
+                    token: tokenUser,
+                    id,
                     firstName,
                     lastName,
                     isPremium,

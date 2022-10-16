@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { AiFillCaretRight } from 'react-icons/ai'
+import React, { useContext } from 'react'
 
-import { urls } from '../helpers/urls'
+import { IFolder } from '../types/IFolder'
+import { INote } from '../types/INote'
+
+import AuthContext from '../contexts/AuthContext'
 
 import ProfileCard from './ProfileCard'
+import Folder from './Folder'
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    folders?: IFolder[]
+    notes?: INote[]
+}
+
+const Navbar: React.FC<NavbarProps> = ({ folders, notes }) => {
     const IM_PREMIUM = 'PREMIUM'
     const BE_PREMIUM = 'DEVENIR PREMIUM'
 
-    const navigate = useNavigate()
-    const resolved = useLocation()
+    const { user } = useContext(AuthContext)
 
-    const [isPremium, setIsPremium] = useState(true)
+    console.log({ folders }, { notes })
 
     return (
         <nav className="p-2 w-80 h-full flex flex-col justify-between bg-blue-900">
@@ -21,35 +27,33 @@ const Navbar: React.FC = () => {
                 <div className="text-3xl mb-2">Pi'Notes 📌</div>
                 <div className="text-xs">
                     <span className="p-1 rounded-lg bg-yellow-600">
-                        {isPremium ? IM_PREMIUM : BE_PREMIUM}
+                        {user?.isPremium ? IM_PREMIUM : BE_PREMIUM}
                     </span>
                 </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-1">
                 <div className="text-slate-50">
-                    <div className="pl-2 mb-2 flex justify-between items-center">
-                        <span>Vacances</span>
-                        <AiFillCaretRight
-                            className="rotate-90 cursor-pointer"
-                            onClick={() => console.log('reduce or explode')}
-                        />
-                    </div>
-                    <div className="pl-4">
-                        <div
-                            onClick={() => console.log('Show Marseille note')}
-                            className="block py-1 px-2 bg-blue-700 rounded-lg mb-1 cursor-pointer"
-                            aria-label="Marseille"
-                        >
-                            <span>Marseille</span>
+                    {
+                        <div className="flex flex-col">
+                            {folders?.map((folder: IFolder) => {
+                                if (!folder.parentId) {
+                                    const notesFiltered = notes?.filter(
+                                        (note: INote) => folder?._id === note?.folderId,
+                                    )
+                                    return (
+                                        <Folder
+                                            title={folder.title}
+                                            folders={folders}
+                                            id={folder._id}
+                                            parentId={folder._id}
+                                            key={folder._id}
+                                            notes={notesFiltered}
+                                        />
+                                    )
+                                }
+                            })}
                         </div>
-                        <div
-                            onClick={() => console.log('Show Paris note')}
-                            className="block py-1 px-2 hover:bg-blue-700 rounded-lg transition-all mb-1 cursor-pointer"
-                            aria-label="Paris"
-                        >
-                            <span>Paris</span>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <ProfileCard />
