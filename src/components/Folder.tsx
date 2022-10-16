@@ -26,7 +26,7 @@ interface FolderProps {
 const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
     const { user } = useContext(AuthContext)
 
-    const [isActive, setIsActive] = useState(true)
+    const [isActive, setIsActive] = useState(false)
 
     const [newFolder, setNewFolder] = useState('')
     const [isNewFolder, setIsNewFolder] = useState(false)
@@ -34,7 +34,6 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
     const [isNewNote, setIsNewNote] = useState(false)
 
     const createFolder = async () => {
-        setIsActive(true)
         try {
             const { data } = await api.post(urls.API.CREATE_FOLDER, {
                 title: newFolder,
@@ -51,7 +50,6 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
     }
 
     const createNote = async () => {
-        setIsActive(true)
         try {
             const { data } = await api.post(urls.API.CREATE_NOTES, {
                 title: newNote,
@@ -77,12 +75,18 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
                 <div className="flex items-center">
                     <Button
                         Icon={<FaRegStickyNote size={14} />}
-                        onClick={() => setIsNewNote(true)}
+                        onClick={() => {
+                            setIsActive(true)
+                            setIsNewNote(true)
+                        }}
                         noBg
                     />
                     <Button
                         Icon={<AiFillFolderAdd size={16} />}
-                        onClick={() => setIsNewFolder(true)}
+                        onClick={() => {
+                            setIsActive(true)
+                            setIsNewFolder(true)
+                        }}
                         noBg
                     />
                     <AiFillCaretRight
