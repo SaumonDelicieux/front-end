@@ -28,20 +28,22 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
     'user/register',
-    async ({ email, password, confirmPassword }: IUserRegister) => {
+    async ({ emailUser, password, confirmPassword }: IUserRegister) => {
         if (password !== confirmPassword) {
             toast('Mot de passe différent', { type: 'warning' })
             return {}
         }
         const { data } = await api.post(urls.API.REGISTER, {
-            email,
+            email: emailUser,
             password,
         })
 
-        const { id, firstName, lastName, isPremium, phoneNumber }: IUser = jwtDecode(data.token)
+        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
+            data.token,
+        )
         localStorage.setItem('token', data.token)
 
-        return { id, firstName, lastName, isPremium, phoneNumber, token: data.token }
+        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
     },
 )
 
@@ -69,14 +71,16 @@ export const updateUser = createAsyncThunk('user/updateUser', async (updatedUser
             email: updatedUser.email,
             phoneNumber: updatedUser.phoneNumber,
         })
-        const { id, firstName, lastName, isPremium, phoneNumber }: IUser = jwtDecode(data.token)
+        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
+            data.token,
+        )
         localStorage.setItem('token', data.token)
 
         toast('Vos informations ont bien été mises à jour', {
             type: 'success',
         })
 
-        return { id, firstName, lastName, isPremium, phoneNumber, token: data.token }
+        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
     } catch (error) {
         console.log(error)
         toast('Une erreur est survenue', {

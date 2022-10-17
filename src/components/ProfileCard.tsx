@@ -23,12 +23,11 @@ const ProfileCard: React.FC = () => {
 
     return (
         <div className="flex items-center justify-between">
-            <div className="flex">
+            <div className="flex" onClick={() => navigate(urls.APP.PROFILE)}>
                 <img
                     className="h-10 w-10 object-cover rounded-full"
                     src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png"
                     alt="Current profile photo"
-                    onClick={() => navigate(urls.APP.PROFILE)}
                 />
                 <div className="ml-4">
                     <div className="text-xs text-slate-400">Connecté en tant que</div>
