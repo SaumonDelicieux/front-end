@@ -21,11 +21,11 @@ const ProfileCard: React.FC = () => {
             <div className="flex">
                 <img
                     className="h-10 w-10 object-cover rounded-full"
-                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
+                    src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png"
                     alt="Current profile photo"
                 />
                 <div className="ml-4">
-                    <div className="text-xs text-slate-100">Connecté en tant que</div>
+                    <div className="text-xs text-slate-400">Connecté en tant que</div>
                     <div className="text-sm text-slate-50">{`${firstName} ${lastName?.[0]}.`}</div>
                 </div>
             </div>
