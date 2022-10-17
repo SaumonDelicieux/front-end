@@ -1,53 +1,33 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { IoIosArrowBack } from 'react-icons/io'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import api from '../../helpers/api'
 import { urls } from '../../helpers/urls'
 
-import RetourImg from '../../assets/images/retour.png'
+import { forgottenPassword } from '../../actions/user'
+
+import { useAppDispatch, useAppSelector } from '../../hooks'
 
 const ForgottenPassword: React.FC = () => {
+    const { error, loading } = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
 
     const [identifer, setIdentifer] = useState('')
 
     const handleForgottenPassword = async (e: Event) => {
         e.preventDefault()
-
-        try {
-            setIsLoading(true)
-            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
-                identifer,
-            })
-            setIsLoading(false)
-            toast('Un mail a été envoyé à l adresse mail', {
-                type: 'success',
-            })
-            navigate(urls.APP.LOGIN)
-        } catch (error) {
-            console.log(error)
-            setError('Erreur de mail')
-            setIsLoading(false)
-        }
+        await dispatch(forgottenPassword(identifer))
+        navigate(urls.APP.LOGIN)
     }
 
     return (
         <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
             <div>
-                <img
-                    className="p-8 ..."
-                    src={RetourImg}
-                    alt="Retour"
-                    onClick={() => {
-                        navigate(urls.APP.LOGIN)
-                    }}
-                />
+                <Button icon={<IoIosArrowBack />} onClick={() => navigate(urls.APP.LOGIN)} />
                 <div className="mt-20 pt-10 ...">
                     <div className="w-full h-full flex flex-col items-center justify-center">
                         <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
@@ -72,7 +52,7 @@ const ForgottenPassword: React.FC = () => {
                                 </div>
                                 <div>
                                     <Button
-                                        isLoading={isLoading}
+                                        isLoading={loading}
                                         onClick={(e: any) => handleForgottenPassword(e)}
                                         title="Envoyer"
                                     />

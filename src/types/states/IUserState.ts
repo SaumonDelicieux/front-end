@@ -1,9 +1,10 @@
-export interface IUser {
+export interface IUserState {
     id?: string
     email?: string
     firstName?: string
     lastName?: string
-    phoneNumber?: string
     isPremium?: boolean
     token?: string
+    loading?: boolean
+    error?: string
 }
