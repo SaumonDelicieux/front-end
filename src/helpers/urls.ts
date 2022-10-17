@@ -12,6 +12,8 @@ export const urls = {
         GET_ALL_FOLDERS: '/folders/getAll',
         GET_ALL_NOTES: '/notes/getAll',
         CREATE_FOLDER: '/folders/createFolder',
-        CREATE_NOTES: '/notes/createNote',
+        CREATE_NOTE: '/notes/createNote',
+        DELETE_FOLDER: '/folders/deleteFolder',
+        DELETE_NOTE: '/notes/deleteNote',
     },
 }
