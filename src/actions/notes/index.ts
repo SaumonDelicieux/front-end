@@ -3,6 +3,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 import { IUser } from "../../types/IUser"
+import { CategoryDisplay } from "../../types/states/INotesState"
 
 import api from "../../helpers/api"
 import { urls } from "../../helpers/urls"
@@ -11,16 +12,18 @@ interface CreateNote {
     title: string
     folderId: string
     userId: string
+    context: CategoryDisplay
 }
 
 export const createNote = createAsyncThunk(
     "notes/createNote",
-    async ({ title, folderId, userId }: CreateNote) => {
+    async ({ title, folderId, userId, context }: CreateNote) => {
         try {
             const { data } = await api.post(urls.API.CREATE_NOTE, {
                 title,
                 folderId,
                 userId,
+                state: context,
             })
             toast("Note créé avec succès !", { type: "success" })
 

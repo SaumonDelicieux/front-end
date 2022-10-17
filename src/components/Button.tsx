@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
                 className={
                     noBg
                         ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : "rounded-xl py-4 px-8 text-blue-900 bg-slate-200 transition-colors"
+                        : "rounded-xl py-4 px-8 text-gray-700 font-bold bg-slate-200 transition-colors"
                 }
             >
                 {isLoading ? (

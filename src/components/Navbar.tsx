@@ -24,9 +24,9 @@ const Navbar: React.FC = () => {
             <div className="flex flex-col flex-1">
                 <div className="text-slate-50">
                     <div className="flex flex-col">
-                        {folders?.map(
-                            (folder: IFolder) =>
-                                !folder.parentId && (
+                        {folders?.map((folder: IFolder) => {
+                            if (!folder.parentId) {
+                                return (
                                     <FolderItem
                                         title={folder.title}
                                         folders={folders}
@@ -34,8 +34,11 @@ const Navbar: React.FC = () => {
                                         key={folder._id}
                                         notes={notesDisplay}
                                     />
-                                ),
-                        )}
+                                )
+                            } else {
+                                return
+                            }
+                        })}
                     </div>
                 </div>
                 <CreateInput

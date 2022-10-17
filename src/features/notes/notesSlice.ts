@@ -39,6 +39,9 @@ export const notesSlice = createSlice({
             })
             .addCase(getAllNotes.fulfilled, (state, { payload }) => {
                 state.notes = payload.notes
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
                 state.loading = false
                 state.error = ""
             })
@@ -48,6 +51,9 @@ export const notesSlice = createSlice({
             })
             .addCase(createNote.fulfilled, (state, { payload }) => {
                 state.notes = state.notes?.concat(payload.note)
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
                 state.loading = false
                 state.error = ""
             })
