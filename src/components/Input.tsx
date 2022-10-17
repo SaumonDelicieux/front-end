@@ -6,6 +6,7 @@ interface InputProps {
     required?: boolean
     size: 'default' | 'large'
     placeholder?: string
+    value?: any
     type?: HTMLInputTypeAttribute
     onChange: (e: string) => void
 }
@@ -15,6 +16,7 @@ const Input: React.FC<InputProps> = ({
     required = false,
     size = 'default',
     placeholder,
+    value,
     type = 'text',
     onChange,
 }) => {
@@ -57,6 +59,7 @@ const Input: React.FC<InputProps> = ({
                 name={label}
                 id={label}
                 required={required}
+                value={value}
                 onChange={e => onChange(e.target.value)}
                 className={`mb-10 focus:outline-none focus:ring-1 focus:ring-blue-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
             />
