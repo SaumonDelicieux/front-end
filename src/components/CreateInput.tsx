@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { GrFormClose } from 'react-icons/gr'
 import { BsCheck } from 'react-icons/bs'
 
-import { createFolder } from '../helpers/api/createFolder'
+import { createFolder } from '../actions/folders'
+
+import { useAppDispatch } from '../hooks'
 
 interface CreateInputProps {
     isNewFolder: boolean
@@ -11,10 +13,11 @@ interface CreateInputProps {
 }
 
 const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, userId }) => {
+    const dispatch = useAppDispatch()
     const [newFolder, setNewFolder] = useState('')
 
     const handleCreateFolder = async () => {
-        await createFolder(newFolder, userId!)
+        dispatch(createFolder({ title: newFolder, userId: userId! }))
         setIsNewFolder(false)
         setNewFolder('')
     }
