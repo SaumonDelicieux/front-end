@@ -35,7 +35,9 @@ const ProfileCard: React.FC = () => {
                 />
                 <div className="ml-4">
                     <div className="text-xs text-slate-400">Connecté en tant que</div>
-                    <div className="text-sm text-slate-50">{`${firstName} ${lastName?.[0]}.`}</div>
+                    <div className={`text-sm text-slate-50 ${!firstName && "underline"}`}>{`${
+                        firstName ? firstName + " " + lastName?.[0] : "Compléter son profil"
+                    }.`}</div>
                 </div>
             </div>
             <Button
