@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { AiFillCaretLeft } from 'react-icons/ai'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { AiFillCaretLeft } from "react-icons/ai"
 
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Input from "../../components/Input"
+import Button from "../../components/Button"
 
-import api from '../../helpers/api'
-import { urls } from '../../helpers/urls'
+import api from "../../helpers/api"
+import { urls } from "../../helpers/urls"
 
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
-import { IUser } from '../../types/IUser'
+import { IUser } from "../../types/IUser"
 
-import { updateUser } from '../../actions/user'
+import { updateUser } from "../../actions/user"
 
 const Profil: React.FC = () => {
     const navigate = useNavigate()
@@ -46,7 +46,7 @@ const Profil: React.FC = () => {
                             <span className="mr-2 text-slate-200">Profil</span>
                         </div>
                         <Button
-                            title={`Abonnement : ${isPremium ? 'Premium' : 'Gratuit'}`}
+                            title={`Abonnement : ${isPremium ? "Premium" : "Gratuit"}`}
                             onClick={() => {
                                 !isPremium && navigate(urls.APP.SUBSCRIBE)
                             }}
