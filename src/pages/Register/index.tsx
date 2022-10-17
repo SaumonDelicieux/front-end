@@ -1,56 +1,27 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import jwtDecode from 'jwt-decode'
-
-import AuthContext from '../../contexts/AuthContext'
-
-import { urls } from '../../helpers/urls'
-import api from '../../helpers/api'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 
+import { urls } from '../../helpers/urls'
+
 import { IUserRegister } from '../../types/IUserRegister'
-import { IUser } from '../../types/IUser'
+
+import { useAppDispatch, useAppSelector } from '../../hooks'
+
+import { registerUser } from '../../actions/user'
 
 const Register: React.FC = () => {
-    const { setUser } = useContext(AuthContext)
-
+    const { error, loading } = useAppSelector(state => state.user)
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
+    const dispatch = useAppDispatch()
 
     const [userRegister, setUserRegister] = useState<IUserRegister>()
 
     const handleRegister = async (e: Event) => {
         e.preventDefault()
-
-        try {
-            setIsLoading(true)
-            const { data } = await api.post(urls.API.REGISTER, {
-                identifer: userRegister?.identifer,
-                password: userRegister?.password,
-                confirmPassword: userRegister?.confirmPassword,
-            })
-            setIsLoading(false)
-
-            const { id, firstName, lastName, isPremium }: IUser = jwtDecode(data.token)
-            localStorage.setItem('token', data.token)
-
-            setUser({
-                id,
-                token: data.token,
-                firstName,
-                lastName,
-                isPremium,
-            })
-        } catch (error) {
-            console.log(error)
-            setError('Erreur de connexion')
-            setIsLoading(false)
-        }
-
-        setIsLoading(true)
+        dispatch(registerUser(userRegister!))
     }
 
     return (
@@ -87,7 +58,7 @@ const Register: React.FC = () => {
                         <div className="text-red-800 mb-5">{error}</div>
                         <div className="mb-5">
                             <Button
-                                isLoading={isLoading}
+                                isLoading={loading}
                                 onClick={(e: any) => handleRegister(e)}
                                 title="M'inscrire"
                             />
