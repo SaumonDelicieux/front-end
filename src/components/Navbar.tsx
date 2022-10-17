@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
-import { IFolder } from '../types/IFolder'
+import { IFolder } from "../types/IFolder"
 
-import Header from './Header'
-import SortNotes from './SortNotes'
-import FolderItem from './FolderItem'
-import CreateInput from './CreateInput'
-import ProfileCard from './ProfileCard'
+import Header from "./Header"
+import SortNotes from "./SortNotes"
+import FolderItem from "./FolderItem"
+import CreateInput from "./CreateInput"
+import ProfileCard from "./ProfileCard"
 
-import { useAppSelector } from '../hooks'
+import { useAppSelector } from "../hooks"
 
 const Navbar: React.FC = () => {
     const { id, isPremium } = useAppSelector(state => state.user)

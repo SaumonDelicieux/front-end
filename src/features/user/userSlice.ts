@@ -1,29 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit'
-import jwtDecode from 'jwt-decode'
+import { createSlice } from "@reduxjs/toolkit"
+import jwtDecode from "jwt-decode"
 
-import { IUserState } from '../../types/states/IUserState'
-import { IUser } from '../../types/IUser'
+import { IUserState } from "../../types/states/IUserState"
+import { IUser } from "../../types/IUser"
 
-import { forgottenPassword, loginUser, registerUser } from '../../actions/user'
+import { forgottenPassword, loginUser, registerUser } from "../../actions/user"
 
-import type { RootState } from '../../store'
+import type { RootState } from "../../store"
 
 const initialState: IUserState = {
-    token: localStorage.getItem('token') ?? undefined,
-    id: '',
-    firstName: '',
-    lastName: '',
+    token: localStorage.getItem("token") ?? undefined,
+    id: "",
+    firstName: "",
+    lastName: "",
     isPremium: false,
     loading: false,
-    error: '',
+    error: "",
 }
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: "user",
     initialState,
     reducers: {
         getUserDetails: state => {
-            const tokenUser = localStorage.getItem('token')
+            const tokenUser = localStorage.getItem("token")
             if (tokenUser) {
                 const { id, firstName, lastName, isPremium }: IUser = jwtDecode(tokenUser)
                 state.token = tokenUser
@@ -34,21 +34,21 @@ export const userSlice = createSlice({
             }
         },
         logoutUser: state => {
-            localStorage.removeItem('token')
-            state.token = ''
-            state.id = ''
-            state.firstName = ''
-            state.lastName = ''
+            localStorage.removeItem("token")
+            state.token = ""
+            state.id = ""
+            state.firstName = ""
+            state.lastName = ""
             state.isPremium = false
             state.loading = false
-            state.error = ''
+            state.error = ""
         },
     },
     extraReducers: builder => {
         builder
             .addCase(loginUser.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(loginUser.fulfilled, (state, { payload }) => {
                 state.token = payload.token
@@ -57,11 +57,11 @@ export const userSlice = createSlice({
                 state.lastName = payload.lastName
                 state.isPremium = payload.isPremium
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
             .addCase(registerUser.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(registerUser.fulfilled, (state, { payload }) => {
                 state.token = payload.token
@@ -70,20 +70,20 @@ export const userSlice = createSlice({
                 state.lastName = payload.lastName
                 state.isPremium = payload.isPremium
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
             .addCase(forgottenPassword.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(forgottenPassword.fulfilled, state => {
-                state.token = ''
-                state.id = ''
-                state.firstName = ''
-                state.lastName = ''
+                state.token = ""
+                state.id = ""
+                state.firstName = ""
+                state.lastName = ""
                 state.isPremium = false
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
     },
 })

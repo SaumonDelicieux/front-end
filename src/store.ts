@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit"
 
-import user from './features/user/userSlice'
-import folders from './features/folders/foldersSlice'
-import notes from './features/notes/notesSlice'
+import user from "./features/user/userSlice"
+import folders from "./features/folders/foldersSlice"
+import notes from "./features/notes/notesSlice"
 
 const store = configureStore({
     reducer: {
