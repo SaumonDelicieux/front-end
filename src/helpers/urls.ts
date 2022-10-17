@@ -3,7 +3,7 @@ export const urls = {
         LOGIN: '/login',
         REGISTER: '/register',
         FORGOTTEN_PASSWORD: '/forgottenPassword',
-        DASHBOARD: '/dashboard',
+        DASHBOARD: '/',
     },
     API: {
         LOGIN: '/users/login',
