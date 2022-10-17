@@ -5,7 +5,7 @@ interface ButtonProps {
     onClick: any
     title?: string
     isLoading?: boolean
-    Icon?: any
+    icon?: any
     noBg?: boolean
 }
 
@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     title,
     isLoading,
-    Icon = null,
+    icon = null,
     noBg = false,
 }) => {
     return (
@@ -28,12 +28,8 @@ const Button: React.FC<ButtonProps> = ({
             >
                 {isLoading ? (
                     <ReactLoading type="spin" color="white" height={27} width={27} />
-                ) : title ? (
-                    title
-                ) : Icon ? (
-                    Icon
                 ) : (
-                    ''
+                    title || icon
                 )}
             </button>
         </div>
