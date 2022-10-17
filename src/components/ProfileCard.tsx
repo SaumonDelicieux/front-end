@@ -1,5 +1,8 @@
 import React from "react"
 import { RiLogoutCircleRLine } from "react-icons/ri"
+import { useNavigate } from "react-router-dom"
+
+import { urls } from "../helpers/urls"
 
 import { logoutUser } from "../features/user/userSlice"
 
@@ -8,6 +11,8 @@ import { useAppDispatch, useAppSelector } from "../hooks"
 import Button from "./Button"
 
 const ProfileCard: React.FC = () => {
+    const navigate = useNavigate()
+
     const { firstName, lastName, loading } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
 
@@ -18,7 +23,7 @@ const ProfileCard: React.FC = () => {
 
     return (
         <div className="flex items-center justify-between">
-            <div className="flex">
+            <div className="flex" onClick={() => navigate(urls.APP.PROFILE)}>
                 <img
                     className="h-10 w-10 object-cover rounded-full"
                     src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png"

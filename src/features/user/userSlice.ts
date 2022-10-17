@@ -13,7 +13,9 @@ const initialState: IUserState = {
     id: "",
     firstName: "",
     lastName: "",
+    email: "",
     isPremium: false,
+    phoneNumber: "",
     loading: false,
     error: "",
 }
@@ -25,12 +27,15 @@ export const userSlice = createSlice({
         getUserDetails: state => {
             const tokenUser = localStorage.getItem("token")
             if (tokenUser) {
-                const { id, firstName, lastName, isPremium }: IUser = jwtDecode(tokenUser)
+                const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser =
+                    jwtDecode(tokenUser)
                 state.token = tokenUser
                 state.id = id
                 state.firstName = firstName
                 state.lastName = lastName
+                state.email = email
                 state.isPremium = isPremium
+                state.phoneNumber = phoneNumber
             }
         },
         logoutUser: state => {
@@ -39,7 +44,9 @@ export const userSlice = createSlice({
             state.id = ""
             state.firstName = ""
             state.lastName = ""
+            state.email = ""
             state.isPremium = false
+            state.phoneNumber = ""
             state.loading = false
             state.error = ""
         },
@@ -55,7 +62,9 @@ export const userSlice = createSlice({
                 state.id = payload.id
                 state.firstName = payload.firstName
                 state.lastName = payload.lastName
+                state.email = payload.email
                 state.isPremium = payload.isPremium
+                state.phoneNumber = payload.phoneNumber
                 state.loading = false
                 state.error = ""
             })
@@ -69,6 +78,7 @@ export const userSlice = createSlice({
                 state.firstName = payload.firstName
                 state.lastName = payload.lastName
                 state.isPremium = payload.isPremium
+                state.phoneNumber = payload.phoneNumber
                 state.loading = false
                 state.error = ""
             })
@@ -82,6 +92,7 @@ export const userSlice = createSlice({
                 state.firstName = ""
                 state.lastName = ""
                 state.isPremium = false
+                state.phoneNumber = ""
                 state.loading = false
                 state.error = ""
             })
