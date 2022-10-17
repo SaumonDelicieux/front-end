@@ -37,9 +37,13 @@ const Profil: React.FC = () => {
     return (
         <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
             <div>
-                <span className="pl-5 pt-5">
-                    <AiFillCaretLeft color="white" />
-                </span>
+                <div className="pl-14 pt-14">
+                    <Button
+                        icon={<AiFillCaretLeft color="white" size={20} />}
+                        onClick={() => !isPremium && navigate(urls.APP.SUBSCRIBE)}
+                        noBg
+                    />
+                </div>
                 <div>
                     <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
                         <div className="mt-10 mb-10">
@@ -47,9 +51,7 @@ const Profil: React.FC = () => {
                         </div>
                         <Button
                             title={`Abonnement : ${isPremium ? "Premium" : "Gratuit"}`}
-                            onClick={() => {
-                                !isPremium && navigate(urls.APP.SUBSCRIBE)
-                            }}
+                            onClick={() => !isPremium && navigate(urls.APP.SUBSCRIBE)}
                             noBg
                         />
                     </div>
@@ -61,6 +63,7 @@ const Profil: React.FC = () => {
                                     value={updatedUser.firstName}
                                     onChange={e => setUpdatedUser({ ...updatedUser, firstName: e })}
                                     size="large"
+                                    className="mb-5"
                                 />
                             </div>
                             <div className="flex-none ... ml-20 mr-20">
@@ -69,6 +72,7 @@ const Profil: React.FC = () => {
                                     value={updatedUser.lastName}
                                     onChange={e => setUpdatedUser({ ...updatedUser, lastName: e })}
                                     size="large"
+                                    className="mb-5"
                                 />
                             </div>
                         </div>
@@ -79,6 +83,7 @@ const Profil: React.FC = () => {
                                     value={updatedUser.email}
                                     onChange={e => setUpdatedUser({ ...updatedUser, email: e })}
                                     size="large"
+                                    className="mb-5"
                                 />
                             </div>
                             <div className="flex-none ... ml-20 mr-20">
@@ -89,6 +94,7 @@ const Profil: React.FC = () => {
                                         setUpdatedUser({ ...updatedUser, phoneNumber: e })
                                     }
                                     size="large"
+                                    className="mb-5"
                                 />
                             </div>
                         </div>
