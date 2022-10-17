@@ -3,67 +3,46 @@ import { AiFillCaretRight, AiFillFolderAdd } from 'react-icons/ai'
 import { GrFormClose } from 'react-icons/gr'
 import { FaRegStickyNote } from 'react-icons/fa'
 import { BsCheck } from 'react-icons/bs'
-import { toast } from 'react-toastify'
 
-import api from '../helpers/api'
-import { urls } from '../helpers/urls'
-
-import AuthContext from '../contexts/AuthContext'
+import { createFolder } from '../helpers/api/createFolder'
+import { createNote } from '../helpers/api/createNote'
 
 import { IFolder } from '../types/IFolder'
 import { INote } from '../types/INote'
 
-import Note from './Note'
+import NoteItem from './NoteItem'
 import Button from './Button'
 
-interface FolderProps {
+import { useAppSelector } from '../hooks'
+
+interface FolderItemProps {
     folders?: IFolder[]
-    id: string
+    folderId: string
     title: string
     notes?: INote[]
 }
 
-const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
-    const { user } = useContext(AuthContext)
+const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes }) => {
+    const { id } = useAppSelector(state => state.user)
 
     const [isActive, setIsActive] = useState(false)
 
     const [newFolder, setNewFolder] = useState('')
     const [isNewFolder, setIsNewFolder] = useState(false)
+
     const [newNote, setNewNote] = useState('')
     const [isNewNote, setIsNewNote] = useState(false)
 
-    const createFolder = async () => {
-        try {
-            const { data } = await api.post(urls.API.CREATE_FOLDER, {
-                title: newFolder,
-                parentId: id,
-                userId: user?.id,
-            })
-            toast('Dossier créé avec succès !', { type: 'success' })
-        } catch (error) {
-            toast('Erreur lors de la création du dossier', { type: 'warning' })
-        } finally {
-            setIsNewFolder(false)
-            setNewFolder('')
-        }
+    const handleCreateFolder = async () => {
+        id && (await createFolder(newFolder, id, folderId))
+        setIsNewFolder(false)
+        setNewFolder('')
     }
 
-    const createNote = async () => {
-        try {
-            const { data } = await api.post(urls.API.CREATE_NOTES, {
-                title: newNote,
-                folderId: id,
-                userId: user?.id,
-                text: newNote,
-            })
-            toast('Note créé avec succès !', { type: 'success' })
-        } catch (error) {
-            toast('Erreur lors de la création de la note', { type: 'warning' })
-        } finally {
-            setIsNewNote(false)
-            setNewNote('')
-        }
+    const handleCreateNote = async () => {
+        id && (await createNote(newNote, folderId, id, newNote))
+        setIsNewNote(false)
+        setNewNote('')
     }
 
     return (
@@ -74,7 +53,7 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
                 </span>
                 <div className="flex items-center">
                     <Button
-                        Icon={<FaRegStickyNote size={14} />}
+                        icon={<FaRegStickyNote size={14} />}
                         onClick={() => {
                             setIsActive(true)
                             setIsNewNote(true)
@@ -82,7 +61,7 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
                         noBg
                     />
                     <Button
-                        Icon={<AiFillFolderAdd size={16} />}
+                        icon={<AiFillFolderAdd size={16} />}
                         onClick={() => {
                             setIsActive(true)
                             setIsNewFolder(true)
@@ -120,20 +99,15 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
                         color="white"
                         size={16}
                         className="cursor-pointer"
-                        onClick={() => createNote()}
+                        onClick={() => handleCreateNote()}
                     />
                 </div>
             </div>
             {isActive &&
                 notes
-                    ?.filter((note: INote) => id === note?.folderId)
+                    ?.filter((note: INote) => folderId === note?.folderId)
                     .map((note: INote) => (
-                        <Note
-                            key={note._id}
-                            title={note.title}
-                            text={note.text}
-                            state={note.state}
-                        />
+                        <NoteItem key={note._id} title={note.title} noteId={note._id} />
                     ))}
             <div
                 className={`${
@@ -160,22 +134,22 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
                         color="white"
                         size={16}
                         className="cursor-pointer"
-                        onClick={() => createFolder()}
+                        onClick={() => handleCreateFolder()}
                     />
                 </div>
             </div>
             {isActive &&
                 folders?.map((folder: IFolder) => {
-                    if (folder.parentId === id) {
+                    if (folder.parentId === folderId) {
                         const notesFiltered = notes?.filter(
                             (note: INote) => folder?._id === note?.folderId,
                         )
 
                         return (
-                            <Folder
+                            <FolderItem
                                 key={folder._id}
                                 title={folder.title}
-                                id={folder._id}
+                                folderId={folder._id}
                                 folders={folders}
                                 notes={notesFiltered}
                             />
@@ -188,4 +162,4 @@ const Folder: React.FC<FolderProps> = ({ folders, id, title, notes }) => {
     )
 }
 
-export default Folder
+export default FolderItem
