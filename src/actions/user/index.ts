@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(
     async ({ email, password, confirmPassword }: IUserRegister) => {
         if (password !== confirmPassword) {
             toast("Mot de passe différent", { type: "warning" })
-            return Error
+            return {}
         }
         const { data } = await api.post(urls.API.REGISTER, {
             email,

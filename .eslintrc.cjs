@@ -28,6 +28,7 @@ module.exports = {
             "warn",
             {
                 endOfLine: "auto",
+                singleQuote: false,
             },
         ],
     },
