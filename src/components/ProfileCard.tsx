@@ -23,7 +23,11 @@ const ProfileCard: React.FC = () => {
 
     return (
         <div className="flex items-center justify-between">
-            <div className="flex" onClick={() => navigate(urls.APP.PROFILE)}>
+            <div
+                className="flex cursor-pointer"
+                title="vers profil"
+                onClick={() => navigate(urls.APP.PROFILE)}
+            >
                 <img
                     className="h-10 w-10 object-cover rounded-full"
                     src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png"
