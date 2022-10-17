@@ -1,6 +1,6 @@
-import { INote } from '../INote'
+import { INote } from "../INote"
 
-export type CategoryDisplay = 'public' | 'archived' | 'junk'
+export type CategoryDisplay = "public" | "archived" | "junk"
 
 export interface INotesState {
     notes?: INote[]

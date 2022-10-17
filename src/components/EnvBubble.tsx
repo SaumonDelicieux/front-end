@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react"
 
 const EnvBubble: React.FC = () => {
     const renderMode = () => {
         switch (import.meta.env.VITE_MODE) {
-            case 'development':
-                return 'DEV'
-            case 'staging':
-                return 'STA'
+            case "development":
+                return "DEV"
+            case "staging":
+                return "STA"
             default:
-                ''
+                ""
         }
     }
 

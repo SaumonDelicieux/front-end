@@ -8,9 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./src/",
-    "lint:fix": "eslint ./src/ --fix",
-    "format": "prettier --write './src/**/*.{ts,tsx}' --config ./.prettierrc.cjs",
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts, tsx}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "test": "jest"
   },
   "repository": {

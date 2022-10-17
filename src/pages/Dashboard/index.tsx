@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react"
 
-import { useAppSelector } from '../../hooks'
+import { useAppSelector } from "../../hooks"
 
 const Dashboard: React.FC = () => {
     const { selectedNote } = useAppSelector(state => state.notes)
