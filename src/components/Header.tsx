@@ -1,7 +1,7 @@
-import React from 'react'
-import { AiFillFolderAdd } from 'react-icons/ai'
+import React from "react"
+import { AiFillFolderAdd } from "react-icons/ai"
 
-import Button from './Button'
+import Button from "./Button"
 
 interface HeaderProps {
     isPremium?: boolean
@@ -9,8 +9,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isPremium = false, displayNewFolder }) => {
-    const IM_PREMIUM = 'PREMIUM'
-    const BE_PREMIUM = 'DEVENIR PREMIUM'
+    const IM_PREMIUM = "PREMIUM"
+    const BE_PREMIUM = "DEVENIR PREMIUM"
 
     return (
         <div className="flex flex-col text-center mb-10 text-slate-50 font-bold">

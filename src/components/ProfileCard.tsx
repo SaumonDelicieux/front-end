@@ -1,14 +1,14 @@
-import React from 'react'
-import { RiLogoutCircleRLine } from 'react-icons/ri'
-import { useNavigate } from 'react-router-dom'
+import React from "react"
+import { RiLogoutCircleRLine } from "react-icons/ri"
+import { useNavigate } from "react-router-dom"
 
-import { urls } from '../helpers/urls'
+import { urls } from "../helpers/urls"
 
-import { logoutUser } from '../features/user/userSlice'
+import { logoutUser } from "../features/user/userSlice"
 
-import { useAppDispatch, useAppSelector } from '../hooks'
+import { useAppDispatch, useAppSelector } from "../hooks"
 
-import Button from './Button'
+import Button from "./Button"
 
 const ProfileCard: React.FC = () => {
     const navigate = useNavigate()

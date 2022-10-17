@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { IoIosArrowBack } from 'react-icons/io'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { IoIosArrowBack } from "react-icons/io"
 
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Input from "../../components/Input"
+import Button from "../../components/Button"
 
-import { urls } from '../../helpers/urls'
+import { urls } from "../../helpers/urls"
 
-import { forgottenPassword } from '../../actions/user'
+import { forgottenPassword } from "../../actions/user"
 
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 const ForgottenPassword: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const [identifer, setIdentifer] = useState('')
+    const [identifer, setIdentifer] = useState("")
 
     const handleForgottenPassword = async (e: Event) => {
         e.preventDefault()

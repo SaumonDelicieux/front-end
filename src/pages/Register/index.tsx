@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import Button from "../../components/Button"
+import Input from "../../components/Input"
 
-import { urls } from '../../helpers/urls'
+import { urls } from "../../helpers/urls"
 
-import { IUserRegister } from '../../types/IUserRegister'
+import { IUserRegister } from "../../types/IUserRegister"
 
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
-import { registerUser } from '../../actions/user'
+import { registerUser } from "../../actions/user"
 
 const Register: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)

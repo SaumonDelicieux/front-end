@@ -1,10 +1,10 @@
-import React, { useState, HTMLInputTypeAttribute } from 'react'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
+import React, { useState, HTMLInputTypeAttribute } from "react"
+import { FiEye, FiEyeOff } from "react-icons/fi"
 
 interface InputProps {
     label?: string
     required?: boolean
-    size: 'default' | 'large'
+    size: "default" | "large"
     placeholder?: string
     value?: any
     type?: HTMLInputTypeAttribute
@@ -15,10 +15,10 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
     label,
     required = false,
-    size = 'default',
+    size = "default",
     placeholder,
     value,
-    type = 'text',
+    type = "text",
     onChange,
     className,
 }) => {
@@ -28,22 +28,22 @@ const Input: React.FC<InputProps> = ({
         e.preventDefault()
 
         if (hide) {
-            document.getElementById(label ?? '')?.setAttribute('type', 'text')
+            document.getElementById(label ?? "")?.setAttribute("type", "text")
             setHide(false)
         } else {
-            document.getElementById(label ?? '')?.setAttribute('type', 'password')
+            document.getElementById(label ?? "")?.setAttribute("type", "password")
             setHide(true)
         }
     }
 
     const sizeRender = () => {
         switch (size) {
-            case 'large':
-                return 'p-2 sm:p-4'
-            case 'default':
-                return 'p-1 sm:p-2'
+            case "large":
+                return "p-2 sm:p-4"
+            case "default":
+                return "p-1 sm:p-2"
             default:
-                return 'p-1 sm:p-2'
+                return "p-1 sm:p-2"
         }
     }
     return (
@@ -65,7 +65,7 @@ const Input: React.FC<InputProps> = ({
                 onChange={e => onChange(e.target.value)}
                 className={`focus:outline-none focus:ring-1 focus:ring-blue-700 rounded-xl ${sizeRender()} justify-end text-slate-800 bg-slate-100`}
             />
-            {type === 'password' && (
+            {type === "password" && (
                 <button
                     className="absolute right-2 sm:right-4 bottom-3 sm:bottom-5 text-slate-800"
                     type="button"
