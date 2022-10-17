@@ -1,4 +1,4 @@
 export interface IUserLogin {
-    identifer: string
-    password: string
+    identifer?: string
+    password?: string
 }
