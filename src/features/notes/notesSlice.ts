@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { INotesState } from '../../types/states/INotesState'
+import { CategoryDisplay, INotesState } from '../../types/states/INotesState'
 import { INote } from '../../types/INote'
 
 import type { RootState } from '../../store'
@@ -11,6 +11,8 @@ import { createNote, deleteNote, getAllNotes } from '../../actions/notes'
 const initialState: INotesState = {
     notes: [],
     selectedNote: undefined,
+    categoryDisplay: 'public',
+    notesDisplay: [],
     loading: false,
     error: '',
 }
@@ -23,6 +25,10 @@ export const notesSlice = createSlice({
             const noteIndex = state.notes?.findIndex((note: INote) => note._id === action.payload)
 
             state.selectedNote = state.notes?.[noteIndex!]
+        },
+        setCategoryDisplay: (state, action: PayloadAction<CategoryDisplay>) => {
+            state.categoryDisplay = action.payload
+            state.notesDisplay = state.notes?.filter((note: INote) => note.state === action.payload)
         },
     },
     extraReducers: builder => {
@@ -60,7 +66,7 @@ export const notesSlice = createSlice({
     },
 })
 
-export const { setNote } = notesSlice.actions
+export const { setNote, setCategoryDisplay } = notesSlice.actions
 
 export const notes = (state: RootState) => state.notes
 

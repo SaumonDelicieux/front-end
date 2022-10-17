@@ -31,7 +31,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
     return (
         <div
             onClick={(e: any) => setToSelectedNote(e)}
-            className={`flex justify-between py-1 px-2 hover:bg-blue-700 ${
+            className={`flex justify-between items-center py-1 px-2 hover:bg-blue-700 ${
                 selectedNote?._id === noteId && 'bg-blue-700'
             } rounded-lg transition-all mb-2 cursor-pointer`}
             aria-label="Paris"
