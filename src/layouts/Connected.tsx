@@ -1,21 +1,34 @@
-import React, { useContext } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
+
+import { getUserDetails } from '../features/user/userSlice'
+
+import { getAllFolders } from '../actions/folders'
+import { getAllNotes } from '../actions/notes'
+
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 import { urls } from '../helpers/urls'
-
-import AuthContext from '../contexts/AuthContext'
 
 import Navbar from '../components/Navbar'
 
 const Connected: React.FC = () => {
-    const { user } = useContext(AuthContext)
+    const { token } = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
-    if (!user?.token) {
-        return <Navigate to={urls.APP.LOGIN} />
-    }
+    useEffect(() => {
+        if (!token) {
+            navigate(urls.APP.LOGIN)
+        } else {
+            dispatch(getUserDetails())
+            dispatch(getAllNotes(token))
+            dispatch(getAllFolders(token))
+        }
+    }, [token])
 
     return (
-        <div className="bg-slate-900 h-full w-full">
+        <div className="flex h-full w-full bg-slate-900 text-slate-50">
             <Navbar />
             <Outlet />
         </div>
