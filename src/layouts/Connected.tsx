@@ -1,53 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
+
+import { getUserDetails } from '../features/user/userSlice'
+
+import { getAllFolders } from '../actions/folders'
+import { getAllNotes } from '../actions/notes'
+
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 import { urls } from '../helpers/urls'
 
-import AuthContext from '../contexts/AuthContext'
-
 import Navbar from '../components/Navbar'
-import api from '../helpers/api'
 
 const Connected: React.FC = () => {
-    const { user } = useContext(AuthContext)
-
-    const [folders, setFolders] = useState<never[]>()
-    const [notes, setNotes] = useState<never[]>()
-
-    if (!user?.token) {
-        return <Navigate to={urls.APP.LOGIN} />
-    }
-
-    const getAllFolders = async () => {
-        try {
-            const { data } = await api.get(urls.API.GET_ALL_FOLDERS, {
-                params: { userId: user.id },
-            })
-
-            setFolders(data.folders)
-            console.log('Folders receive', data.folders)
-        } catch (error) {}
-    }
-
-    const getAllNotes = async () => {
-        try {
-            const { data } = await api.get(urls.API.GET_ALL_NOTES, {
-                params: { userId: user.id },
-            })
-
-            setNotes(data.notes)
-            console.log('Notes receive', data.notes)
-        } catch (error) {}
-    }
+    const { token } = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        getAllNotes()
-        getAllFolders()
-    }, [])
+        if (!token) {
+            navigate(urls.APP.LOGIN)
+        } else {
+            dispatch(getUserDetails())
+            dispatch(getAllNotes(token))
+            dispatch(getAllFolders(token))
+        }
+    }, [token])
 
     return (
         <div className="flex h-full w-full bg-slate-900 text-slate-50">
-            <Navbar folders={folders} notes={notes} />
+            <Navbar />
             <Outlet />
         </div>
     )
