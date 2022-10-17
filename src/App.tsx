@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-
-import { AuthContextProvider } from './contexts/AuthContext'
 
 import EnvBubble from './components/EnvBubble'
 
@@ -15,12 +13,10 @@ const App: React.FC = () => {
     return (
         <div className="h-full relative">
             {import.meta.env.VITE_MODE !== 'production' && <EnvBubble />}
-            <AuthContextProvider>
-                <BrowserRouter>
-                    <RoutesStack />
-                </BrowserRouter>
-                <ToastContainer />
-            </AuthContextProvider>
+            <BrowserRouter>
+                <RoutesStack />
+            </BrowserRouter>
+            <ToastContainer />
         </div>
     )
 }

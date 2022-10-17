@@ -1,5 +1,5 @@
 export interface IUserRegister {
-    username: string
-    password: string
-    confirmPassword: string
+    identifer?: string
+    password?: string
+    confirmPassword?: string
 }

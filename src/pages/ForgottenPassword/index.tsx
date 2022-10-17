@@ -1,38 +1,26 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import api from '../../helpers/api'
 import { urls } from '../../helpers/urls'
 
+import { forgottenPassword } from '../../actions/user'
+
+import { useAppDispatch, useAppSelector } from '../../hooks'
+
 const ForgottenPassword: React.FC = () => {
+    const { error, loading } = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
 
     const [identifer, setIdentifer] = useState('')
 
     const handleForgottenPassword = async (e: Event) => {
         e.preventDefault()
-
-        try {
-            setIsLoading(true)
-            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
-                identifer,
-            })
-            setIsLoading(false)
-            toast('Un mail a été envoyé à l adresse mail', {
-                type: 'success',
-            })
-            navigate(urls.APP.LOGIN)
-        } catch (error) {
-            console.log(error)
-            setError('Erreur de mail')
-            setIsLoading(false)
-        }
+        await dispatch(forgottenPassword(identifer))
+        navigate(urls.APP.LOGIN)
     }
 
     return (
@@ -60,13 +48,12 @@ const ForgottenPassword: React.FC = () => {
                         </div>
                         <div>
                             <Button
-                                isLoading={isLoading}
+                                isLoading={loading}
                                 onClick={(e: any) => handleForgottenPassword(e)}
                                 title="Envoyer"
                             />
                         </div>
                     </div>
-
                     <div className="text-red-800 mb-3">{error}</div>
                 </form>
             </div>
