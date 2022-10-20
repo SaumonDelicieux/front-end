@@ -26,6 +26,9 @@ export const notesSlice = createSlice({
 
             state.selectedNote = state.notes?.[noteIndex!]
         },
+        unselectNote: state => {
+            state.selectedNote = undefined
+        },
         setCategoryDisplay: (state, action: PayloadAction<CategoryDisplay>) => {
             state.categoryDisplay = action.payload
             state.notesDisplay = state.notes?.filter((note: INote) => note.state === action.payload)
@@ -76,7 +79,7 @@ export const notesSlice = createSlice({
     },
 })
 
-export const { setNote, setCategoryDisplay } = notesSlice.actions
+export const { setNote, setCategoryDisplay, unselectNote } = notesSlice.actions
 
 export const notes = (state: RootState) => state.notes
 

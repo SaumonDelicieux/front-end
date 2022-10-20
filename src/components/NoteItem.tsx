@@ -1,5 +1,8 @@
 import React from "react"
 import { BiTrashAlt } from "react-icons/bi"
+import { useNavigate } from "react-router-dom"
+
+import { urls } from "../helpers/urls"
 
 import { deleteNote } from "../actions/notes"
 
@@ -17,9 +20,12 @@ interface NoteItemProps {
 const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
     const { selectedNote, loading } = useAppSelector(state => state.notes)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const setToSelectedNote = (e: Event) => {
         e.preventDefault()
+
+        navigate(urls.APP.DASHBOARD)
         dispatch(setNote(noteId!))
     }
 
