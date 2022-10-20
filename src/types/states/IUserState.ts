@@ -6,6 +6,7 @@ export interface IUserState {
     isPremium?: boolean
     phoneNumber?: string
     token?: string
+    theme?: "dark" | "light"
     loading?: boolean
     error?: string
 }

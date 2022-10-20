@@ -15,7 +15,7 @@ const SortNotes: React.FC = () => {
     return (
         <div className="flex justify-between mb-5 text-center rounded-md select-none">
             <div
-                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 rounded-l-md transition-all duration-300 ${
                     categoryDisplay === JUNK && "bg-blue-600 rounded-l-md"
                 }`}
                 onClick={() => dispatch(setCategoryDisplay(JUNK))}
@@ -23,7 +23,7 @@ const SortNotes: React.FC = () => {
                 Brouillon
             </div>
             <div
-                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 transition-all duration-300 ${
                     categoryDisplay === PUBLIC && "bg-blue-600"
                 }`}
                 onClick={() => dispatch(setCategoryDisplay(PUBLIC))}
@@ -31,7 +31,7 @@ const SortNotes: React.FC = () => {
                 Publié
             </div>
             <div
-                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 rounded-r-md transition-all duration-300 ${
                     categoryDisplay === ARCHIVED && "bg-blue-600 rounded-r-md"
                 }`}
                 onClick={() => dispatch(setCategoryDisplay(ARCHIVED))}
