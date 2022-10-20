@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import jwtDecode from "jwt-decode"
+import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { AiFillCaretLeft } from "react-icons/ai"
 
@@ -16,22 +18,25 @@ import { updateUser } from "../../actions/user"
 const Profil: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { firstName, lastName, email, isPremium, phoneNumber, error, loading } = useAppSelector(
-        state => state.user,
-    )
+    const { error, loading } = useAppSelector(state => state.user)
 
-    const [updatedUser, setUpdatedUser] = useState<IUser>({
-        firstName,
-        lastName,
-        email,
-        isPremium,
-        phoneNumber,
-    })
+    const [user, setUser] = useState<IUser>({})
 
     const handleProfile = async (e: Event) => {
         e.preventDefault()
-        dispatch(updateUser(updatedUser))
+        dispatch(updateUser(user!))
     }
+
+    useEffect(() => {
+        const tokenUser = localStorage.getItem("token")
+        if (tokenUser) {
+            const { firstName, lastName, email, isPremium, phoneNumber }: IUser =
+                jwtDecode(tokenUser)
+            setUser({ firstName, lastName, email, isPremium, phoneNumber })
+        } else {
+            toast("Impossible de récuperer les informations du profil")
+        }
+    }, [])
 
     return (
         <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
@@ -39,7 +44,7 @@ const Profil: React.FC = () => {
                 <div className="pl-14 pt-14">
                     <Button
                         icon={<AiFillCaretLeft color="white" size={20} />}
-                        onClick={() => !isPremium && navigate(urls.APP.DASHBOARD)}
+                        onClick={() => !user?.isPremium && navigate(urls.APP.DASHBOARD)}
                         noBg
                     />
                 </div>
@@ -49,8 +54,8 @@ const Profil: React.FC = () => {
                             <span className="mr-2 text-slate-200">Profil</span>
                         </div>
                         <Button
-                            title={`Abonnement : ${isPremium ? "Premium" : "Gratuit"}`}
-                            onClick={() => !isPremium && navigate(urls.APP.SUBSCRIBE)}
+                            title={`Abonnement : ${user?.isPremium ? "Premium" : "Gratuit"}`}
+                            onClick={() => user?.isPremium && navigate(urls.APP.SUBSCRIBE)}
                             noBg
                         />
                     </div>
@@ -59,8 +64,8 @@ const Profil: React.FC = () => {
                             <div className="flex-none ml-20 mr-20">
                                 <Input
                                     label="Prénom"
-                                    value={updatedUser.firstName}
-                                    onChange={e => setUpdatedUser({ ...updatedUser, firstName: e })}
+                                    value={user?.firstName}
+                                    onChange={e => setUser({ ...user, firstName: e })}
                                     size="large"
                                     className="mb-5"
                                 />
@@ -68,8 +73,8 @@ const Profil: React.FC = () => {
                             <div className="flex-none ml-20 mr-20">
                                 <Input
                                     label="Nom"
-                                    value={updatedUser.lastName}
-                                    onChange={e => setUpdatedUser({ ...updatedUser, lastName: e })}
+                                    value={user?.lastName}
+                                    onChange={e => setUser({ ...user, lastName: e })}
                                     size="large"
                                     className="mb-5"
                                 />
@@ -79,8 +84,8 @@ const Profil: React.FC = () => {
                             <div className="flex-none ml-20 mr-20">
                                 <Input
                                     label="Email"
-                                    value={updatedUser.email}
-                                    onChange={e => setUpdatedUser({ ...updatedUser, email: e })}
+                                    value={user?.email}
+                                    onChange={e => setUser({ ...user, email: e })}
                                     size="large"
                                     className="mb-5"
                                 />
@@ -88,10 +93,8 @@ const Profil: React.FC = () => {
                             <div className="flex-none ml-20 mr-20">
                                 <Input
                                     label="Numéro de téléphone"
-                                    value={updatedUser.phoneNumber}
-                                    onChange={e =>
-                                        setUpdatedUser({ ...updatedUser, phoneNumber: e })
-                                    }
+                                    value={user?.phoneNumber}
+                                    onChange={e => setUser({ ...user, phoneNumber: e })}
                                     size="large"
                                     className="mb-5"
                                 />
@@ -101,7 +104,8 @@ const Profil: React.FC = () => {
                         <div className="flex justify-center items-center mt-10">
                             <Button
                                 title="Mettre à jour"
-                                onClick={(e: Event) => handleProfile(e)}
+                                onClick={(e: Event) => console.log(e)}
+                                type="submit"
                                 isLoading={loading}
                             />
                         </div>
