@@ -37,7 +37,7 @@ const Register: React.FC = () => {
                     <form className="flex flex-col" onSubmit={handleRegister as any}>
                         <Input
                             label="Email"
-                            onChange={e => setUserRegister({ ...userRegister, emailUser: e })}
+                            onChange={e => setUserRegister({ ...userRegister, email: e })}
                             size="large"
                             className="mb-4"
                         />
