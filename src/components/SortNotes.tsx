@@ -13,7 +13,7 @@ const SortNotes: React.FC = () => {
     const { categoryDisplay } = useAppSelector(state => state.notes)
 
     return (
-        <div className="flex justify-between mb-5 text-center border rounded-md select-none">
+        <div className="flex justify-between mb-5 text-center rounded-md select-none">
             <div
                 className={`flex-1 p-1 cursor-pointer ${
                     categoryDisplay === JUNK && "bg-blue-600 rounded-l-md"
@@ -25,7 +25,7 @@ const SortNotes: React.FC = () => {
             <div
                 className={`flex-1 p-1 cursor-pointer ${
                     categoryDisplay === PUBLIC && "bg-blue-600"
-                } border-l border-r`}
+                }`}
                 onClick={() => dispatch(setCategoryDisplay(PUBLIC))}
             >
                 Publié
