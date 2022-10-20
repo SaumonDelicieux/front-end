@@ -8,7 +8,7 @@ const Subscription: React.FC = () => {
 
     return (
         <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
-            <div className="flex items-center justify-center w-full h-full">
+            <div className="flex justify-center items-center w-full h-full">
                 <div className=" grid grid-cols-2 gap-4 w-8/12">
                     <div className="flex-auto justify-items-center bg-slate-900">
                         <div className="text-slate-200 text-center text-2xl py-8">
