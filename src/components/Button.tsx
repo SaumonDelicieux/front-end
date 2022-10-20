@@ -4,6 +4,7 @@ import ReactLoading from "react-loading"
 interface ButtonProps {
     onClick: any
     title?: string
+    type?: "submit" | "button"
     isLoading?: boolean
     icon?: any
     noBg?: boolean
@@ -18,14 +19,19 @@ const Button: React.FC<ButtonProps> = ({
     isLoading,
     icon = null,
     noBg = false,
+<<<<<<< HEAD
     colorBg = "bg-slate-200",
     textColor = "text-gray-700",
     roundedSize = "rounded-xl",
+=======
+    type = "button",
+>>>>>>> 99fa3a91524d5d513ad94339eeff6a387265ebf1
 }) => {
     return (
         <div>
             <button
                 onClick={onClick}
+                type={type}
                 className={
                     noBg
                         ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
