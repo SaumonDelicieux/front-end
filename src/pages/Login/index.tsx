@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                             className="mb-5"
                         />
 
-                        <div className="text-red-800 mb-3">{error}</div>
+                        <div className="text-red-600 mb-3">{error}</div>
 
                         <Button
                             isLoading={loading}

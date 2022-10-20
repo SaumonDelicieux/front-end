@@ -66,6 +66,9 @@ export const notesSlice = createSlice({
                     state.selectedNote = undefined
                 }
                 state.notes = state.notes?.filter((note: INote) => note._id != payload.noteId)
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
                 state.loading = false
                 state.error = ""
             })
