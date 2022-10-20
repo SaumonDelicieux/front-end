@@ -8,6 +8,9 @@ interface ButtonProps {
     isLoading?: boolean
     icon?: any
     noBg?: boolean
+    colorBg?: string
+    textColor?: string
+    roundedSize?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,6 +19,9 @@ const Button: React.FC<ButtonProps> = ({
     isLoading,
     icon = null,
     noBg = false,
+    colorBg = "bg-slate-200",
+    textColor = "text-gray-700",
+    roundedSize = "rounded-xl",
     type = "button",
 }) => {
     return (
@@ -26,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
                 className={
                     noBg
                         ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : "rounded-xl py-4 px-8 text-gray-700 font-bold bg-slate-200 transition-colors"
+                        : `${roundedSize} py-4 px-8 ${textColor} font-bold ${colorBg} transition-colors`
                 }
             >
                 {isLoading ? (

@@ -8,7 +8,7 @@ import Login from "../pages/Login"
 import Dashboard from "../pages/Dashboard"
 import Register from "../pages/Register"
 import ForgottenPassword from "../pages/ForgottenPassword"
-import Subscription from "../pages/Abonnement"
+import Subscription from "../pages/Subscription"
 import Profile from "../pages/Profile"
 
 import { urls } from "../helpers/urls"
