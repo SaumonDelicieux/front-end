@@ -4,7 +4,7 @@ export interface INote {
     userId?: string
     title?: string
     text?: string
-    state?: 'published' | 'archived' | 'junked'
+    state?: "published" | "archived" | "junked"
     creationDate?: Date
     lastUpdateDate?: Date
 }

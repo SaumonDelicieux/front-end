@@ -1,19 +1,20 @@
-import React, { useContext, useState } from 'react'
-import { AiFillCaretRight, AiFillFolderAdd } from 'react-icons/ai'
-import { GrFormClose } from 'react-icons/gr'
-import { FaRegStickyNote } from 'react-icons/fa'
-import { BsCheck } from 'react-icons/bs'
+import React, { useState } from "react"
+import { AiFillCaretRight, AiFillFolderAdd } from "react-icons/ai"
+import { GrFormClose } from "react-icons/gr"
+import { FaRegStickyNote } from "react-icons/fa"
+import { BsCheck } from "react-icons/bs"
+import { BiTrashAlt } from "react-icons/bi"
 
-import { createFolder } from '../helpers/api/createFolder'
-import { createNote } from '../helpers/api/createNote'
+import { IFolder } from "../types/IFolder"
+import { INote } from "../types/INote"
 
-import { IFolder } from '../types/IFolder'
-import { INote } from '../types/INote'
+import NoteItem from "./NoteItem"
+import Button from "./Button"
 
-import NoteItem from './NoteItem'
-import Button from './Button'
+import { useAppDispatch, useAppSelector } from "../hooks"
 
-import { useAppSelector } from '../hooks'
+import { createNote } from "../actions/notes"
+import { createFolder, deleteFolder } from "../actions/folders"
 
 interface FolderItemProps {
     folders?: IFolder[]
@@ -24,25 +25,32 @@ interface FolderItemProps {
 
 const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes }) => {
     const { id } = useAppSelector(state => state.user)
+    const categoryDisplay = useAppSelector(state => state.notes.categoryDisplay)
+    const dispatch = useAppDispatch()
 
     const [isActive, setIsActive] = useState(false)
 
-    const [newFolder, setNewFolder] = useState('')
+    const [newFolder, setNewFolder] = useState("")
     const [isNewFolder, setIsNewFolder] = useState(false)
 
-    const [newNote, setNewNote] = useState('')
+    const [newNote, setNewNote] = useState("")
     const [isNewNote, setIsNewNote] = useState(false)
 
     const handleCreateFolder = async () => {
-        id && (await createFolder(newFolder, id, folderId))
+        dispatch(createFolder({ title: newFolder, userId: id!, parentId: folderId }))
         setIsNewFolder(false)
-        setNewFolder('')
+        setNewFolder("")
     }
 
     const handleCreateNote = async () => {
-        id && (await createNote(newNote, folderId, id, newNote))
+        dispatch(createNote({ title: newNote, folderId, userId: id!, context: categoryDisplay! }))
         setIsNewNote(false)
-        setNewNote('')
+        setNewNote("")
+    }
+
+    const handleDeleteFolder = async (e: Event) => {
+        e.preventDefault()
+        dispatch(deleteFolder(folderId!))
     }
 
     return (
@@ -52,6 +60,11 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     {title}
                 </span>
                 <div className="flex items-center">
+                    <Button
+                        icon={<BiTrashAlt size={15} />}
+                        onClick={(e: Event) => handleDeleteFolder(e)}
+                        noBg
+                    />
                     <Button
                         icon={<FaRegStickyNote size={14} />}
                         onClick={() => {
@@ -69,14 +82,14 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                         noBg
                     />
                     <AiFillCaretRight
-                        className={`${isActive && 'rotate-90'} ml-2 transition-all`}
+                        className={`${isActive && "rotate-90"} ml-2 transition-all`}
                         onClick={() => setIsActive(prev => !prev)}
                     />
                 </div>
             </div>
             <div
                 className={`${
-                    !isNewNote && 'hidden'
+                    !isNewNote && "hidden"
                 } relative ml-2 mb-1 transition-all duration-500`}
             >
                 <input
@@ -92,7 +105,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                         className="cursor-pointer"
                         onClick={() => {
                             setIsNewNote(false)
-                            setNewNote('')
+                            setNewNote("")
                         }}
                     />
                     <BsCheck
@@ -111,7 +124,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     ))}
             <div
                 className={`${
-                    !isNewFolder && 'hidden'
+                    !isNewFolder && "hidden"
                 } relative ml-2 mb-2 transition-all duration-500`}
             >
                 <input
@@ -127,7 +140,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                         className="cursor-pointer"
                         onClick={() => {
                             setIsNewFolder(false)
-                            setNewFolder('')
+                            setNewFolder("")
                         }}
                     />
                     <BsCheck

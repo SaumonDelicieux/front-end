@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import Button from "../../components/Button"
+import Input from "../../components/Input"
 
-import { urls } from '../../helpers/urls'
+import { urls } from "../../helpers/urls"
 
-import { IUserRegister } from '../../types/IUserRegister'
+import { IUserRegister } from "../../types/IUserRegister"
 
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
-import { registerUser } from '../../actions/user'
+import { registerUser } from "../../actions/user"
 
 const Register: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)
@@ -36,8 +36,8 @@ const Register: React.FC = () => {
                     </div>
                     <form className="flex flex-col" onSubmit={handleRegister as any}>
                         <Input
-                            label="Identifiant"
-                            onChange={e => setUserRegister({ ...userRegister, identifer: e })}
+                            label="Email"
+                            onChange={e => setUserRegister({ ...userRegister, email: e })}
                             size="large"
                             className="mb-4"
                         />
