@@ -28,22 +28,28 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
     "user/register",
-    async ({ emailUser, password, confirmPassword }: IUserRegister) => {
+    async ({ email, password, confirmPassword }: IUserRegister) => {
         if (password !== confirmPassword) {
             toast("Mot de passe différent", { type: "warning" })
             return {}
         }
         const { data } = await api.post(urls.API.REGISTER, {
-            email: emailUser,
+            email,
             password,
         })
 
-        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
-            data.token,
-        )
+        const tokenUser: IUser = jwtDecode(data.token)
         localStorage.setItem("token", data.token)
 
-        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
+        return {
+            id: tokenUser.id,
+            firstName: tokenUser.firstName,
+            lastName: tokenUser.lastName,
+            email: tokenUser.email,
+            isPremium: tokenUser.isPremium,
+            phoneNumber: tokenUser.phoneNumber,
+            token: data.token,
+        }
     },
 )
 

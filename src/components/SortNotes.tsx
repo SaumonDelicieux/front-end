@@ -13,9 +13,9 @@ const SortNotes: React.FC = () => {
     const { categoryDisplay } = useAppSelector(state => state.notes)
 
     return (
-        <div className="flex justify-between mb-5 text-center border rounded-md select-none">
+        <div className="flex justify-between mb-5 text-center rounded-md select-none">
             <div
-                className={`flex-1 p-1 cursor-pointer ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
                     categoryDisplay === JUNK && "bg-blue-600 rounded-l-md"
                 }`}
                 onClick={() => dispatch(setCategoryDisplay(JUNK))}
@@ -23,15 +23,15 @@ const SortNotes: React.FC = () => {
                 Brouillon
             </div>
             <div
-                className={`flex-1 p-1 cursor-pointer ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
                     categoryDisplay === PUBLIC && "bg-blue-600"
-                } border-l border-r`}
+                }`}
                 onClick={() => dispatch(setCategoryDisplay(PUBLIC))}
             >
                 Publié
             </div>
             <div
-                className={`flex-1 p-1 cursor-pointer ${
+                className={`flex-1 p-1 cursor-pointer hover:bg-blue-600 ${
                     categoryDisplay === ARCHIVED && "bg-blue-600 rounded-r-md"
                 }`}
                 onClick={() => dispatch(setCategoryDisplay(ARCHIVED))}
