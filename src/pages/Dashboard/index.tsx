@@ -32,26 +32,37 @@ const Dashboard: React.FC = () => {
                 <div className="flex">
                     <Button
                         title="Publier"
+                        colorBg="bg-lime-500"
+                        textColor="text-slate-200"
                         onClick={() => {
                             console.log("publier")
                         }}
                     />
                     <Button
                         title="Partager"
+                        colorBg="bg-violet-600"
+                        textColor="text-slate-200"
                         onClick={() => {
                             console.log("partager")
                         }}
                     />
-                    <Button title="Download" onClick={() => test()} />
+                    <Button
+                        title="Download"
+                        colorBg="bg-blue-900"
+                        textColor="text-slate-200"
+                        onClick={() => test()}
+                    />
                     <Button
                         title="Archiver"
+                        colorBg="bg-orange-500"
+                        textColor="text-slate-200"
                         onClick={() => {
                             console.log("archiver")
                         }}
                     />
                 </div>
 
-                <span className="flex bg-slate-200 p-1 ... rounded-md mt-20">
+                <span className="flex bg-slate-200 p-1 ... rounded-md mt-10">
                     <div className="flex border border-slate-900 ... ml-1 mr-1">
                         <select
                             className="text-slate-900 text-xs bg-slate-200"
