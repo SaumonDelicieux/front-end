@@ -25,7 +25,6 @@ interface FolderItemProps {
 
 const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes }) => {
     const { id } = useAppSelector(state => state.user)
-    const categoryDisplay = useAppSelector(state => state.notes.categoryDisplay)
     const dispatch = useAppDispatch()
 
     const [isActive, setIsActive] = useState(false)
@@ -43,7 +42,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     }
 
     const handleCreateNote = async () => {
-        dispatch(createNote({ title: newNote, folderId, userId: id!, context: categoryDisplay! }))
+        dispatch(createNote({ title: newNote, folderId, userId: id! }))
         setIsNewNote(false)
         setNewNote("")
     }
