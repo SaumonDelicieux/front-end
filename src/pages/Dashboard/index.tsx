@@ -7,6 +7,9 @@ import { useAppSelector } from "../../store"
 
 const Dashboard: React.FC = () => {
     const { selectedNote } = useAppSelector(state => state.notes)
+    const [textAlignRight, setTextAlignRight] = useState(false)
+    const [textAlignLeft, setTextAlignLeft] = useState(false)
+    const [textAlignCenter, setTextAlignCenter] = useState(false)
 
     if (selectedNote) {
         return (
