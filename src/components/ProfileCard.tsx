@@ -1,14 +1,14 @@
-import React from 'react'
-import { RiLogoutCircleRLine } from 'react-icons/ri'
-import { useNavigate } from 'react-router-dom'
+import React from "react"
+import { RiLogoutCircleRLine } from "react-icons/ri"
+import { useNavigate } from "react-router-dom"
 
-import { urls } from '../helpers/urls'
+import { urls } from "../helpers/urls"
 
-import { logoutUser } from '../features/user/userSlice'
+import { logoutUser } from "../features/user/userSlice"
 
-import { useAppDispatch, useAppSelector } from '../hooks'
+import { useAppDispatch, useAppSelector } from "../hooks"
 
-import Button from './Button'
+import Button from "./Button"
 
 const ProfileCard: React.FC = () => {
     const navigate = useNavigate()
@@ -23,16 +23,21 @@ const ProfileCard: React.FC = () => {
 
     return (
         <div className="flex items-center justify-between">
-            <div className="flex">
+            <div
+                className="flex cursor-pointer"
+                title="vers profil"
+                onClick={() => navigate(urls.APP.PROFILE)}
+            >
                 <img
                     className="h-10 w-10 object-cover rounded-full"
                     src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png"
                     alt="Current profile photo"
-                    onClick={() => navigate(urls.APP.PROFILE)}
                 />
                 <div className="ml-4">
                     <div className="text-xs text-slate-400">Connecté en tant que</div>
-                    <div className="text-sm text-slate-50">{`${firstName} ${lastName?.[0]}.`}</div>
+                    <div className={`text-sm text-slate-50 ${!firstName && "underline"}`}>{`${
+                        firstName ? firstName + " " + lastName?.[0] : "Compléter son profil"
+                    }.`}</div>
                 </div>
             </div>
             <Button

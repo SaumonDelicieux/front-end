@@ -1,24 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit"
+import type { PayloadAction } from "@reduxjs/toolkit"
 
-import { CategoryDisplay, INotesState } from '../../types/states/INotesState'
-import { INote } from '../../types/INote'
+import { CategoryDisplay, INotesState } from "../../types/states/INotesState"
+import { INote } from "../../types/INote"
 
-import type { RootState } from '../../store'
+import type { RootState } from "../../store"
 
-import { createNote, deleteNote, getAllNotes } from '../../actions/notes'
+import { createNote, deleteNote, getAllNotes } from "../../actions/notes"
 
 const initialState: INotesState = {
     notes: [],
     selectedNote: undefined,
-    categoryDisplay: 'public',
+    categoryDisplay: "public",
     notesDisplay: [],
     loading: false,
-    error: '',
+    error: "",
 }
 
 export const notesSlice = createSlice({
-    name: 'notes',
+    name: "notes",
     initialState,
     reducers: {
         setNote: (state, action: PayloadAction<string>) => {
@@ -35,25 +35,31 @@ export const notesSlice = createSlice({
         builder
             .addCase(getAllNotes.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(getAllNotes.fulfilled, (state, { payload }) => {
                 state.notes = payload.notes
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
             .addCase(createNote.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(createNote.fulfilled, (state, { payload }) => {
                 state.notes = state.notes?.concat(payload.note)
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
             .addCase(deleteNote.pending, state => {
                 state.loading = true
-                state.error = ''
+                state.error = ""
             })
             .addCase(deleteNote.fulfilled, (state, { payload }) => {
                 if (state.selectedNote?._id === payload.noteId) {
@@ -61,7 +67,7 @@ export const notesSlice = createSlice({
                 }
                 state.notes = state.notes?.filter((note: INote) => note._id != payload.noteId)
                 state.loading = false
-                state.error = ''
+                state.error = ""
             })
     },
 })

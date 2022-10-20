@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { GrFormClose } from 'react-icons/gr'
-import { BsCheck } from 'react-icons/bs'
+import React, { useState } from "react"
+import { GrFormClose } from "react-icons/gr"
+import { BsCheck } from "react-icons/bs"
 
-import { createFolder } from '../actions/folders'
+import { createFolder } from "../actions/folders"
 
-import { useAppDispatch } from '../hooks'
+import { useAppDispatch } from "../hooks"
 
 interface CreateInputProps {
     isNewFolder: boolean
@@ -14,17 +14,17 @@ interface CreateInputProps {
 
 const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, userId }) => {
     const dispatch = useAppDispatch()
-    const [newFolder, setNewFolder] = useState('')
+    const [newFolder, setNewFolder] = useState("")
 
     const handleCreateFolder = async () => {
         dispatch(createFolder({ title: newFolder, userId: userId! }))
         setIsNewFolder(false)
-        setNewFolder('')
+        setNewFolder("")
     }
 
     return (
         <div
-            className={`${!isNewFolder && 'hidden'} relative ml-2 mb-2 transition-all duration-500`}
+            className={`${!isNewFolder && "hidden"} relative ml-2 mb-2 transition-all duration-500`}
         >
             <input
                 className="w-full p-1 bg-blue-700 rounded-md"
@@ -39,7 +39,7 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
                     className="cursor-pointer"
                     onClick={() => {
                         setIsNewFolder(false)
-                        setNewFolder('')
+                        setNewFolder("")
                     }}
                 />
                 <BsCheck

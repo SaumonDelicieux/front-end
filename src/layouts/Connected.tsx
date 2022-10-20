@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React, { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 
-import { getUserDetails } from '../features/user/userSlice'
+import { getUserDetails } from "../features/user/userSlice"
 
-import { getAllFolders } from '../actions/folders'
-import { getAllNotes } from '../actions/notes'
+import { getAllFolders } from "../actions/folders"
+import { getAllNotes } from "../actions/notes"
 
-import { useAppDispatch, useAppSelector } from '../hooks'
+import { useAppDispatch, useAppSelector } from "../hooks"
 
-import { urls } from '../helpers/urls'
+import { urls } from "../helpers/urls"
 
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar"
 
 const Connected: React.FC = () => {
     const { token } = useAppSelector(state => state.user)

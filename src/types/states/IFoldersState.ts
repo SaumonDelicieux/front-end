@@ -1,4 +1,4 @@
-import { IFolder } from '../IFolder'
+import { IFolder } from "../IFolder"
 
 export interface IFoldersState {
     folders?: IFolder[]
