@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk<IUser, IUserLogin, { rejectValue: User
                 password,
             })
 
-            if (data.sucess) {
+            if (data.success) {
                 const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
                     data.token,
                 )

@@ -11,7 +11,7 @@ import { createNote, deleteNote, getAllNotes } from "../../actions/notes"
 const initialState: INotesState = {
     notes: [],
     selectedNote: undefined,
-    categoryDisplay: "public",
+    categoryDisplay: "junk",
     notesDisplay: [],
     loading: false,
     error: "",
@@ -50,6 +50,7 @@ export const notesSlice = createSlice({
                 state.error = ""
             })
             .addCase(createNote.fulfilled, (state, { payload }) => {
+                state.categoryDisplay = "junk"
                 state.notes = state.notes?.concat(payload.note)
                 state.notesDisplay = state.notes?.filter(
                     (note: INote) => note.state === state.categoryDisplay,
