@@ -1,56 +1,27 @@
-import React, { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import jwtDecode from 'jwt-decode'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import AuthContext from '../../contexts/AuthContext'
+import Button from "../../components/Button"
+import Input from "../../components/Input"
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import { urls } from "../../helpers/urls"
 
-import api from '../../helpers/api'
-import { urls } from '../../helpers/urls'
+import { IUserLogin } from "../../types/IUserLogin"
 
-import { IUserLogin } from '../../types/IUserLogin'
-import { IUser } from '../../types/IUser'
+import { useAppDispatch, useAppSelector } from "../../hooks"
+
+import { loginUser } from "../../actions/user"
 
 const Login: React.FC = () => {
+    const { error, loading } = useAppSelector(state => state.user)
     const navigate = useNavigate()
-    const { setUser } = useContext(AuthContext)
+    const dispatch = useAppDispatch()
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [userLogin, setUserLogin] = useState<IUserLogin>()
 
-    const [userLogin, setUserLogin] = useState<IUserLogin>({
-        identifer: '',
-        password: '',
-    })
-
-    const handleLogin = async (e: Event) => {
+    const handleLogin = (e: Event) => {
         e.preventDefault()
-
-        console.log(userLogin)
-        try {
-            setIsLoading(true)
-            const { data } = await api.post(urls.API.LOGIN, {
-                identifer: userLogin.identifer,
-                password: userLogin.password,
-            })
-            setIsLoading(false)
-
-            const { firstName, lastName, isPremium }: IUser = jwtDecode(data.token)
-            localStorage.setItem('token', data.token)
-
-            setUser({
-                token: data.token,
-                firstName,
-                lastName,
-                isPremium,
-            })
-        } catch (error) {
-            console.log(error)
-            setError('Erreur de connexion')
-            setIsLoading(false)
-        }
+        dispatch(loginUser(userLogin!))
     }
 
     return (
@@ -69,6 +40,7 @@ const Login: React.FC = () => {
                             onChange={e => setUserLogin({ ...userLogin, identifer: e })}
                             placeholder="john.doe@pinotes.com"
                             size="large"
+                            className="mb-5"
                         />
                         <Input
                             label="Mot de passe"
@@ -76,12 +48,13 @@ const Login: React.FC = () => {
                             onChange={e => setUserLogin({ ...userLogin, password: e })}
                             placeholder="**********"
                             size="large"
+                            className="mb-5"
                         />
 
                         <div className="text-red-800 mb-3">{error}</div>
 
                         <Button
-                            isLoading={isLoading}
+                            isLoading={loading}
                             onClick={(e: any) => handleLogin(e)}
                             title="Se connecter"
                         />

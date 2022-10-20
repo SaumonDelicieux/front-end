@@ -1,22 +1,21 @@
-import React, { useContext } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import React, { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 
-import { urls } from '../helpers/urls'
+import { urls } from "../helpers/urls"
 
-import AuthContext from '../contexts/AuthContext'
+import { useAppSelector } from "../hooks"
 
 const Unconnected: React.FC = () => {
-    const { user } = useContext(AuthContext)
+    const { token } = useAppSelector(state => state.user)
+    const navigate = useNavigate()
 
-    if (user?.token) {
-        return <Navigate to={urls.APP.DASHBOARD} />
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(urls.APP.DASHBOARD)
+        }
+    }, [token])
 
-    return (
-        <>
-            <Outlet />
-        </>
-    )
+    return <Outlet />
 }
 
 export default Unconnected

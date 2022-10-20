@@ -1,28 +1,27 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import { urls } from '../../helpers/urls'
+import Button from "../../components/Button"
+import Input from "../../components/Input"
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import { urls } from "../../helpers/urls"
 
-import { IUserRegister } from '../../types/IUserRegister'
+import { IUserRegister } from "../../types/IUserRegister"
+
+import { useAppDispatch, useAppSelector } from "../../hooks"
+
+import { registerUser } from "../../actions/user"
 
 const Register: React.FC = () => {
+    const { error, loading } = useAppSelector(state => state.user)
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
+    const dispatch = useAppDispatch()
 
-    const [userRegister, setUserRegister] = useState<IUserRegister>({
-        username: '',
-        password: '',
-        confirmPassword: '',
-    })
+    const [userRegister, setUserRegister] = useState<IUserRegister>()
 
     const handleRegister = async (e: Event) => {
         e.preventDefault()
-
-        setIsLoading(true)
+        dispatch(registerUser(userRegister!))
     }
 
     return (
@@ -37,8 +36,8 @@ const Register: React.FC = () => {
                     </div>
                     <form className="flex flex-col" onSubmit={handleRegister as any}>
                         <Input
-                            label="Identifiant"
-                            onChange={e => setUserRegister({ ...userRegister, username: e })}
+                            label="Email"
+                            onChange={e => setUserRegister({ ...userRegister, email: e })}
                             size="large"
                             className="mb-4"
                         />
@@ -59,7 +58,7 @@ const Register: React.FC = () => {
                         <div className="text-red-800 mb-5">{error}</div>
                         <div className="mb-5">
                             <Button
-                                isLoading={isLoading}
+                                isLoading={loading}
                                 onClick={(e: any) => handleRegister(e)}
                                 title="M'inscrire"
                             />

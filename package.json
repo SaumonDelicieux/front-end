@@ -8,9 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./src/",
-    "lint:fix": "eslint ./src/ --fix",
-    "format": "prettier --write './src/**/*.{ts,tsx}' --config ./.prettierrc.cjs",
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts, tsx}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "test": "jest"
   },
   "repository": {
@@ -35,12 +35,14 @@
   },
   "homepage": "https://github.com/SaumonDelicieux/pi-notes#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.2",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-loading": "^2.0.3",
+    "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-test-renderer": "^18.2.0",
     "react-toastify": "^9.0.8"
