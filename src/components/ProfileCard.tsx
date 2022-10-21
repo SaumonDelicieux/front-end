@@ -38,7 +38,9 @@ const ProfileCard: React.FC = () => {
                     alt="Current profile photo"
                 />
                 <div className="ml-4">
-                    <div className="text-xs text-slate-400">Connecté en tant que</div>
+                    <div className="text-xs text-slate-50 dark:text-slate-400">
+                        Connecté en tant que
+                    </div>
                     <div className={`text-sm text-slate-50 ${!firstName && "underline"}`}>{`${
                         firstName ? firstName + " " + lastName?.[0] + "." : "Compléter son profil"
                     }`}</div>
