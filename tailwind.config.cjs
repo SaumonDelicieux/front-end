@@ -7,7 +7,11 @@ module.exports = {
             monderatRegular: ['"Moderat-Regular"', "sans-serif"],
             monderatBold: ['"Moderat-Bold"', "sans-serif"],
         },
-        extend: {},
+        extend: {
+            colors: {
+                "search-blue": "#D9D9D9",
+            },
+        },
     },
     plugins: [],
 }
