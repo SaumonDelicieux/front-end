@@ -16,10 +16,10 @@ import { urls } from "../helpers/urls"
 const RoutesStack: React.FC = () => {
     return (
         <Routes>
+            <Route path={urls.APP.SUBSCRIBE} element={<Subscribe />} />
             <Route element={<Unconnected />}>
                 <Route path={urls.APP.LOGIN} element={<Login />} />
                 <Route path={urls.APP.FORGOTTEN_PASSWORD} element={<ForgottenPassword />} />
-                <Route path={urls.APP.SUBSCRIBE} element={<Subscribe />} />
                 <Route path={urls.APP.REGISTER} element={<Register />} />
             </Route>
             <Route path="/" element={<Connected />}>

@@ -1,5 +1,6 @@
 import React from "react"
 
+import Navbar from "../../components/Navbar"
 import Content from "../../components/Content"
 
 import { useAppSelector } from "../../store"
@@ -9,17 +10,23 @@ const Dashboard: React.FC = () => {
 
     if (selectedNote) {
         return (
-            <div className="flex-1 p-2">
-                <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
-                <Content text={selectedNote?.text} />
-            </div>
+            <>
+                <Navbar />
+                <div className="flex-1 p-2">
+                    <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
+                    <Content text={selectedNote?.text} />
+                </div>
+            </>
         )
     }
 
     return (
-        <div className="flex-1 p-2">
-            <h1>📝 Selectionner une note</h1>
-        </div>
+        <>
+            <Navbar />
+            <div className="flex-1 p-2">
+                <h1>📝 Selectionner une note</h1>
+            </div>
+        </>
     )
 }
 

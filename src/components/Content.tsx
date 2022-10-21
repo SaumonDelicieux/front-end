@@ -8,10 +8,9 @@ import {
     AiOutlinePaperClip,
     AiOutlineOrderedList,
     AiOutlineUnorderedList,
-    AiFillCaretDown,
 } from "react-icons/ai"
 
-import Button from "../components/Button"
+import Button from "./Button"
 
 interface ContentProps {
     text?: string
@@ -19,30 +18,50 @@ interface ContentProps {
 
 const Content: React.FC<ContentProps> = ({ text }) => {
     const [textAlignRight, setTextAlignRight] = useState(false)
-    const [textAlignLeft, setTextAlignLeft] = useState(false)
-    const [textAlignCenter, setTextAlignCenter] = useState(false)
+    const [texte, setTexte] = useState("")
+
+    const test = () => {
+        alert(window.getSelection()!.toString().toUpperCase())
+        setTexte(window.getSelection()!.toString().toUpperCase())
+    }
 
     return (
         <div className="flex-1 p-2 ml-5 mr-5">
-            <div
-                className={
-                    textAlignRight
-                        ? "text-right ..."
-                        : textAlignLeft
-                        ? "text-right ..."
-                        : textAlignCenter
-                        ? "text-center ..."
-                        : ""
-                }
-            >
+            <div className={textAlignRight ? "text-right" : ""}>
                 <div className="flex">
-                    <Button title="Publier" onClick={() => console.log("")} />
-                    <Button title="Partager" onClick={() => console.log("")} />
-                    <Button title="Download" onClick={() => console.log("")} />
-                    <Button title="Archiver" onClick={() => console.log("")} />
+                    <Button
+                        title="Publier"
+                        colorBg="bg-lime-500"
+                        textColor="text-slate-200"
+                        onClick={() => {
+                            console.log("publier")
+                        }}
+                    />
+                    <Button
+                        title="Partager"
+                        colorBg="bg-violet-600"
+                        textColor="text-slate-200"
+                        onClick={() => {
+                            console.log("partager")
+                        }}
+                    />
+                    <Button
+                        title="Download"
+                        colorBg="bg-blue-900"
+                        textColor="text-slate-200"
+                        onClick={() => test()}
+                    />
+                    <Button
+                        title="Archiver"
+                        colorBg="bg-orange-500"
+                        textColor="text-slate-200"
+                        onClick={() => {
+                            console.log("archiver")
+                        }}
+                    />
                 </div>
 
-                <span className="flex bg-slate-200 p-1 ... rounded-md mt-20">
+                <span className="flex bg-slate-200 p-1 ... rounded-md mt-10">
                     <div className="flex border border-slate-900 ... ml-1 mr-1">
                         <select
                             className="text-slate-900 text-xs bg-slate-200"

@@ -29,7 +29,6 @@ const Connected: React.FC = () => {
 
     return (
         <div className="flex h-full w-full bg-slate-900 text-slate-50">
-            <Navbar />
             <Outlet />
         </div>
     )
