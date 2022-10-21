@@ -10,7 +10,7 @@ export const urls = {
     API: {
         LOGIN: "/users/login",
         REGISTER: "/users/register",
-        FORGOTTEN_PASSWORD: "/users/forgottenPassword",
+        FORGOTTEN_PASSWORD: "/users/sendEmailToResetPassword",
         PROFILE: "/users/profile",
         GET_ALL_FOLDERS: "/folders/getAll",
         GET_ALL_NOTES: "/notes/getAll",
