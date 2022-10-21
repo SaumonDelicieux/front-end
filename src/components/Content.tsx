@@ -10,13 +10,16 @@ import {
     AiOutlineUnorderedList,
 } from "react-icons/ai"
 
+import { convertToPDF } from "../helpers/convertToPDF"
+
 import Button from "./Button"
 
 interface ContentProps {
-    text?: string
+    title: string
+    text: string
 }
 
-const Content: React.FC<ContentProps> = ({ text }) => {
+const Content: React.FC<ContentProps> = ({ title, text }) => {
     const [textAlignRight, setTextAlignRight] = useState(false)
     const [texte, setTexte] = useState("")
 
@@ -46,10 +49,10 @@ const Content: React.FC<ContentProps> = ({ text }) => {
                         }}
                     />
                     <Button
-                        title="Download"
+                        title="Télécharger"
                         colorBg="bg-blue-900"
                         textColor="text-slate-200"
-                        onClick={() => test()}
+                        onClick={() => convertToPDF(title, text)}
                     />
                     <Button
                         title="Archiver"
