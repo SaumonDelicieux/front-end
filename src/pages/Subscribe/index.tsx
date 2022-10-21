@@ -3,7 +3,7 @@ import Button from "../../components/Button"
 
 import { useAppSelector } from "../../hooks"
 
-const Subscription: React.FC = () => {
+const Subscribe: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)
 
     return (
@@ -64,4 +64,4 @@ const Subscription: React.FC = () => {
     )
 }
 
-export default Subscription
+export default Subscribe
