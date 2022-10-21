@@ -3,6 +3,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 import { IUser } from "../../types/IUser"
+import { CategoryDisplay } from "../../types/states/INotesState"
 
 import api from "../../helpers/api"
 import { urls } from "../../helpers/urls"
@@ -11,6 +12,13 @@ interface CreateNote {
     title: string
     folderId: string
     userId: string
+}
+
+interface UpdateNote {
+    id: string
+    title: string
+    text: string
+    state: CategoryDisplay
 }
 
 export const createNote = createAsyncThunk(
@@ -56,3 +64,22 @@ export const deleteNote = createAsyncThunk("notes/deleteNote", async (noteId: st
         console.log(error)
     }
 })
+
+export const updateNote = createAsyncThunk(
+    "notes/updateNote",
+    async ({ id, title, text, state }: UpdateNote) => {
+        try {
+            const { data } = await api.put(urls.API.UPDATE_NOTE, {
+                id,
+                title,
+                text,
+                state,
+            })
+            toast("Note modifié avec succès !", { type: "success" })
+
+            return data
+        } catch (error) {
+            toast("Erreur lors de la modification de la note", { type: "warning" })
+        }
+    },
+)
