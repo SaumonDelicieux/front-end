@@ -11,7 +11,7 @@ const DarkMode: React.FC = () => {
 
     return (
         <div
-            className="absolute top-0 right-0 cursor-pointer m-1 text-slate-800 dark:text-slate-200"
+            className="absolute top-0 right-0 z-50 cursor-pointer m-1 text-slate-800 dark:text-slate-200"
             onClick={() => dispatch(switchThemeMode())}
         >
             {theme === "dark" ? <FiMoon /> : <FiSun />}
