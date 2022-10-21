@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom"
 import { urls } from "../helpers/urls"
 
 import { logoutUser } from "../features/user/userSlice"
+import { unselectNote } from "../features/notes/notesSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import Button from "./Button"
 
@@ -26,7 +27,10 @@ const ProfileCard: React.FC = () => {
             <div
                 className="flex cursor-pointer"
                 title="vers profil"
-                onClick={() => navigate(urls.APP.PROFILE)}
+                onClick={() => {
+                    navigate(urls.APP.PROFILE)
+                    dispatch(unselectNote())
+                }}
             >
                 <img
                     className="h-10 w-10 object-cover rounded-full"
@@ -36,8 +40,8 @@ const ProfileCard: React.FC = () => {
                 <div className="ml-4">
                     <div className="text-xs text-slate-400">Connecté en tant que</div>
                     <div className={`text-sm text-slate-50 ${!firstName && "underline"}`}>{`${
-                        firstName ? firstName + " " + lastName?.[0] : "Compléter son profil"
-                    }.`}</div>
+                        firstName ? firstName + " " + lastName?.[0] + "." : "Compléter son profil"
+                    }`}</div>
                 </div>
             </div>
             <Button

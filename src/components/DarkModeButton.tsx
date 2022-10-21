@@ -3,7 +3,7 @@ import { FiMoon, FiSun } from "react-icons/fi"
 
 import { switchThemeMode } from "../features/user/userSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 const DarkMode: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -11,7 +11,7 @@ const DarkMode: React.FC = () => {
 
     return (
         <div
-            className="cursor-pointer m-1 text-slate-800 dark:text-slate-200"
+            className="absolute top-0 right-0 cursor-pointer m-1 text-slate-800 dark:text-slate-200"
             onClick={() => dispatch(switchThemeMode())}
         >
             {theme === "dark" ? <FiMoon /> : <FiSun />}

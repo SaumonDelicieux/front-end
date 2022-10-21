@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 
 import { urls } from "../helpers/urls"
 
-import { useAppSelector } from "../hooks"
+import { useAppSelector } from "../store"
 
 const Unconnected: React.FC = () => {
     const { token } = useAppSelector(state => state.user)

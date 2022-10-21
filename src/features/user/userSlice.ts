@@ -16,7 +16,7 @@ const initialState: IUserState = {
     email: "",
     isPremium: false,
     phoneNumber: "",
-    theme: "light",
+    theme: "dark",
     loading: false,
     error: "",
 }

@@ -2,7 +2,7 @@ import React from "react"
 
 import { setCategoryDisplay } from "../features/notes/notesSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 const SortNotes: React.FC = () => {
     const JUNK = "junk"
