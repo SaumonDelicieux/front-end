@@ -25,8 +25,8 @@ const Button: React.FC<ButtonProps> = ({
                 type={type}
                 className={
                     noBg
-                        ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : "rounded-xl py-4 px-8 text-gray-700 font-bold bg-slate-200 transition-colors"
+                        ? "rounded-xl p-1 underline underline-offset-1 text-xs hover:scale-105 transition-all"
+                        : "rounded-xl py-4 px-8 font-bold bg-slate-200 dark:bg-yellow-600 transition-colors"
                 }
             >
                 {isLoading ? (

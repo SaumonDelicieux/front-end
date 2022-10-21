@@ -39,7 +39,7 @@ const Profil: React.FC = () => {
     }, [])
 
     return (
-        <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
+        <div className="w-screen h-screen relative dark:bg-slate-900 bg-slate-300 text-black dark:text-slate-200 text-p-2 text-base transition-colors">
             <div>
                 <div className="pl-14 pt-14">
                     <Button
@@ -51,7 +51,7 @@ const Profil: React.FC = () => {
                 <div>
                     <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
                         <div className="mt-10 mb-10">
-                            <span className="mr-2 text-slate-200">Profil</span>
+                            <span className="mr-2">Profil</span>
                         </div>
                         <Button
                             title={`Abonnement : ${user?.isPremium ? "Premium" : "Gratuit"}`}

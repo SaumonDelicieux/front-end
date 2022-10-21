@@ -25,9 +25,9 @@ const Register: React.FC = () => {
     }
 
     return (
-        <div className="relative w-screen h-full bg-slate-900 text-p-2 text-base transition-colors">
+        <div className="relative w-screen h-full bg-blue-400 dark:bg-slate-900 text-p-2 text-base transition-colors">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
-                <div className="p-10 text-center z-10 bg-blue-900 rounded-lg text-slate-200">
+                <div className="p-10 text-center z-10 dark:bg-blue-900 dark:text-slate-200 bg-slate-200 text-blue-900">
                     <div className="flex flex-col justify-center items-center mb-5 font-bold text-2xl select-none">
                         <div>
                             <span className="mr-2">Pi'Notes</span>

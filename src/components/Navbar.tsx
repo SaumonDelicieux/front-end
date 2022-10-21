@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     const [isNewFolder, setIsNewFolder] = useState(false)
 
     return (
-        <nav className="p-2 w-80 h-full flex flex-col justify-between bg-blue-900">
+        <nav className="p-2 w-80 h-full flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
             <Header isPremium={isPremium} displayNewFolder={setIsNewFolder} />
             <SortNotes />
             <div className="flex flex-col flex-1">
