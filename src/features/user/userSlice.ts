@@ -16,6 +16,7 @@ const initialState: IUserState = {
     email: "",
     isPremium: false,
     phoneNumber: "",
+    theme: "dark",
     loading: false,
     error: "",
 }
@@ -50,6 +51,29 @@ export const userSlice = createSlice({
             state.loading = false
             state.error = ""
         },
+        switchThemeMode: state => {
+            if (document.querySelector("html")?.classList.contains("dark")) {
+                document.querySelector("html")?.classList.remove("dark")
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute("content", "#f8fafc")
+                document
+                    .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
+                    ?.setAttribute("content", "#f8fafc")
+
+                state.theme = "light"
+            } else {
+                document.querySelector("html")?.classList.add("dark")
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute("content", "#334155")
+                document
+                    .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
+                    ?.setAttribute("content", "#334155")
+
+                state.theme = "dark"
+            }
+        },
     },
     extraReducers: builder => {
         builder
@@ -68,6 +92,17 @@ export const userSlice = createSlice({
                 state.loading = false
                 state.error = ""
             })
+            .addCase(loginUser.rejected, (state, { payload }) => {
+                state.token = ""
+                state.id = ""
+                state.firstName = ""
+                state.lastName = ""
+                state.email = ""
+                state.isPremium = false
+                state.phoneNumber = ""
+                state.loading = false
+                state.error = payload?.message
+            })
             .addCase(registerUser.pending, state => {
                 state.loading = true
                 state.error = ""
@@ -81,6 +116,17 @@ export const userSlice = createSlice({
                 state.phoneNumber = payload.phoneNumber
                 state.loading = false
                 state.error = ""
+            })
+            .addCase(registerUser.rejected, (state, { payload }) => {
+                state.token = ""
+                state.id = ""
+                state.firstName = ""
+                state.lastName = ""
+                state.email = ""
+                state.isPremium = false
+                state.phoneNumber = ""
+                state.loading = false
+                state.error = payload?.message
             })
             .addCase(forgottenPassword.pending, state => {
                 state.loading = true
@@ -99,7 +145,7 @@ export const userSlice = createSlice({
     },
 })
 
-export const { getUserDetails, logoutUser } = userSlice.actions
+export const { getUserDetails, logoutUser, switchThemeMode } = userSlice.actions
 
 export const user = (state: RootState) => state.user
 

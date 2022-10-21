@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
 import jwtDecode from "jwt-decode"
 import { toast } from "react-toastify"
 
@@ -9,46 +10,90 @@ import { IUser } from "../../types/IUser"
 import { IUserLogin } from "../../types/IUserLogin"
 import { IUserRegister } from "../../types/IUserRegister"
 
-export const loginUser = createAsyncThunk(
+type UserError = {
+    message: string
+}
+
+export const loginUser = createAsyncThunk<IUser, IUserLogin, { rejectValue: UserError }>(
     "user/login",
-    async ({ identifer, password }: IUserLogin) => {
-        const { data } = await api.post(urls.API.LOGIN, {
-            identifer,
-            password,
-        })
+    async ({ identifer, password }: IUserLogin, thunkApi) => {
+        try {
+            const { data } = await api.post(urls.API.LOGIN, {
+                identifer,
+                password,
+            })
 
-        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
-            data.token,
-        )
-        localStorage.setItem("token", data.token)
+            if (data.success) {
+                const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
+                    data.token,
+                )
+                localStorage.setItem("token", data.token)
 
-        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
+                return {
+                    id,
+                    firstName,
+                    lastName,
+                    email,
+                    isPremium,
+                    phoneNumber,
+                    token: data.token,
+                }
+            } else {
+                return thunkApi.rejectWithValue({ message: data.message })
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data.message) {
+                return thunkApi.rejectWithValue({
+                    message: error.response?.data.message,
+                })
+            } else {
+                return thunkApi.rejectWithValue({
+                    message: "Problème avec l'API",
+                })
+            }
+        }
     },
 )
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: UserError }>(
     "user/register",
-    async ({ email, password, confirmPassword }: IUserRegister) => {
-        if (password !== confirmPassword) {
-            toast("Mot de passe différent", { type: "warning" })
-            return {}
-        }
-        const { data } = await api.post(urls.API.REGISTER, {
-            email,
-            password,
-        })
+    async ({ email, password, confirmPassword }: IUserRegister, thunkApi) => {
+        try {
+            if (password !== confirmPassword) {
+                toast("Mot de passe différent", { type: "warning" })
+                return {}
+            }
+            const { data } = await api.post(urls.API.REGISTER, {
+                email,
+                password,
+            })
 
-        const tokenUser: IUser = jwtDecode(data.token)
-        localStorage.setItem("token", data.token)
+            if (data.success) {
+                const tokenUser: IUser = jwtDecode(data.token)
+                localStorage.setItem("token", data.token)
 
-        return {
-            id: tokenUser.id,
-            firstName: tokenUser.firstName,
-            lastName: tokenUser.lastName,
-            email: tokenUser.email,
-            isPremium: tokenUser.isPremium,
-            phoneNumber: tokenUser.phoneNumber,
-            token: data.token,
+                return {
+                    id: tokenUser.id,
+                    firstName: tokenUser.firstName,
+                    lastName: tokenUser.lastName,
+                    email: tokenUser.email,
+                    isPremium: tokenUser.isPremium,
+                    phoneNumber: tokenUser.phoneNumber,
+                    token: data.token,
+                }
+            }
+
+            return { message: data.message }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data.message) {
+                return thunkApi.rejectWithValue({
+                    message: error.response?.data.message,
+                })
+            } else {
+                return thunkApi.rejectWithValue({
+                    message: "Problème avec l'API",
+                })
+            }
         }
     },
 )
@@ -56,15 +101,19 @@ export const registerUser = createAsyncThunk(
 export const forgottenPassword = createAsyncThunk(
     "user/forgottenPassword",
     async (identifer: string) => {
-        const { data } = await api.post(urls.API.REGISTER, {
-            identifer,
-        })
+        try {
+            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
+                identifer,
+            })
 
-        toast("Un mail a été envoyé à l'adresse mail", {
-            type: "success",
-        })
+            toast("Un mail a été envoyé à l'adresse mail", {
+                type: "success",
+            })
 
-        return data
+            return data
+        } catch {
+            toast("Erreur lors d'envoi de mail", { type: "warning" })
+        }
     },
 )
 

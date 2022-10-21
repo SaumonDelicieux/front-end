@@ -1,8 +1,9 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { BrowserRouter } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 
 import EnvBubble from "./components/EnvBubble"
+import DarkMode from "./components/DarkModeButton"
 
 import RoutesStack from "./routes"
 
@@ -13,6 +14,7 @@ const App: React.FC = () => {
     return (
         <div className="h-full relative">
             {import.meta.env.VITE_MODE !== "production" && <EnvBubble />}
+            <DarkMode />
             <BrowserRouter>
                 <RoutesStack />
             </BrowserRouter>

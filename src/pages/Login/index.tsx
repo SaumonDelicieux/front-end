@@ -8,7 +8,7 @@ import { urls } from "../../helpers/urls"
 
 import { IUserLogin } from "../../types/IUserLogin"
 
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../store"
 
 import { loginUser } from "../../actions/user"
 
@@ -25,9 +25,9 @@ const Login: React.FC = () => {
     }
 
     return (
-        <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
+        <div className="w-screen h-screen relative bg-blue-400 dark:bg-slate-900 text-p-2 text-base transition-colors">
             <div className="w-full h-full flex flex-col items-center justify-center ">
-                <div className="text-center w-80 z-10 bg-blue-900 p-10 rounded-lg text-slate-200">
+                <div className="text-center w-80 z-10 p-10 rounded-lg dark:bg-blue-900 dark:text-slate-200 bg-slate-200 text-blue-900">
                     <div className="flex flex-col justify-center items-center mb-10 font-bold text-2xl select-none">
                         <div>
                             <span className="mr-2">Pi'Notes</span>
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                             className="mb-5"
                         />
 
-                        <div className="text-red-800 mb-3">{error}</div>
+                        <div className="text-red-600 mb-3">{error}</div>
 
                         <Button
                             isLoading={loading}

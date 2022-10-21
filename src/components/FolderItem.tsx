@@ -11,7 +11,7 @@ import { INote } from "../types/INote"
 import NoteItem from "./NoteItem"
 import Button from "./Button"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import { createNote } from "../actions/notes"
 import { createFolder, deleteFolder } from "../actions/folders"
@@ -25,10 +25,9 @@ interface FolderItemProps {
 
 const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes }) => {
     const { id } = useAppSelector(state => state.user)
-    const categoryDisplay = useAppSelector(state => state.notes.categoryDisplay)
     const dispatch = useAppDispatch()
 
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState(true)
 
     const [newFolder, setNewFolder] = useState("")
     const [isNewFolder, setIsNewFolder] = useState(false)
@@ -43,7 +42,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     }
 
     const handleCreateNote = async () => {
-        dispatch(createNote({ title: newNote, folderId, userId: id!, context: categoryDisplay! }))
+        dispatch(createNote({ title: newNote, folderId, userId: id! }))
         setIsNewNote(false)
         setNewNote("")
     }
