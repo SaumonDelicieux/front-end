@@ -18,5 +18,7 @@ export const urls = {
         CREATE_NOTE: "/notes/createNote",
         DELETE_FOLDER: "/folders/deleteFolder",
         DELETE_NOTE: "/notes/deleteNote",
+        UPDATE_NOTE: "/notes/updateNote",
+        UPDATE_FOLDER: "/notes/updateFolder",
     },
 }
