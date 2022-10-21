@@ -55,7 +55,7 @@ const Profil: React.FC = () => {
                         </div>
                         <Button
                             title={`Abonnement : ${user?.isPremium ? "Premium" : "Gratuit"}`}
-                            onClick={() => user?.isPremium && navigate(urls.APP.SUBSCRIBE)}
+                            onClick={() => user?.isPremium && navigate(urls.APP.SUBSCRIPTION)}
                             noBg
                         />
                     </div>
