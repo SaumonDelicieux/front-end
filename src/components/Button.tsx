@@ -2,7 +2,7 @@ import React from "react"
 import ReactLoading from "react-loading"
 
 interface ButtonProps {
-    onClick: any
+    onClick?: any
     title?: string
     type?: "submit" | "button"
     isLoading?: boolean
