@@ -34,7 +34,6 @@ const Subscribe: React.FC = () => {
                         <div className="text-slate-200 px-16">
                             <ul className="marker:text-green list-outside list-disc ml-4">
                                 <li className="py-3">Insertion d'images et de fichier</li>
-                                <li className="py-3">Insertion d'images et de fichier</li>
                                 <li className="py-3">Téléchargeable en pdf</li>
                                 <li className="py-3">Insertion d'images et de fichier</li>
                             </ul>
