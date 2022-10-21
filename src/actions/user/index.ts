@@ -101,15 +101,19 @@ export const registerUser = createAsyncThunk<IUser, IUserRegister, { rejectValue
 export const forgottenPassword = createAsyncThunk(
     "user/forgottenPassword",
     async (identifer: string) => {
-        const { data } = await api.post(urls.API.REGISTER, {
-            identifer,
-        })
+        try {
+            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
+                identifer,
+            })
 
-        toast("Un mail a été envoyé à l'adresse mail", {
-            type: "success",
-        })
+            toast("Un mail a été envoyé à l'adresse mail", {
+                type: "success",
+            })
 
-        return data
+            return data
+        } catch {
+            toast("Erreur lors d'envoi de mail", { type: "warning" })
+        }
     },
 )
 
