@@ -38,7 +38,7 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 ## Utils
 
 -   Github (Github CI)
--   Github (Github CI)
+-   NoSQL (MongoDB Atlas)
 -   Trello
 -   🌍 [Production](https://pi-notes.vercel.app)
 -   🌍 [Staging](https://pi-notes-git-staging-saumon-delicieux.vercel.app)
