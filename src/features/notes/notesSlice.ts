@@ -11,7 +11,7 @@ import { createNote, deleteNote, getAllNotes } from "../../actions/notes"
 const initialState: INotesState = {
     notes: [],
     selectedNote: undefined,
-    categoryDisplay: "public",
+    categoryDisplay: "junk",
     notesDisplay: [],
     loading: false,
     error: "",
@@ -25,6 +25,9 @@ export const notesSlice = createSlice({
             const noteIndex = state.notes?.findIndex((note: INote) => note._id === action.payload)
 
             state.selectedNote = state.notes?.[noteIndex!]
+        },
+        unselectNote: state => {
+            state.selectedNote = undefined
         },
         setCategoryDisplay: (state, action: PayloadAction<CategoryDisplay>) => {
             state.categoryDisplay = action.payload
@@ -50,6 +53,7 @@ export const notesSlice = createSlice({
                 state.error = ""
             })
             .addCase(createNote.fulfilled, (state, { payload }) => {
+                state.categoryDisplay = "junk"
                 state.notes = state.notes?.concat(payload.note)
                 state.notesDisplay = state.notes?.filter(
                     (note: INote) => note.state === state.categoryDisplay,
@@ -75,7 +79,7 @@ export const notesSlice = createSlice({
     },
 })
 
-export const { setNote, setCategoryDisplay } = notesSlice.actions
+export const { setNote, setCategoryDisplay, unselectNote } = notesSlice.actions
 
 export const notes = (state: RootState) => state.notes
 

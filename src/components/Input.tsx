@@ -6,7 +6,7 @@ interface InputProps {
     required?: boolean
     size: "default" | "large"
     placeholder?: string
-    value?: any
+    value?: string
     type?: HTMLInputTypeAttribute
     onChange: (e: string) => void
     className?: string

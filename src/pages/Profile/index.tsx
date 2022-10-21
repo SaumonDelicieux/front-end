@@ -9,7 +9,7 @@ import Button from "../../components/Button"
 
 import { urls } from "../../helpers/urls"
 
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../store"
 
 import { IUser } from "../../types/IUser"
 
@@ -20,7 +20,13 @@ const Profil: React.FC = () => {
     const dispatch = useAppDispatch()
     const { error, loading } = useAppSelector(state => state.user)
 
-    const [user, setUser] = useState<IUser>({})
+    const [user, setUser] = useState<IUser>({
+        firstName: "",
+        lastName: "",
+        email: "",
+        isPremium: false,
+        phoneNumber: "",
+    })
 
     const handleProfile = async (e: Event) => {
         e.preventDefault()
@@ -32,7 +38,13 @@ const Profil: React.FC = () => {
         if (tokenUser) {
             const { firstName, lastName, email, isPremium, phoneNumber }: IUser =
                 jwtDecode(tokenUser)
-            setUser({ firstName, lastName, email, isPremium, phoneNumber })
+            setUser({
+                firstName: firstName ?? " ",
+                lastName: lastName ?? " ",
+                email: email ?? " ",
+                isPremium: isPremium ?? false,
+                phoneNumber: phoneNumber ?? " ",
+            })
         } else {
             toast("Impossible de récuperer les informations du profil")
         }
@@ -102,12 +114,7 @@ const Profil: React.FC = () => {
                         </div>
                         <div className="text-red-800 mb-3">{error}</div>
                         <div className="flex justify-center items-center mt-10">
-                            <Button
-                                title="Mettre à jour"
-                                onClick={(e: Event) => console.log(e)}
-                                type="submit"
-                                isLoading={loading}
-                            />
+                            <Button title="Mettre à jour" type="submit" isLoading={loading} />
                         </div>
                     </form>
                 </div>

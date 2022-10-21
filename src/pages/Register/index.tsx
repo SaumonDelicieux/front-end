@@ -8,7 +8,7 @@ import { urls } from "../../helpers/urls"
 
 import { IUserRegister } from "../../types/IUserRegister"
 
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../store"
 
 import { registerUser } from "../../actions/user"
 
