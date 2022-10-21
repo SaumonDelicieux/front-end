@@ -9,7 +9,7 @@ import Button from "../../components/Button"
 
 import { urls } from "../../helpers/urls"
 
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../store"
 
 import { IUser } from "../../types/IUser"
 

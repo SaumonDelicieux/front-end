@@ -3,7 +3,7 @@ import { FiMoon, FiSun } from "react-icons/fi"
 
 import { switchThemeMode } from "../features/user/userSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 const DarkMode: React.FC = () => {
     const dispatch = useAppDispatch()

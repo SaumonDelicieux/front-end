@@ -7,7 +7,7 @@ import { urls } from "../helpers/urls"
 import { logoutUser } from "../features/user/userSlice"
 import { unselectNote } from "../features/notes/notesSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import Button from "./Button"
 

@@ -4,7 +4,7 @@ import { BsCheck } from "react-icons/bs"
 
 import { createFolder } from "../actions/folders"
 
-import { useAppDispatch } from "../hooks"
+import { useAppDispatch } from "../store"
 
 interface CreateInputProps {
     isNewFolder: boolean

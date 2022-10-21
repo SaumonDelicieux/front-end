@@ -2,7 +2,7 @@ import React from "react"
 
 import Content from "../../components/Content"
 
-import { useAppSelector } from "../../hooks"
+import { useAppSelector } from "../../store"
 
 const Dashboard: React.FC = () => {
     const { selectedNote } = useAppSelector(state => state.notes)

@@ -8,7 +8,7 @@ import FolderItem from "./FolderItem"
 import CreateInput from "./CreateInput"
 import ProfileCard from "./ProfileCard"
 
-import { useAppSelector } from "../hooks"
+import { useAppSelector } from "../store"
 
 const Navbar: React.FC = () => {
     const { id, isPremium } = useAppSelector(state => state.user)

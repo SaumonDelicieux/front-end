@@ -9,7 +9,7 @@ import { urls } from "../../helpers/urls"
 
 import { forgottenPassword } from "../../actions/user"
 
-import { useAppDispatch, useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../store"
 
 const ForgottenPassword: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)

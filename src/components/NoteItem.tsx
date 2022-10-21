@@ -8,7 +8,7 @@ import { deleteNote } from "../actions/notes"
 
 import { setNote } from "../features/notes/notesSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import Button from "./Button"
 
