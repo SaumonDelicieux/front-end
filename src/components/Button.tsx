@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
                 className={
                     noBg
                         ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : `${roundedSize} m-6 ... py-4 px-8 ${textColor} font-bold ${colorBg} transition-colors`
+                        : `${roundedSize} m-6 py-4 px-8 ${textColor} font-bold ${colorBg} transition-colors`
                 }
             >
                 {isLoading ? (
