@@ -6,11 +6,9 @@ import { getUserDetails } from "../features/user/userSlice"
 import { getAllFolders } from "../actions/folders"
 import { getAllNotes } from "../actions/notes"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import { urls } from "../helpers/urls"
-
-import Navbar from "../components/Navbar"
 
 const Connected: React.FC = () => {
     const { token } = useAppSelector(state => state.user)
@@ -28,8 +26,7 @@ const Connected: React.FC = () => {
     }, [token])
 
     return (
-        <div className="flex h-full w-full bg-slate-900 text-slate-50">
-            <Navbar />
+        <div className="flex h-full w-full text-slate-200 bg-slate-300 dark:bg-slate-900 dark:text-slate-50">
             <Outlet />
         </div>
     )

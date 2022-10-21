@@ -6,7 +6,7 @@ interface InputProps {
     required?: boolean
     size: "default" | "large"
     placeholder?: string
-    value?: any
+    value?: string
     type?: HTMLInputTypeAttribute
     onChange: (e: string) => void
     className?: string
@@ -50,7 +50,7 @@ const Input: React.FC<InputProps> = ({
         <div className={`relative flex flex-col ${className && className}`}>
             {label && (
                 <div className="flex justify-between items-center mb-2">
-                    <label htmlFor={label} className="mb-1 text-left cursor-pointer text-slate-200">
+                    <label htmlFor={label} className="mb-1 text-left cursor-pointer">
                         {label}
                     </label>
                 </div>
