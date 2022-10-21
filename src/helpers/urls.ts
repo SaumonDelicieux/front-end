@@ -5,7 +5,7 @@ export const urls = {
         FORGOTTEN_PASSWORD: "/forgottenPassword",
         DASHBOARD: "/",
         PROFILE: "/profile",
-        SUBSCRIPTION: "/subscription",
+        SUBSCRIBE: "/subscribe",
     },
     API: {
         LOGIN: "/users/login",
