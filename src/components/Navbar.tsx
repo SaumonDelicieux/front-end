@@ -9,7 +9,7 @@ import FolderItem from "./FolderItem"
 import CreateInput from "./CreateInput"
 import ProfileCard from "./ProfileCard"
 import { AiOutlineSearch } from "react-icons/ai"
-import { CgSmileSad } from "react-icons/Cg"
+import { CgSmileSad } from "react-icons/cg"
 import NoteItem from "./NoteItem"
 import { useAppSelector } from "../store"
 
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
                                 ))
                             ) : (
                                 <div className={"flex gap-1"}>
-                                    aucune note trouvée <CgSmileSad size="20px" />
+                                    Aucune note trouvée <CgSmileSad size="20px" />
                                 </div>
                             )}
                         </div>
