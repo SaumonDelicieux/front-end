@@ -48,6 +48,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
                 icon={<BiTrashAlt size={15} color="#e74c3c" />}
                 onClick={(e: any) => handleDeleteNote(e)}
                 noBg
+                message="Delete"
             />
         </div>
     )

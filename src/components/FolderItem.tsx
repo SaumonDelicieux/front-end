@@ -63,6 +63,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                         icon={<BiTrashAlt size={15} />}
                         onClick={(e: Event) => handleDeleteFolder(e)}
                         noBg
+                        message="Delete"
                     />
                     <Button
                         icon={<FaRegStickyNote size={14} />}
@@ -71,6 +72,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsNewNote(true)
                         }}
                         noBg
+                        message="New note"
                     />
                     <Button
                         icon={<AiFillFolderAdd size={16} />}
@@ -79,6 +81,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsNewFolder(true)
                         }}
                         noBg
+                        message="New Folder"
                     />
                     <AiFillCaretRight
                         className={`${isActive && "rotate-90"} ml-2 transition-all`}
