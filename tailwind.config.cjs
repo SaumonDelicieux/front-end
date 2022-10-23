@@ -9,7 +9,7 @@ module.exports = {
         },
         extend: {
             colors: {
-                "search-blue": "#D9D9D9",
+                searchBlue: "#d9d9d959",
             },
         },
     },

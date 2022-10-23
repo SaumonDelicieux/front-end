@@ -4,6 +4,7 @@ import ReactLoading from "react-loading"
 interface ButtonProps {
     onClick?: any
     title?: string
+    message?: string
     type?: "submit" | "button"
     isLoading?: boolean
     icon?: any
@@ -16,6 +17,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
     onClick,
     title,
+    message,
     isLoading,
     icon = null,
     noBg = false,
@@ -34,6 +36,7 @@ const Button: React.FC<ButtonProps> = ({
                         ? "rounded-xl p-1 text-gray-200 underline underline-offset-1 text-xs hover:scale-105 transition-all"
                         : `${roundedSize} m-6 py-4 px-8 ${textColor} font-bold ${colorBg} transition-colors`
                 }
+                title={message}
             >
                 {isLoading ? (
                     <ReactLoading type="spin" color="white" height={27} width={27} />
