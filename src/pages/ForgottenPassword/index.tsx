@@ -20,8 +20,7 @@ const ForgottenPassword: React.FC = () => {
 
     const handleForgottenPassword = async (e: Event) => {
         e.preventDefault()
-        await dispatch(forgottenPassword(identifer))
-        navigate(urls.APP.LOGIN)
+        dispatch(forgottenPassword(identifer))
     }
 
     return (

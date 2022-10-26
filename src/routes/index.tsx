@@ -8,6 +8,7 @@ import Login from "../pages/Login"
 import Dashboard from "../pages/Dashboard"
 import Register from "../pages/Register"
 import ForgottenPassword from "../pages/ForgottenPassword"
+import UpdatePassword from "../pages/UpdatePassword"
 import Subscribe from "../pages/Subscribe"
 import Profile from "../pages/Profile"
 
@@ -20,6 +21,8 @@ const RoutesStack: React.FC = () => {
             <Route element={<Unconnected />}>
                 <Route path={urls.APP.LOGIN} element={<Login />} />
                 <Route path={urls.APP.FORGOTTEN_PASSWORD} element={<ForgottenPassword />} />
+                <Route path={urls.APP.UPDATE_PASSWORD} element={<UpdatePassword />} />
+                <Route path={urls.APP.SUBSCRIBE} element={<Subscribe />} />
                 <Route path={urls.APP.REGISTER} element={<Register />} />
             </Route>
             <Route path="/" element={<Connected />}>
