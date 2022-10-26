@@ -36,16 +36,17 @@ const ForgottenPassword: React.FC = () => {
                         </div>
                         <div>
                             <p className="text-slate-200 mb-20 mt-10">
-                                Indiquez votre adresse e-mail pour recevoir un message permettant
-                                d'obtenir votre mot de passe
+                                Indiquez votre adresse e-mail ou votre numéro de téléphone pour
+                                recevoir un lien de réinitialisation de mot de passe dans votre
+                                boîte mail
                             </p>
                         </div>
                         <form onSubmit={handleForgottenPassword as any}>
-                            <div className="flex flex-nowrap">
+                            <div className="flex flex-row items-center">
                                 <div className="mr-10">
                                     <Input
                                         onChange={e => setIdentifer(e)}
-                                        placeholder="john.doe@pinotes.com"
+                                        placeholder="ID"
                                         size="large"
                                     />
                                 </div>
