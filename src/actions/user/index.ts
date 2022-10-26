@@ -111,8 +111,48 @@ export const forgottenPassword = createAsyncThunk(
             })
 
             return data
+        } catch (err) {
+            toast("Aucun utilisateur trouvé", { type: "warning" })
+        }
+    },
+)
+
+export const checkToken = createAsyncThunk("user/checkToken", async (token: string) => {
+    try {
+        const { data } = await api.post(urls.API.CHECK_TOKEN, {
+            token,
+        })
+
+        return data
+    } catch {
+        toast("Une erreur est survenue", { type: "warning" })
+    }
+})
+
+export const updatePassword = createAsyncThunk(
+    "user/updatePassword",
+    async ({ password, token }: { password: string; token: string }) => {
+        const headers = {
+            authorization: token,
+        }
+
+        try {
+            const { data } = await api.post(
+                urls.API.UPDATE_PASSWORD,
+                {
+                    password,
+                },
+                { headers: headers },
+            )
+
+            toast(
+                "Mot de passe changé avec succés, vous pouvez désormais vous connecter avec le nouveau mot de passe",
+                {
+                    type: "success",
+                },
+            )
         } catch {
-            toast("Erreur lors d'envoi de mail", { type: "warning" })
+            toast("Une erreur est survenue", { type: "warning" })
         }
     },
 )
