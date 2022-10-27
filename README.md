@@ -52,13 +52,12 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Profile page (update information)
 -   Create folder, sub-folder and assign note
 -   Download note as PDF
+-   Got Preview link (read only)
 
 ## To do
 
 -   [ ] WYSIWYG
 -   [ ] Update state of note (junk/public/achived)
--   [ ] Search bar
--   [ ] Preview link
 -   [ ] Checkout with Stripe
 -   [ ] Share note if Premium
 -   [ ] User shared permission
