@@ -5,14 +5,13 @@ import { toast } from "react-toastify"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 
-import { useAppDispatch, useAppSelector } from "../../store"
+import { useAppSelector } from "../../store"
 
 import { urls } from "../../helpers/urls"
 import api from "../../helpers/api"
 
 const UpdatePassword: React.FC = () => {
     const { loading } = useAppSelector(state => state.user)
-    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const [password, setPassword] = useState("")
