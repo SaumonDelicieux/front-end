@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
     }, [search])
 
     return (
-        <nav className="p-2 w-80 h-full flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
+        <nav className="p-2 max-w-xs flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
             <Header isPremium={isPremium} displayNewFolder={setIsNewFolder} />
             <div className="mb-10 flex m-auto h-7 items-center gap-1 p-1 w-11/12 bg-searchBlue rounded-lg focus:outline-blue-800">
                 <AiOutlineSearch size="20px" />
