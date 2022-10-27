@@ -112,74 +112,42 @@ export const forgottenPassword = createAsyncThunk(
 
             return data
         } catch (err) {
-            toast("Aucun utilisateur trouvé", { type: "warning" })
+            console.log(err)
         }
     },
 )
 
-export const checkToken = createAsyncThunk("user/checkToken", async (token: string) => {
-    try {
-        const { data } = await api.post(urls.API.CHECK_TOKEN, {
-            token,
-        })
-
-        return data
-    } catch {
-        toast("Une erreur est survenue", { type: "warning" })
-    }
-})
-
-export const updatePassword = createAsyncThunk(
-    "user/updatePassword",
-    async ({ password, token }: { password: string; token: string }) => {
-        const headers = {
-            authorization: token,
-        }
-
+export const updateUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: UserError }>(
+    "user/updateUser",
+    async (updatedUser: IUser, thunkApi) => {
         try {
-            const { data } = await api.post(
-                urls.API.UPDATE_PASSWORD,
-                {
-                    password,
-                },
-                { headers: headers },
+            const { data } = await api.put(urls.API.PROFILE, {
+                userId: updatedUser.id,
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                email: updatedUser.email,
+                phoneNumber: updatedUser.phoneNumber,
+            })
+            const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
+                data.token,
             )
+            localStorage.setItem("token", data.token)
 
-            toast(
-                "Mot de passe changé avec succés, vous pouvez désormais vous connecter avec le nouveau mot de passe",
-                {
-                    type: "success",
-                },
-            )
-        } catch {
-            toast("Une erreur est survenue", { type: "warning" })
+            toast("Vos informations ont bien été mises à jour", {
+                type: "success",
+            })
+
+            return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data.message) {
+                return thunkApi.rejectWithValue({
+                    message: error.response?.data.message,
+                })
+            } else {
+                return thunkApi.rejectWithValue({
+                    message: "Problème avec l'API",
+                })
+            }
         }
     },
 )
-
-export const updateUser = createAsyncThunk("user/updateUser", async (updatedUser: IUser) => {
-    try {
-        const { data } = await api.put(urls.API.PROFILE, {
-            userId: updatedUser.id,
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: updatedUser.email,
-            phoneNumber: updatedUser.phoneNumber,
-        })
-        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
-            data.token,
-        )
-        localStorage.setItem("token", data.token)
-
-        toast("Vos informations ont bien été mises à jour", {
-            type: "success",
-        })
-
-        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
-    } catch (error) {
-        console.log(error)
-        toast("Une erreur est survenue", {
-            type: "warning",
-        })
-    }
-})

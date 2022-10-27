@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode"
 import { IUserState } from "../../types/states/IUserState"
 import { IUser } from "../../types/IUser"
 
-import { forgottenPassword, loginUser, registerUser } from "../../actions/user"
+import { forgottenPassword, loginUser, registerUser, updateUser } from "../../actions/user"
 
 import type { RootState } from "../../store"
 
@@ -118,6 +118,30 @@ export const userSlice = createSlice({
                 state.error = ""
             })
             .addCase(registerUser.rejected, (state, { payload }) => {
+                state.token = ""
+                state.id = ""
+                state.firstName = ""
+                state.lastName = ""
+                state.email = ""
+                state.isPremium = false
+                state.phoneNumber = ""
+                state.loading = false
+                state.error = payload?.message
+            })
+            .addCase(updateUser.pending, state => {
+                state.loading = true
+                state.error = ""
+            })
+            .addCase(updateUser.fulfilled, (state, { payload }) => {
+                state.id = payload?.id
+                state.firstName = payload?.firstName
+                state.lastName = payload?.lastName
+                state.isPremium = payload?.isPremium
+                state.phoneNumber = payload?.phoneNumber
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(updateUser.rejected, (state, { payload }) => {
                 state.token = ""
                 state.id = ""
                 state.firstName = ""

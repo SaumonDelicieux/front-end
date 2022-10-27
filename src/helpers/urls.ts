@@ -14,7 +14,7 @@ export const urls = {
         FORGOTTEN_PASSWORD: "/users/sendEmailToResetPassword",
         CHECK_TOKEN: "/users/checkToken",
         UPDATE_PASSWORD: "/users/updatePassword",
-        PROFILE: "/users/profile",
+        PROFILE: "/users/updateProfile",
         GET_ALL_FOLDERS: "/folders/getAll",
         GET_ALL_NOTES: "/notes/getAll",
         CREATE_FOLDER: "/folders/createFolder",
