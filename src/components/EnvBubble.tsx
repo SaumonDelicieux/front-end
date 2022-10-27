@@ -13,7 +13,7 @@ const EnvBubble: React.FC = () => {
     }
 
     return (
-        <span className="absolute right-5 top-2 z-50 bg-slate-300 text-slate-900 rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold">
+        <span className="absolute right-5 bottom-2 z-50 bg-blue-900 dark:bg-slate-300 text-slate-50 dark:text-slate-900 rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold">
             {renderMode()}
         </span>
     )
