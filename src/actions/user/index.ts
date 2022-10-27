@@ -133,7 +133,7 @@ export const updatePassword = createAsyncThunk(
     "user/updatePassword",
     async ({ password, token }: { password: string; token: string }) => {
         const headers = {
-            authorization: token,
+            token: token,
         }
 
         try {
