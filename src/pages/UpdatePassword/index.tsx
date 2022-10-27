@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 
-import { useAppDispatch, useAppSelector } from "../../store"
-import { checkToken, updatePassword } from "../../actions/user"
+import { useAppSelector } from "../../store"
 
 import { urls } from "../../helpers/urls"
-import { toast } from "react-toastify"
+import api from "../../helpers/api"
 
 const UpdatePassword: React.FC = () => {
-    const { error, loading } = useAppSelector(state => state.user)
-    const dispatch = useAppDispatch()
+    const { loading } = useAppSelector(state => state.user)
     const navigate = useNavigate()
 
-    const [password, setPassword] = useState<string>("")
-    const [secondPassword, setSecondPassword] = useState<string>("")
+    const [password, setPassword] = useState("")
+    const [secondPassword, setSecondPassword] = useState("")
 
     const queryParams = new URLSearchParams(window.location.search)
 
     const token = queryParams.get("token")!.toString()
 
     const verifyToken = async () => {
-        const response = await dispatch(checkToken(token))
+        try {
+            const { data } = await api.post(urls.API.CHECK_TOKEN, {
+                token,
+            })
+            if (!data.success) {
+                navigate(urls.APP.LOGIN)
+            }
 
-        if (!response.payload.token) {
-            navigate(urls.APP.LOGIN)
+            return data
+        } catch {
+            toast("Une erreur est survenue", { type: "warning" })
         }
     }
 
@@ -33,14 +40,25 @@ const UpdatePassword: React.FC = () => {
         e.preventDefault()
 
         if (password === secondPassword) {
-            dispatch(
-                updatePassword({
-                    password: password,
-                    token: token,
-                }),
-            )
+            try {
+                await api.post(
+                    urls.API.UPDATE_PASSWORD,
+                    {
+                        password,
+                    },
+                    { headers: { authorization: token } },
+                )
 
-            navigate(urls.APP.LOGIN)
+                navigate(urls.APP.LOGIN)
+                toast(
+                    "Mot de passe changé avec succés, vous pouvez désormais vous connecter avec le nouveau mot de passe",
+                    {
+                        type: "success",
+                    },
+                )
+            } catch {
+                toast("Une erreur est survenue", { type: "warning" })
+            }
         } else {
             toast("Les deux mot de passes doivent être identiques", { type: "warning" })
         }

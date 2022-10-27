@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
                 <Navbar />
                 <div className="flex-1 p-2">
                     <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
-                    <Content text={selectedNote?.text} />
+                    <Content note={selectedNote} />
                 </div>
             </>
         )

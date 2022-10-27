@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react"
+import { AiOutlineSearch } from "react-icons/ai"
+import { CgSmileSad } from "react-icons/cg"
 
 import { IFolder } from "../types/IFolder"
-import { INote } from "src/types/INote"
+import { INote } from "../types/INote"
 
 import Header from "./Header"
 import SortNotes from "./SortNotes"
 import FolderItem from "./FolderItem"
 import CreateInput from "./CreateInput"
 import ProfileCard from "./ProfileCard"
-import { AiOutlineSearch } from "react-icons/ai"
-import { CgSmileSad } from "react-icons/cg"
 import NoteItem from "./NoteItem"
+
 import { useAppSelector } from "../store"
 
 const Navbar: React.FC = () => {
@@ -21,6 +22,7 @@ const Navbar: React.FC = () => {
     const [isNewFolder, setIsNewFolder] = useState(false)
     const [search, setSearch] = useState("")
     const [filtredNotes, setFiltredNote] = useState<INote[]>()
+
     useEffect(() => {
         setFiltredNote(notesDisplay?.filter((note: INote) => note.title?.includes(search)))
     }, [search])
@@ -28,16 +30,10 @@ const Navbar: React.FC = () => {
     return (
         <nav className="p-2 w-80 h-full flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
             <Header isPremium={isPremium} displayNewFolder={setIsNewFolder} />
-            <div
-                className={
-                    "mb-10 flex m-auto h-7 items-center gap-1 p-1 w-11/12 bg-searchBlue rounded-lg focus:outline-blue-800"
-                }
-            >
+            <div className="mb-10 flex m-auto h-7 items-center gap-1 p-1 w-11/12 bg-searchBlue rounded-lg focus:outline-blue-800">
                 <AiOutlineSearch size="20px" />
                 <input
-                    className={
-                        "text-white w-full placeholder:text-white bg-transparent focus:outline-none"
-                    }
+                    className="text-white w-full placeholder:text-white bg-transparent focus:outline-none"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Search note"
@@ -52,7 +48,7 @@ const Navbar: React.FC = () => {
                                     <NoteItem key={note._id} title={note.title} noteId={note._id} />
                                 ))
                             ) : (
-                                <div className={"flex gap-1"}>
+                                <div className="flex items-center gap-1 justify-center">
                                     Aucune note trouvée <CgSmileSad size="20px" />
                                 </div>
                             )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
     AiOutlineAlignRight,
     AiOutlineAlignLeft,
@@ -10,31 +10,40 @@ import {
     AiOutlineUnorderedList,
 } from "react-icons/ai"
 
+import { updateNote } from "../actions/notes"
+
+import { INote } from "../types/INote"
+
+import { useAppDispatch } from "../store"
+
+import { convertToPDF } from "../helpers/convertToPDF"
+
 import Button from "./Button"
 
 interface ContentProps {
-    text?: string
+    note: INote
 }
 
-const Content: React.FC<ContentProps> = ({ text }) => {
-    const [textAlignRight, setTextAlignRight] = useState(false)
-    const [texte, setTexte] = useState("")
-
-    const test = () => {
-        alert(window.getSelection()!.toString().toUpperCase())
-        setTexte(window.getSelection()!.toString().toUpperCase())
-    }
+const Content: React.FC<ContentProps> = ({ note }) => {
+    const dispatch = useAppDispatch()
 
     return (
         <div className="flex-1 p-2 ml-5 mr-5">
-            <div className={textAlignRight ? "text-right" : ""}>
+            <div className="">
                 <div className="flex">
                     <Button
                         title="Publier"
                         colorBg="bg-lime-500"
                         textColor="text-slate-200"
                         onClick={() => {
-                            console.log("publier")
+                            dispatch(
+                                updateNote({
+                                    id: note._id!,
+                                    title: note.title!,
+                                    text: note.text!,
+                                    state: "public",
+                                }),
+                            )
                         }}
                     />
                     <Button
@@ -46,18 +55,25 @@ const Content: React.FC<ContentProps> = ({ text }) => {
                         }}
                     />
                     <Button
-                        title="Download"
+                        title="Télécharger"
                         colorBg="bg-blue-900"
                         textColor="text-slate-200"
-                        onClick={() => test()}
+                        onClick={() => convertToPDF(note.title!, note.text)}
                     />
                     <Button
                         title="Archiver"
                         colorBg="bg-orange-500"
                         textColor="text-slate-200"
-                        onClick={() => {
-                            console.log("archiver")
-                        }}
+                        onClick={() =>
+                            dispatch(
+                                updateNote({
+                                    id: note._id!,
+                                    title: note.title!,
+                                    text: note.text!,
+                                    state: "archived",
+                                }),
+                            )
+                        }
                     />
                 </div>
 
@@ -126,14 +142,14 @@ const Content: React.FC<ContentProps> = ({ text }) => {
                     />
                     <AiOutlineAlignRight
                         className="text-slate-900 mr-2 mt-0.5 cursor-pointer"
-                        onClick={() => setTextAlignRight(true)}
+                        onClick={() => console.log(true)}
                     />
                     <AiOutlinePaperClip
                         className="text-slate-900 mr-2 mt-0.5 cursor-pointer"
                         onClick={() => console.log("importer une image")}
                     />
                 </div>
-                <div>Note : {text}</div>
+                <div>Note : {note.text}</div>
             </div>
         </div>
     )
