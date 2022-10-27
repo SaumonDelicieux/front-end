@@ -16,7 +16,7 @@ const initialState: IUserState = {
     email: "",
     isPremium: false,
     phoneNumber: "",
-    theme: "dark",
+    theme: (localStorage.getItem("theme") as "dark" | "light") ?? "dark",
     loading: false,
     error: "",
 }
@@ -61,6 +61,7 @@ export const userSlice = createSlice({
                     .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
                     ?.setAttribute("content", "#f8fafc")
 
+                localStorage.setItem("theme", "light")
                 state.theme = "light"
             } else {
                 document.querySelector("html")?.classList.add("dark")
@@ -71,7 +72,27 @@ export const userSlice = createSlice({
                     .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
                     ?.setAttribute("content", "#334155")
 
+                localStorage.setItem("theme", "dark")
                 state.theme = "dark"
+            }
+        },
+        setThemeMode: state => {
+            if (state.theme === "dark") {
+                document.querySelector("html")?.classList.add("dark")
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute("content", "#334155")
+                document
+                    .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
+                    ?.setAttribute("content", "#334155")
+            } else {
+                document.querySelector("html")?.classList.remove("dark")
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute("content", "#f8fafc")
+                document
+                    .querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')
+                    ?.setAttribute("content", "#f8fafc")
             }
         },
     },
@@ -169,7 +190,7 @@ export const userSlice = createSlice({
     },
 })
 
-export const { getUserDetails, logoutUser, switchThemeMode } = userSlice.actions
+export const { getUserDetails, logoutUser, switchThemeMode, setThemeMode } = userSlice.actions
 
 export const user = (state: RootState) => state.user
 

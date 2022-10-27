@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 
-import { getUserDetails } from "../features/user/userSlice"
+import { getUserDetails, setThemeMode } from "../features/user/userSlice"
 
 import { getAllFolders } from "../actions/folders"
 import { getAllNotes } from "../actions/notes"
@@ -20,6 +20,7 @@ const Connected: React.FC = () => {
             navigate(urls.APP.LOGIN)
         } else {
             dispatch(getUserDetails())
+            dispatch(setThemeMode())
             dispatch(getAllNotes(token))
             dispatch(getAllFolders(token))
         }
