@@ -26,6 +26,7 @@ const UpdatePassword: React.FC = () => {
             const { data } = await api.post(urls.API.CHECK_TOKEN, {
                 token,
             })
+
             if (!data.success) {
                 navigate(urls.APP.LOGIN)
             }
