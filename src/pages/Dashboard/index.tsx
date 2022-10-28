@@ -23,8 +23,8 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <Navbar />
-            <div className="flex-1 p-2">
-                <h1>📝 Selectionner une note</h1>
+            <div className="flex-1 p-2 text-blue-900 dark:text-white">
+                <h1>📝 Sélectionner une note</h1>
             </div>
         </>
     )
