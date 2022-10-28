@@ -15,7 +15,7 @@ import { useAppSelector } from "../../store"
 
 const Subscribe: React.FC = () => {
     const navigate = useNavigate()
-    const { id, isPremium } = useAppSelector(state => state.user)
+    const { id, isPremium, theme } = useAppSelector(state => state.user)
 
     const [isLoading, setIsLoading] = useState(false)
 
