@@ -18,10 +18,18 @@ export const loginUser = createAsyncThunk<IUser, IUserLogin, { rejectValue: User
     "user/login",
     async ({ identifer, password }: IUserLogin, thunkApi) => {
         try {
-            const { data } = await api.post(urls.API.LOGIN, {
-                identifer,
-                password,
-            })
+            const { data } = await api.post(
+                urls.API.LOGIN,
+                {
+                    identifer,
+                    password,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             if (data.success) {
                 const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
@@ -63,10 +71,18 @@ export const registerUser = createAsyncThunk<IUser, IUserRegister, { rejectValue
                 toast("Mot de passe différent", { type: "warning" })
                 return {}
             }
-            const { data } = await api.post(urls.API.REGISTER, {
-                email,
-                password,
-            })
+            const { data } = await api.post(
+                urls.API.REGISTER,
+                {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             if (data.success) {
                 const tokenUser: IUser = jwtDecode(data.token)
@@ -102,9 +118,17 @@ export const forgottenPassword = createAsyncThunk(
     "user/forgottenPassword",
     async (identifer: string) => {
         try {
-            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
-                identifer,
-            })
+            const { data } = await api.post(
+                urls.API.FORGOTTEN_PASSWORD,
+                {
+                    identifer,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             toast("Un mail a été envoyé à l'adresse mail", {
                 type: "success",
@@ -121,13 +145,22 @@ export const updateUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: 
     "user/updateUser",
     async (updatedUser: IUser, thunkApi) => {
         try {
-            const { data } = await api.put(urls.API.PROFILE, {
-                userId: updatedUser.id,
-                firstName: updatedUser.firstName,
-                lastName: updatedUser.lastName,
-                email: updatedUser.email,
-                phoneNumber: updatedUser.phoneNumber,
-            })
+            const { data } = await api.put(
+                urls.API.PROFILE,
+                {
+                    userId: updatedUser.id,
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    email: updatedUser.email,
+                    phoneNumber: updatedUser.phoneNumber,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
+
             const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
                 data.token,
             )
