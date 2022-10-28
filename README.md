@@ -53,12 +53,12 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Create folder, sub-folder and assign note
 -   Download note as PDF
 -   Got Preview link (read only)
+-   Checkout with Stripe (Be Premium)
 
 ## To do
 
 -   [ ] WYSIWYG
 -   [ ] Update state of note (junk/public/achived)
--   [ ] Checkout with Stripe
 -   [ ] Share note if Premium
 -   [ ] User shared permission
 
