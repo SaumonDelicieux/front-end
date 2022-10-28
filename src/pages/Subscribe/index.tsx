@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AiFillCaretLeft } from "react-icons/ai"
 import { loadStripe } from "@stripe/stripe-js"
@@ -30,6 +30,10 @@ const Subscribe: React.FC = () => {
         } finally {
             setIsLoading(false)
         }
+    }
+
+    if (isPremium) {
+        navigate(urls.APP.DASHBOARD)
     }
 
     return (

@@ -12,9 +12,9 @@ import { useAppDispatch, useAppSelector } from "../store"
 import Button from "./Button"
 
 const ProfileCard: React.FC = () => {
-    const navigate = useNavigate()
-
     const { firstName, lastName, loading } = useAppSelector(state => state.user)
+
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const handleLogout = (e: Event) => {

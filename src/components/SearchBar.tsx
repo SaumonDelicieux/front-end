@@ -10,7 +10,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch }) => {
     return (
         <div
             className={
-                "mb-10 flex m-auto h-7 items-center gap-1 p-1 w-11/12 bg-searchBlue rounded-lg focus:outline-blue-800"
+                "mb-10 flex w-full h-7 items-center gap-1 p-1 bg-searchBlue rounded-lg focus:outline-blue-800"
             }
         >
             <AiOutlineSearch size="20px" />

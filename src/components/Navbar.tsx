@@ -10,6 +10,7 @@ import SortNotes from "./SortNotes"
 import FolderItem from "./FolderItem"
 import CreateInput from "./CreateInput"
 import ProfileCard from "./ProfileCard"
+import SearchBar from "./SearchBar"
 import NoteItem from "./NoteItem"
 
 import { useAppSelector } from "../store"
@@ -30,15 +31,7 @@ const Navbar: React.FC = () => {
     return (
         <nav className="p-2 max-w-xs flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
             <Header isPremium={isPremium} displayNewFolder={setIsNewFolder} />
-            <div className="mb-10 flex m-auto h-7 items-center gap-1 p-1 w-11/12 bg-searchBlue rounded-lg focus:outline-blue-800">
-                <AiOutlineSearch size="20px" />
-                <input
-                    className="text-white w-full placeholder:text-white bg-transparent focus:outline-none"
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    placeholder="Search note"
-                />
-            </div>
+            <SearchBar search={search} setSearch={setSearch} />
             {search.length > 0 ? (
                 <div className="flex flex-col flex-1">
                     <div className="text-slate-50">
