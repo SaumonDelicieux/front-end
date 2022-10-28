@@ -62,7 +62,7 @@ const Success: React.FC = () => {
             {isLoading ? (
                 <ReactLoading type="spin" color="white" width={40} />
             ) : (
-                <div className="flex items-center text-lg">
+                <div className="flex items-end text-lg">
                     {message} <span className="mb-1 ml-6 text-lg dot-typing"></span>
                 </div>
             )}
