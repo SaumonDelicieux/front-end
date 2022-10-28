@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AiFillCaretLeft } from "react-icons/ai"
 import { loadStripe } from "@stripe/stripe-js"
+import jwtDecode from "jwt-decode"
 
 import { urls } from "../../helpers/urls"
 import { createSession } from "../../helpers/checkout/createSession"
 
 import Button from "../../components/Button"
+
+import { IUser } from "../../types/IUser"
 
 import { useAppSelector } from "../../store"
 
@@ -32,9 +35,15 @@ const Subscribe: React.FC = () => {
         }
     }
 
-    if (isPremium) {
-        navigate(urls.APP.DASHBOARD)
-    }
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (token) {
+            const { isPremium }: IUser = jwtDecode(token)
+            if (isPremium) {
+                navigate(urls.APP.DASHBOARD)
+            }
+        }
+    }, [])
 
     return (
         <div className="w-full h-full relative bg-slate-200 dark:bg-slate-900 text-p-2 text-base transition-colors">
