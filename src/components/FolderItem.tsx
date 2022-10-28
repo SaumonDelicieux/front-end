@@ -55,7 +55,10 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     return (
         <div className="pl-2 mb-3">
             <div className="flex justify-between items-center cursor-pointer mb-1">
-                <span className="font-bold w-full" onClick={() => setIsActive(prev => !prev)}>
+                <span
+                    className="font-bold whitespace-nowrap text-ellipsis overflow-hidden"
+                    onClick={() => setIsActive(prev => !prev)}
+                >
                     {title}
                 </span>
                 <div className="flex items-center">
@@ -95,7 +98,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                 } relative ml-2 mb-1 transition-all duration-500`}
             >
                 <input
-                    className="w-full p-1 bg-blue-700 rounded-md"
+                    className="p-1 bg-blue-700 rounded-md"
                     type="text"
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)}

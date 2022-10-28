@@ -18,6 +18,9 @@ export const getAllFolders = createAsyncThunk("folders/getAllFolders", async (to
         const { id }: IUser = jwtDecode(token)
 
         const { data } = await api.get(urls.API.GET_ALL_FOLDERS, {
+            headers: {
+                Authorization: token,
+            },
             params: { userId: id },
         })
 
@@ -31,11 +34,19 @@ export const createFolder = createAsyncThunk(
     "folders/createFolder",
     async ({ title, userId, parentId }: CreateFolder) => {
         try {
-            const { data } = await api.post(urls.API.CREATE_FOLDER, {
-                title,
-                parentId,
-                userId,
-            })
+            const { data } = await api.post(
+                urls.API.CREATE_FOLDER,
+                {
+                    title,
+                    parentId,
+                    userId,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
             toast("Dossier créé avec succès !", { type: "success" })
 
             return data
@@ -48,6 +59,9 @@ export const createFolder = createAsyncThunk(
 export const deleteFolder = createAsyncThunk("folders/deleteFolder", async (folderId: string) => {
     try {
         const { data } = await api.delete(urls.API.DELETE_FOLDER, {
+            headers: {
+                Authorization: localStorage.getItem("token"),
+            },
             params: { folderId },
         })
         toast("Dossier supprimé avec succès !", { type: "success" })

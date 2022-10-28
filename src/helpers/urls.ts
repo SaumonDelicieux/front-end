@@ -7,6 +7,8 @@ export const urls = {
         DASHBOARD: "/",
         PROFILE: "/profile",
         SUBSCRIBE: "/subscribe",
+        SUCCESS: "/success",
+        CANCELED: "/canceled",
     },
     API: {
         LOGIN: "/users/login",
@@ -23,5 +25,7 @@ export const urls = {
         DELETE_NOTE: "/notes/deleteNote",
         UPDATE_NOTE: "/notes/updateNote",
         UPDATE_FOLDER: "/notes/updateFolder",
+        CHECKOUT: "/checkout/createSession",
+        VERIFY_PAYMENT: "/checkout/verifyPayment",
     },
 }
