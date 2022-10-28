@@ -51,15 +51,14 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Authentication (login/register/reset password/confirm password)
 -   Profile page (update information)
 -   Create folder, sub-folder and assign note
+-   Download note as PDF
+-   Got Preview link (read only)
+-   Checkout with Stripe (Be Premium)
+-   Update state of note (junk/public/achived)
 
 ## To do
 
 -   [ ] WYSIWYG
--   [ ] Download note
--   [ ] Update state of note (junk/public/achived)
--   [ ] Search bar
--   [ ] Preview link
--   [ ] Checkout with Stripe
 -   [ ] Share note if Premium
 -   [ ] User shared permission
 

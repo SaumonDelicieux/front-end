@@ -42,12 +42,13 @@ const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
             } rounded-lg transition-all mb-2 cursor-pointer`}
             aria-label="Paris"
         >
-            <span>{title}</span>
+            <span className="whitespace-nowrap text-ellipsis overflow-hidden">{title}</span>
             <Button
                 isLoading={loading}
                 icon={<BiTrashAlt size={15} color="#e74c3c" />}
                 onClick={(e: any) => handleDeleteNote(e)}
                 noBg
+                message="Delete"
             />
         </div>
     )

@@ -6,7 +6,7 @@ import { INote } from "../../types/INote"
 
 import type { RootState } from "../../store"
 
-import { createNote, deleteNote, getAllNotes } from "../../actions/notes"
+import { createNote, deleteNote, getAllNotes, updateNote } from "../../actions/notes"
 
 const initialState: INotesState = {
     notes: [],
@@ -48,6 +48,10 @@ export const notesSlice = createSlice({
                 state.loading = false
                 state.error = ""
             })
+            .addCase(getAllNotes.rejected, state => {
+                state.loading = false
+                state.error = ""
+            })
             .addCase(createNote.pending, state => {
                 state.loading = true
                 state.error = ""
@@ -73,6 +77,29 @@ export const notesSlice = createSlice({
                 state.notesDisplay = state.notes?.filter(
                     (note: INote) => note.state === state.categoryDisplay,
                 )
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(deleteNote.rejected, state => {
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(updateNote.pending, state => {
+                state.loading = true
+                state.error = ""
+            })
+            .addCase(updateNote.fulfilled, (state, { payload }) => {
+                if (state.selectedNote?._id === payload.noteId) {
+                    state.selectedNote = undefined
+                }
+                state.notes = state.notes?.filter((note: INote) => note._id != payload.noteId)
+                state.notesDisplay = state.notes?.filter(
+                    (note: INote) => note.state === state.categoryDisplay,
+                )
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(updateNote.rejected, state => {
                 state.loading = false
                 state.error = ""
             })

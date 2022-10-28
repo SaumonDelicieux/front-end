@@ -18,10 +18,18 @@ export const loginUser = createAsyncThunk<IUser, IUserLogin, { rejectValue: User
     "user/login",
     async ({ identifer, password }: IUserLogin, thunkApi) => {
         try {
-            const { data } = await api.post(urls.API.LOGIN, {
-                identifer,
-                password,
-            })
+            const { data } = await api.post(
+                urls.API.LOGIN,
+                {
+                    identifer,
+                    password,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             if (data.success) {
                 const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
@@ -63,10 +71,18 @@ export const registerUser = createAsyncThunk<IUser, IUserRegister, { rejectValue
                 toast("Mot de passe différent", { type: "warning" })
                 return {}
             }
-            const { data } = await api.post(urls.API.REGISTER, {
-                email,
-                password,
-            })
+            const { data } = await api.post(
+                urls.API.REGISTER,
+                {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             if (data.success) {
                 const tokenUser: IUser = jwtDecode(data.token)
@@ -102,44 +118,69 @@ export const forgottenPassword = createAsyncThunk(
     "user/forgottenPassword",
     async (identifer: string) => {
         try {
-            const { data } = await api.post(urls.API.FORGOTTEN_PASSWORD, {
-                identifer,
-            })
+            const { data } = await api.post(
+                urls.API.FORGOTTEN_PASSWORD,
+                {
+                    identifer,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
             toast("Un mail a été envoyé à l'adresse mail", {
                 type: "success",
             })
 
             return data
-        } catch {
-            toast("Erreur lors d'envoi de mail", { type: "warning" })
+        } catch (err) {
+            console.log(err)
         }
     },
 )
 
-export const updateUser = createAsyncThunk("user/updateUser", async (updatedUser: IUser) => {
-    try {
-        const { data } = await api.put(urls.API.PROFILE, {
-            userId: updatedUser.id,
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: updatedUser.email,
-            phoneNumber: updatedUser.phoneNumber,
-        })
-        const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
-            data.token,
-        )
-        localStorage.setItem("token", data.token)
+export const updateUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: UserError }>(
+    "user/updateUser",
+    async (updatedUser: IUser, thunkApi) => {
+        try {
+            const { data } = await api.put(
+                urls.API.PROFILE,
+                {
+                    userId: updatedUser.id,
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    email: updatedUser.email,
+                    phoneNumber: updatedUser.phoneNumber,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
 
-        toast("Vos informations ont bien été mises à jour", {
-            type: "success",
-        })
+            const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser = jwtDecode(
+                data.token,
+            )
+            localStorage.setItem("token", data.token)
 
-        return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
-    } catch (error) {
-        console.log(error)
-        toast("Une erreur est survenue", {
-            type: "warning",
-        })
-    }
-})
+            toast("Vos informations ont bien été mises à jour", {
+                type: "success",
+            })
+
+            return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data.message) {
+                return thunkApi.rejectWithValue({
+                    message: error.response?.data.message,
+                })
+            } else {
+                return thunkApi.rejectWithValue({
+                    message: "Problème avec l'API",
+                })
+            }
+        }
+    },
+)

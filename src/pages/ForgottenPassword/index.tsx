@@ -20,12 +20,11 @@ const ForgottenPassword: React.FC = () => {
 
     const handleForgottenPassword = async (e: Event) => {
         e.preventDefault()
-        await dispatch(forgottenPassword(identifer))
-        navigate(urls.APP.LOGIN)
+        dispatch(forgottenPassword(identifer))
     }
 
     return (
-        <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
+        <div className="w-screen h-screen relative bg-blue-400 dark:bg-slate-900 text-p-2 text-base transition-colors">
             <div>
                 <Button icon={<IoIosArrowBack />} onClick={() => navigate(urls.APP.LOGIN)} />
                 <div className="mt-20 pt-10">
@@ -36,27 +35,25 @@ const ForgottenPassword: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <p className="text-slate-200 mb-20 mt-10">
-                                Indiquez votre adresse e-mail pour recevoir un message permettant
-                                d'obtenir votre mot de passe
+                            <p className="text-slate-200 my-10">
+                                Indiquez votre adresse e-mail ou votre numéro de téléphone pour
+                                recevoir un lien de réinitialisation de mot de passe dans votre
+                                boîte mail
                             </p>
                         </div>
                         <form onSubmit={handleForgottenPassword as any}>
-                            <div className="flex flex-nowrap">
-                                <div className="mr-10">
-                                    <Input
-                                        onChange={e => setIdentifer(e)}
-                                        placeholder="john.doe@pinotes.com"
-                                        size="large"
-                                    />
-                                </div>
-                                <div>
-                                    <Button
-                                        isLoading={loading}
-                                        onClick={(e: any) => handleForgottenPassword(e)}
-                                        title="Envoyer"
-                                    />
-                                </div>
+                            <div className="flex flex-col items-center">
+                                <Input
+                                    label="Adresse mail ou numéro de téléphone"
+                                    onChange={e => setIdentifer(e)}
+                                    placeholder="060606606"
+                                    size="large"
+                                />
+                                <Button
+                                    isLoading={loading}
+                                    onClick={(e: any) => handleForgottenPassword(e)}
+                                    title="Envoyer"
+                                />
                             </div>
 
                             <div className="text-red-800 mb-3">{error}</div>
