@@ -28,54 +28,54 @@ const Content: React.FC<ContentProps> = ({ note }) => {
     const dispatch = useAppDispatch()
 
     return (
-        <div className="flex-1 p-2">
-            <div className="flex">
-                <Button
-                    title="Publier"
-                    colorBg="bg-lime-500"
-                    textColor="text-slate-200"
-                    onClick={() => {
-                        dispatch(
-                            updateNote({
-                                id: note._id!,
-                                title: note.title!,
-                                text: note.text!,
-                                state: "public",
-                            }),
-                        )
-                    }}
-                />
-                <Button
-                    title="Partager"
-                    colorBg="bg-violet-600"
-                    textColor="text-slate-200"
-                    onClick={() => {
-                        console.log("partager")
-                    }}
-                />
-                <Button
-                    title="Télécharger"
-                    colorBg="bg-blue-900"
-                    textColor="text-slate-200"
-                    onClick={() => convertToPDF(note.title!, note.text)}
-                />
-                <Button
-                    title="Archiver"
-                    colorBg="bg-orange-500"
-                    textColor="text-slate-200"
-                    onClick={() =>
-                        dispatch(
-                            updateNote({
-                                id: note._id!,
-                                title: note.title!,
-                                text: note.text!,
-                                state: "archived",
-                            }),
-                        )
-                    }
-                />
-            </div>
-
+        <div className="flex-1 p-2 ml-5 mr-5">
+            <div className="">
+                <div className="flex">
+                    <Button
+                        title={note.state === "archived" ? "Brouillon " : "Archiver"}
+                        colorBg="bg-lime-500"
+                        textColor="text-slate-200"
+                        onClick={() => {
+                            dispatch(
+                                updateNote({
+                                    id: note._id!,
+                                    title: note.title!,
+                                    text: note.text!,
+                                    state: note.state === "archived" ? "junk" : "archived",
+                                }),
+                            )
+                        }}
+                    />
+                    <Button
+                        title="Partager"
+                        colorBg="bg-violet-600"
+                        textColor="text-slate-200"
+                        onClick={() => {
+                            console.log("partager")
+                        }}
+                    />
+                    <Button
+                        title="Télécharger"
+                        colorBg="bg-blue-900"
+                        textColor="text-slate-200"
+                        onClick={() => convertToPDF(note.title!, note.text)}
+                    />
+                    <Button
+                        title={note.state === "archived" ? "Publier " : "Archiver"}
+                        colorBg="bg-orange-500"
+                        textColor="text-slate-200"
+                        onClick={() =>
+                            dispatch(
+                                updateNote({
+                                    id: note._id!,
+                                    title: note.title!,
+                                    text: note.text!,
+                                    state: note.state === "archived" ? "public" : "archived",
+                                }),
+                            )
+                        }
+                    />
+                </div>
             <div className="flex bg-slate-200 p-1 rounded-md mt-10">
                 <div className="flex border border-slate-900 ml-1 mr-1">
                     <select
