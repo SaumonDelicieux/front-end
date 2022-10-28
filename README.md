@@ -54,11 +54,11 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Download note as PDF
 -   Got Preview link (read only)
 -   Checkout with Stripe (Be Premium)
+-   Update state of note (junk/public/achived)
 
 ## To do
 
 -   [ ] WYSIWYG
--   [ ] Update state of note (junk/public/achived)
 -   [ ] Share note if Premium
 -   [ ] User shared permission
 
