@@ -32,7 +32,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
             <div className="">
                 <div className="flex">
                     <Button
-                        title="Publier"
+                        title={note.state === "archived" ? "Brouillon " : "Archiver"}
                         colorBg="bg-lime-500"
                         textColor="text-slate-200"
                         onClick={() => {
@@ -41,7 +41,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                                     id: note._id!,
                                     title: note.title!,
                                     text: note.text!,
-                                    state: "public",
+                                    state: note.state === "archived" ? "junk" : "archived",
                                 }),
                             )
                         }}
@@ -61,7 +61,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                         onClick={() => convertToPDF(note.title!, note.text)}
                     />
                     <Button
-                        title="Archiver"
+                        title={note.state === "archived" ? "Publier " : "Archiver"}
                         colorBg="bg-orange-500"
                         textColor="text-slate-200"
                         onClick={() =>
@@ -70,7 +70,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                                     id: note._id!,
                                     title: note.title!,
                                     text: note.text!,
-                                    state: "archived",
+                                    state: note.state === "archived" ? "public" : "archived",
                                 }),
                             )
                         }
