@@ -51,11 +51,14 @@ const Dashboard: React.FC = () => {
                 document.execCommand("insertHTML", false, "<li>" + textSelected + "</li>")
                 break
             case "link":
-                const url = "https://www.google.fr/"
                 document.execCommand(
                     "insertHTML",
                     false,
-                    "<a contentEditable='false' href='" + url + "'>" + textSelected + "</a>",
+                    "<a contentEditable='false' href='" +
+                        textSelected +
+                        "'>" +
+                        textSelected +
+                        "</a>",
                 )
                 break
             default:
@@ -224,7 +227,7 @@ const Dashboard: React.FC = () => {
                             accept=".jpg, .png, .gif"
                             onChange={fileSelectedHandler}
                         />
-                        {selectedFile ? <>{image ? <img src={image} /> : ""}</> : ""}
+                        {selectedFile && image && <img src={image as string} />}
                         <div>vous pouvez écrire ici</div>
                     </div>
                 </div>
