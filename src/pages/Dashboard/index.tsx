@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
         return (
             <>
                 <Navbar />
-                <div className="flex-1 p-2 overflow-y-auto">
+                <div className="flex-1 flex flex-col p-2 overflow-y-auto">
                     <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
                     <Content note={selectedNote} />
                 </div>

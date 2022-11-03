@@ -9,9 +9,12 @@ import {
     AiOutlineUnderline,
     AiOutlineLink,
     AiOutlineBgColors,
+    AiOutlineUpload,
 } from "react-icons/ai"
 
 import { INote } from "../types/INote"
+
+import Button from "./Button"
 
 type TextProps = string | null | undefined
 type ImgProps = string | ArrayBuffer | null | undefined
@@ -84,14 +87,16 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
             }
             reader.readAsDataURL(selectedFile)
         }
+
+        setText(selectedNote.text)
     }, [selectedFile])
 
     return (
-        <div className="flex-1 p-2 ml-5 mr-5">
-            <span className="flex bg-slate-200 p-1 ... rounded-md mt-10">
-                <div className="flex border border-slate-900 ... ml-1 mr-1">
+        <div className="h-[60%]">
+            <div className="flex items-center gap-4 bg-slate-200 text-slate-900 p-2 rounded-md mt-10 mb-5">
+                <div className="flex border border-slate-900">
                     <select
-                        className="text-slate-900 text-xs bg-slate-200"
+                        className="text-slate-900 text-xs bg-slate-200 cursor-pointer"
                         name="size"
                         id="size"
                         onChange={size}
@@ -101,95 +106,41 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                         <option value="h2">Sous titre</option>
                     </select>
                 </div>
-                <button
-                    onClick={() => {
-                        toolChoice("bold")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineBold className="text-slate-900 mt-0.5 w-full h-full" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("italic")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineItalic className="text-slate-900 mr-1 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("underline")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineUnderline className="text-slate-900 mr-1 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("li")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineOrderedList className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("justifyLeft")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineAlignLeft className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-                <button
-                    onClick={() => {
-                        toolChoice("justifyCenter")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineAlignCenter className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("justifyRight")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineAlignRight className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("code")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineBgColors className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-
-                <button
-                    onClick={() => {
-                        toolChoice("link")
-                    }}
-                    onMouseDown={event => event.preventDefault()}
-                >
-                    <AiOutlineLink className="text-slate-900 mr-2 mt-0.5" />
-                </button>
-            </span>
-
-            <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
-            <div>
-                <div id="test-ed-div" contentEditable>
-                    {text == "undefinedundefined" ? "" : text}
-                    <input type="file" accept=".jpg, .png, .gif" onChange={fileSelectedHandler} />
-                    {selectedFile && image && <img src={image as string} />}
-                    <div>vous pouvez écrire ici</div>
-                </div>
+                <Button onClick={() => toolChoice("bold")} icon={<AiOutlineBold />} />
+                <Button onClick={() => toolChoice("italic")} icon={<AiOutlineItalic />} />
+                <Button onClick={() => toolChoice("underline")} icon={<AiOutlineUnderline />} />
+                <Button onClick={() => toolChoice("li")} icon={<AiOutlineOrderedList />} />
+                <Button onClick={() => toolChoice("justifyLeft")} icon={<AiOutlineAlignLeft />} />
+                <Button
+                    onClick={() => toolChoice("justifyCenter")}
+                    icon={<AiOutlineAlignCenter />}
+                />
+                <Button onClick={() => toolChoice("justifyRight")} icon={<AiOutlineAlignRight />} />
+                <Button onClick={() => toolChoice("code")} icon={<AiOutlineBgColors />} />
+                <Button onClick={() => toolChoice("link")} icon={<AiOutlineLink />} />
+            </div>
+            <div
+                className="focus:outline-none p-2 border rounded-md min-h-full"
+                contentEditable
+                suppressContentEditableWarning
+            >
+                {text}
+            </div>
+            <div className="mt-5">
+                <input
+                    className="hidden"
+                    type="file"
+                    id="files"
+                    accept=".jpg, .png, .gif"
+                    onClick={fileSelectedHandler}
+                />
+                <label htmlFor="files" className="flex items-center cursor-pointer ml-2">
+                    <div className="p-2 bg-slate-900 dark:bg-slate-200 text-slate-200 dark:text-slate-900 rounded-md">
+                        <AiOutlineUpload />
+                    </div>
+                    <span className="ml-2">Ajouter une image</span>
+                </label>
+                {selectedFile && image && <img src={image as string} />}
             </div>
         </div>
     )
