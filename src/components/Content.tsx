@@ -12,6 +12,8 @@ import {
 
 import { updateNote } from "../actions/notes"
 
+import { changeOnPublishState } from "../features/notes/notesSlice"
+
 import { INote } from "../types/INote"
 
 import { useAppDispatch } from "../store"
@@ -51,7 +53,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                         colorBg="bg-violet-600"
                         textColor="text-slate-200"
                         onClick={() => {
-                            console.log("partager")
+                            dispatch(changeOnPublishState())
                         }}
                     />
                     <Button

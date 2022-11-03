@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { AiOutlineSearch } from "react-icons/ai"
 import { CgSmileSad } from "react-icons/cg"
 
 import { IFolder } from "../types/IFolder"
