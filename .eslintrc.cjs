@@ -4,12 +4,14 @@ module.exports = {
         node: true,
     },
     root: true,
+    files: ["*.ts", "*.tsx"],
     extends: [
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
     ],
     parser: "@typescript-eslint/parser",
+
     parserOptions: {
         ecmaFeatures: {
             jsx: true,

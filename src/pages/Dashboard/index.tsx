@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import {
     AiOutlineAlignRight,
@@ -6,29 +6,86 @@ import {
     AiOutlineAlignCenter,
     AiOutlineBold,
     AiOutlineItalic,
-    AiOutlinePaperClip,
     AiOutlineOrderedList,
-    AiOutlineUnorderedList,
+    AiOutlineUnderline,
+    AiOutlineLink,
+    AiOutlineBgColors,
 } from "react-icons/ai"
 
 import Button from "../../components/Button"
 
 import { useAppSelector } from "../../hooks"
 
+type TextProps = string | null | undefined
+type ImgProps = string | ArrayBuffer | null | undefined
+
 const Dashboard: React.FC = () => {
     const { selectedNote } = useAppSelector(state => state.notes)
+    const [text, setText] = useState<TextProps>()
+    const [selectedFile, setSelectedFile] = useState()
+    const [image, setImage] = useState<HTMLImageElement | ImgProps>()
 
-    const [text, setText] = useState("")
-    const [textAlignRight, setTextAlignRight] = useState(false)
+    const toolChoice = (role: any) => {
+        const textSelected = window.getSelection()!
+        document.designMode = "on"
 
-    const test = () => {
-        alert(window.getSelection()!.toString().toUpperCase())
-        setText(window.getSelection()!.toString().toUpperCase())
+        switch (role) {
+            case "code":
+                document.execCommand(
+                    "insertHTML",
+                    false,
+                    "<br>" +
+                        "<pre class='bg-slate-200 text-slate-900 p-2'>" +
+                        textSelected +
+                        "</pre>" +
+                        "<hr>",
+                )
+                break
+            case "h1":
+                document.execCommand("insertHTML", false, "<h1>" + textSelected + "</h1>")
+                break
+            case "h2":
+                document.execCommand("insertHTML", false, "<h2>" + textSelected + "</h2>")
+                break
+            case "li":
+                document.execCommand("insertHTML", false, "<li>" + textSelected + "</li>")
+                break
+            case "link":
+                const url = "https://www.google.fr/"
+                document.execCommand(
+                    "insertHTML",
+                    false,
+                    "<a contentEditable='false' href='" + url + "'>" + textSelected + "</a>",
+                )
+                break
+            default:
+                document.execCommand(role, false, undefined)
+                break
+        }
     }
 
+    const fileSelectedHandler = (event: any) => {
+        setSelectedFile(event.target.files[0])
+    }
+
+    const size = (event: any) => {
+        toolChoice(event.target.value)
+    }
+
+    useEffect(() => {
+        const image = document.getElementById("image")
+        if (selectedFile) {
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                setImage(e.target?.result)
+            }
+            reader.readAsDataURL(selectedFile)
+        }
+    }, [selectedFile])
+
     return (
-        <div className="flex-1 p-2 ml-5 mr-5">
-            <div className={textAlignRight ? "text-right ..." : ""}>
+        <>
+            <div className="flex-1 p-2 ml-5 mr-5">
                 <div className="flex">
                     <Button
                         title="Publier"
@@ -50,7 +107,9 @@ const Dashboard: React.FC = () => {
                         title="Download"
                         colorBg="bg-blue-900"
                         textColor="text-slate-200"
-                        onClick={() => test()}
+                        onClick={() => {
+                            console.log("download")
+                        }}
                     />
                     <Button
                         title="Archiver"
@@ -66,75 +125,111 @@ const Dashboard: React.FC = () => {
                     <div className="flex border border-slate-900 ... ml-1 mr-1">
                         <select
                             className="text-slate-900 text-xs bg-slate-200"
-                            name="typography"
-                            id="typography"
-                        >
-                            <option
-                                value="calibri"
-                                onClick={() => {
-                                    console.log("typographie calibri")
-                                }}
-                            >
-                                Calibri
-                            </option>
-                            <option value="timesNewRoman">Times new roman</option>
-                            <option value="arial">Arial</option>
-                        </select>
-                    </div>
-                    <div className="flex border border-slate-900 ... ml-1 mr-1">
-                        <select
-                            className="text-slate-900 text-xs bg-slate-200"
                             name="size"
                             id="size"
+                            onChange={size}
                         >
-                            <option
-                                value="10"
-                                onClick={() => {
-                                    console.log("taille 10")
-                                }}
-                            >
-                                10
-                            </option>
-                            <option value="14">14</option>
-                            <option value="18">18</option>
-                            <option value="24">24</option>
+                            <option value="paragraphe">Paragraphe</option>
+                            <option value="h1">Titre</option>
+                            <option value="h2">Sous titre</option>
                         </select>
                     </div>
-                    <AiOutlineBold className="text-slate-900 mt-0.5" onClick={() => test()} />
+                    <button
+                        onClick={() => {
+                            toolChoice("bold")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineBold className="text-slate-900 mt-0.5 w-full h-full" />
+                    </button>
 
-                    <AiOutlineItalic
-                        className="text-slate-900 mr-1 mt-0.5"
-                        onClick={() => console.log("italic")}
-                    />
-                    <AiOutlineOrderedList
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => console.log("mettre des puce 1 2 3")}
-                    />
-                    <AiOutlineUnorderedList
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => console.log("mettre des puce . . .")}
-                    />
-                    <AiOutlineAlignLeft
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => console.log("text align left")}
-                    />
-                    <AiOutlineAlignCenter
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => console.log("text align center")}
-                    />
-                    <AiOutlineAlignRight
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => setTextAlignRight(true)}
-                    />
-                    <AiOutlinePaperClip
-                        className="text-slate-900 mr-2 mt-0.5"
-                        onClick={() => console.log("importer une image")}
-                    />
+                    <button
+                        onClick={() => {
+                            toolChoice("italic")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineItalic className="text-slate-900 mr-1 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("underline")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineUnderline className="text-slate-900 mr-1 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("li")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineOrderedList className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("justifyLeft")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineAlignLeft className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
+                    <button
+                        onClick={() => {
+                            toolChoice("justifyCenter")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineAlignCenter className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("justifyRight")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineAlignRight className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("code")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineBgColors className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            toolChoice("link")
+                        }}
+                        onMouseDown={event => event.preventDefault()}
+                    >
+                        <AiOutlineLink className="text-slate-900 mr-2 mt-0.5" />
+                    </button>
                 </span>
+
                 <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
-                <div>{selectedNote?.text}mmmmmmm</div>
+                <div>
+                    <div id="test-ed-div" contentEditable>
+                        {text == "undefinedundefined" ? "" : text}
+                        <input
+                            type="file"
+                            accept=".jpg, .png, .gif"
+                            onChange={fileSelectedHandler}
+                        />
+                        {selectedFile ? <>{image ? <img src={image} /> : ""}</> : ""}
+                        <div>vous pouvez écrire ici</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
