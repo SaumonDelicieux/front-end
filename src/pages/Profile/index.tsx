@@ -57,7 +57,6 @@ const Profil: React.FC = () => {
                     <Button
                         icon={<AiFillCaretLeft color="white" size={20} />}
                         onClick={() => navigate(urls.APP.DASHBOARD)}
-                        noBg
                     />
                 </div>
                 <div>
@@ -68,7 +67,6 @@ const Profil: React.FC = () => {
                         <Button
                             title={`Abonnement : ${user?.isPremium ? "Premium" : "Gratuit"}`}
                             onClick={() => !user?.isPremium && navigate(urls.APP.SUBSCRIBE)}
-                            noBg
                         />
                     </div>
                     <form className="flex flex-col" onSubmit={handleProfile as any}>
