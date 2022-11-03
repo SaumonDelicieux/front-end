@@ -26,6 +26,7 @@ module.exports = {
         "linebreak-style": "off",
         "import/no-unresolved": "error",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "react/no-unescaped-entities": "off",
         "prettier/prettier": [
             "warn",

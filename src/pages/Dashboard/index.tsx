@@ -14,7 +14,7 @@ import {
 
 import Button from "../../components/Button"
 
-import { useAppSelector } from "../../hooks"
+import { useAppSelector } from "../../store"
 
 type TextProps = string | null | undefined
 type ImgProps = string | ArrayBuffer | null | undefined

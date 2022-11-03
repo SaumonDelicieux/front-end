@@ -11,7 +11,7 @@ import { INote } from "../types/INote"
 import NoteItem from "./NoteItem"
 import Button from "./Button"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import { createNote } from "../actions/notes"
 import { createFolder, deleteFolder } from "../actions/folders"
@@ -27,7 +27,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     const { id } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
 
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState(true)
 
     const [newFolder, setNewFolder] = useState("")
     const [isNewFolder, setIsNewFolder] = useState(false)
@@ -55,7 +55,10 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     return (
         <div className="pl-2 mb-3">
             <div className="flex justify-between items-center cursor-pointer mb-1">
-                <span className="font-bold w-full" onClick={() => setIsActive(prev => !prev)}>
+                <span
+                    className="font-bold whitespace-nowrap text-ellipsis overflow-hidden"
+                    onClick={() => setIsActive(prev => !prev)}
+                >
                     {title}
                 </span>
                 <div className="flex items-center">
@@ -63,6 +66,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                         icon={<BiTrashAlt size={15} />}
                         onClick={(e: Event) => handleDeleteFolder(e)}
                         noBg
+                        message="Delete"
                     />
                     <Button
                         icon={<FaRegStickyNote size={14} />}
@@ -71,6 +75,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsNewNote(true)
                         }}
                         noBg
+                        message="New note"
                     />
                     <Button
                         icon={<AiFillFolderAdd size={16} />}
@@ -79,6 +84,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsNewFolder(true)
                         }}
                         noBg
+                        message="New Folder"
                     />
                     <AiFillCaretRight
                         className={`${isActive && "rotate-90"} ml-2 transition-all`}
@@ -92,7 +98,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                 } relative ml-2 mb-1 transition-all duration-500`}
             >
                 <input
-                    className="w-full p-1 bg-blue-700 rounded-md"
+                    className="p-1 bg-blue-700 rounded-md"
                     type="text"
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)}

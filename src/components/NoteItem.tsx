@@ -1,11 +1,14 @@
 import React from "react"
 import { BiTrashAlt } from "react-icons/bi"
+import { useNavigate } from "react-router-dom"
+
+import { urls } from "../helpers/urls"
 
 import { deleteNote } from "../actions/notes"
 
 import { setNote } from "../features/notes/notesSlice"
 
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import Button from "./Button"
 
@@ -17,9 +20,12 @@ interface NoteItemProps {
 const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
     const { selectedNote, loading } = useAppSelector(state => state.notes)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const setToSelectedNote = (e: Event) => {
         e.preventDefault()
+
+        navigate(urls.APP.DASHBOARD)
         dispatch(setNote(noteId!))
     }
 
@@ -36,12 +42,13 @@ const NoteItem: React.FC<NoteItemProps> = ({ title, noteId }) => {
             } rounded-lg transition-all mb-2 cursor-pointer`}
             aria-label="Paris"
         >
-            <span>{title}</span>
+            <span className="whitespace-nowrap text-ellipsis overflow-hidden">{title}</span>
             <Button
                 isLoading={loading}
                 icon={<BiTrashAlt size={15} color="#e74c3c" />}
                 onClick={(e: any) => handleDeleteNote(e)}
                 noBg
+                message="Delete"
             />
         </div>
     )
