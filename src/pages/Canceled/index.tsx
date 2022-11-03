@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom"
 
 import { urls } from "../../helpers/urls"
 
-import "../../assets/css/dot-loading.css"
-
 const Canceled: React.FC = () => {
     const navigate = useNavigate()
 
