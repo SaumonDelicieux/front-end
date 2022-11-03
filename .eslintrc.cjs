@@ -4,14 +4,13 @@ module.exports = {
         node: true,
     },
     root: true,
-    files: ["*.ts", "*.tsx"],
     extends: [
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
     ],
     parser: "@typescript-eslint/parser",
-
+    ignorePatterns: [".eslintrc.cjs", "tailwind.config.cjs"],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
