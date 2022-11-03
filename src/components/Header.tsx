@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ isPremium = false, displayNewFolder }) 
             </div>
             <div className="text-xs">
                 <span
-                    className="py-1 px-3 rounded-lg bg-yellow-600 cursor-pointer"
+                    className="py-1 px-3 rounded-lg bg-yellow-500 dark:bg-yellow-600 cursor-pointer"
                     onClick={() => !isPremium && navigate(urls.APP.SUBSCRIBE)}
                 >
                     {isPremium ? IM_PREMIUM : BE_PREMIUM}

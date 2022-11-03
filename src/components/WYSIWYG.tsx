@@ -38,7 +38,7 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                     "insertHTML",
                     false,
                     "<br>" +
-                        "<pre class='bg-slate-200 text-slate-900 p-2'>" +
+                        "<pre class='bg-slate-200 text-slate-900 p-1'>" +
                         textSelected +
                         "</pre>" +
                         "<hr>",
@@ -68,6 +68,8 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                 document.execCommand(role, false, undefined)
                 break
         }
+
+        document.designMode = "off"
     }
 
     const fileSelectedHandler = (event: any) => {
