@@ -8,9 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./src/",
-    "lint:fix": "eslint ./src/ --fix",
-    "format": "prettier --write './src/**/*.{ts,tsx}' --config ./.prettierrc.cjs",
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts, tsx}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "test": "jest"
   },
   "repository": {
@@ -36,7 +36,9 @@
   "homepage": "https://github.com/SaumonDelicieux/pi-notes#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
+    "@stripe/stripe-js": "^1.42.0",
     "axios": "^1.1.2",
+    "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

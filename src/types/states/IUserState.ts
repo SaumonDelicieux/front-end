@@ -4,7 +4,9 @@ export interface IUserState {
     firstName?: string
     lastName?: string
     isPremium?: boolean
+    phoneNumber?: string
     token?: string
+    theme?: "dark" | "light"
     loading?: boolean
     error?: string
 }
