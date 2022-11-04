@@ -52,6 +52,17 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
         dispatch(deleteFolder(folderId!))
     }
 
+    document.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            setIsActive(false)
+        } else if (e.key === "Escape") {
+            setIsNewFolder(false)
+            setNewFolder("")
+            setIsNewNote(false)
+            setNewNote("")
+        }
+    })
+
     return (
         <div className="pl-2 mb-3">
             <div className="flex justify-between items-center cursor-pointer mb-1">

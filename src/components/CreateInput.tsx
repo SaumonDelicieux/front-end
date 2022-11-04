@@ -10,6 +10,7 @@ interface CreateInputProps {
     isNewFolder: boolean
     setIsNewFolder: any
     userId?: string
+    e: any
 }
 
 const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, userId }) => {
@@ -21,7 +22,14 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
         setIsNewFolder(false)
         setNewFolder("")
     }
-
+    document.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            console.log("OK")
+        } else if (e.key === "Escape") {
+            setIsNewFolder(false)
+            setNewFolder("")
+        }
+    })
     return (
         <div
             className={`${!isNewFolder && "hidden"} relative ml-2 mb-2 transition-all duration-500`}
