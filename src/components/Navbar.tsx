@@ -66,6 +66,7 @@ const Navbar: React.FC = () => {
                             isNewFolder={isNewFolder}
                             setIsNewFolder={setIsNewFolder}
                             userId={id}
+                            e={id}
                         />
                     </div>
                 </>
