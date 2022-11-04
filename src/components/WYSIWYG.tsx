@@ -11,6 +11,10 @@ import {
     AiOutlineBgColors,
     AiOutlineUpload,
 } from "react-icons/ai"
+import { FiCheckCircle } from "react-icons/fi"
+import ReactLoading from "react-loading"
+
+import { useAppSelector } from "../store"
 
 import { INote } from "../types/INote"
 
@@ -24,7 +28,10 @@ interface WYSIWYGProps {
 }
 
 const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
+    const { theme } = useAppSelector(state => state.user)
+
     const [text, setText] = useState<TextProps>()
+    const [isSending, setIsSending] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
     const [image, setImage] = useState<HTMLImageElement | ImgProps>()
 
@@ -95,7 +102,7 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
 
     return (
         <div className="h-[60%]">
-            <div className="flex items-center gap-4 bg-slate-200 text-slate-900 p-2 rounded-md mt-10 mb-5">
+            <div className="relative flex items-center gap-4 bg-slate-200 text-slate-900 p-2 rounded-md mt-10 mb-5">
                 <div className="flex border border-slate-900">
                     <select
                         className="text-slate-900 text-xs bg-slate-200 cursor-pointer"
@@ -120,9 +127,21 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                 <Button onClick={() => toolChoice("justifyRight")} icon={<AiOutlineAlignRight />} />
                 <Button onClick={() => toolChoice("code")} icon={<AiOutlineBgColors />} />
                 <Button onClick={() => toolChoice("link")} icon={<AiOutlineLink />} />
+                <div className="absolute top-2 right-2 z-50">
+                    {isSending ? (
+                        <ReactLoading
+                            type="spin"
+                            color={theme ? "text-blue-900" : "white"}
+                            height={20}
+                            width={20}
+                        />
+                    ) : (
+                        <FiCheckCircle size={20} color="green" />
+                    )}
+                </div>
             </div>
             <div
-                className="focus:outline-none p-2 border rounded-md min-h-full"
+                className="focus:outline-none p-2 break-words border rounded-md min-h-full"
                 contentEditable
                 suppressContentEditableWarning
             >
