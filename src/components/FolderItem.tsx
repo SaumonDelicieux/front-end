@@ -99,6 +99,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     type="text"
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)}
+                    ref={input => input && input.focus()}
                 />
                 <div className="absolute top-2 right-2 flex">
                     <GrFormClose
@@ -132,6 +133,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     type="text"
                     value={newFolder}
                     onChange={e => setNewFolder(e.target.value)}
+                    ref={input => input && input.focus()}
                 />
                 <div className="absolute top-2 right-2 flex">
                     <GrFormClose

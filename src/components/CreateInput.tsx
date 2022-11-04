@@ -31,6 +31,7 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
                 type="text"
                 value={newFolder}
                 onChange={e => setNewFolder(e.target.value)}
+                ref={input => input && input.focus()}
             />
             <div className="absolute top-2 right-2 flex">
                 <GrFormClose

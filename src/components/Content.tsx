@@ -30,7 +30,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
 
     return (
         <div className="flex-1">
-            <div className="flex justify-between">
+            <div className="flex fixed right-2">
                 <Button
                     title={note.state === "archived" ? "Publier " : "Archiver"}
                     onClick={() => {
@@ -43,19 +43,19 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                             }),
                         )
                     }}
-                    className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
+                    className="rounded-md p-2 bg-slate-100 dark:bg-lime-600"
                 />
                 <Button
                     title="Partager"
                     onClick={() => {
                         console.log("partager")
                     }}
-                    className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
+                    className="rounded-md p-2 bg-slate-100 dark:bg-violet-600"
                 />
                 <Button
                     title="Télécharger"
                     onClick={() => convertToPDF(note.title!, note.text)}
-                    className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
+                    className="rounded-md p-2 bg-slate-100 dark:bg-sky-600"
                 />
                 <Button
                     title={note.state === "junk" ? "Publier " : "Brouillon"}
@@ -69,9 +69,10 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                             }),
                         )
                     }
-                    className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
+                    className="rounded-md p-2 bg-slate-100 dark:bg-orange-600"
                 />
             </div>
+            <br></br>
             <WYSIWYG selectedNote={note} />
         </div>
     )
