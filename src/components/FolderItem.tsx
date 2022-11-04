@@ -65,7 +65,6 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     <Button
                         icon={<BiTrashAlt size={15} />}
                         onClick={(e: Event) => handleDeleteFolder(e)}
-                        noBg
                         message="Delete"
                     />
                     <Button
@@ -74,7 +73,6 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsActive(true)
                             setIsNewNote(true)
                         }}
-                        noBg
                         message="New note"
                     />
                     <Button
@@ -83,7 +81,6 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsActive(true)
                             setIsNewFolder(true)
                         }}
-                        noBg
                         message="New Folder"
                     />
                     <AiFillCaretRight
@@ -98,7 +95,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                 } relative ml-2 mb-1 transition-all duration-500`}
             >
                 <input
-                    className="p-1 bg-blue-700 rounded-md"
+                    className="p-1 bg-slate-500 dark:bg-blue-700 rounded-md"
                     type="text"
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)}
@@ -124,9 +121,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
             {isActive &&
                 notes
                     ?.filter((note: INote) => folderId === note?.folderId)
-                    .map((note: INote) => (
-                        <NoteItem key={note._id} title={note.title} noteId={note._id} />
-                    ))}
+                    .map((note: INote) => <NoteItem key={note._id} note={note} />)}
             <div
                 className={`${
                     !isNewFolder && "hidden"

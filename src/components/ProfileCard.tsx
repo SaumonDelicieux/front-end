@@ -38,10 +38,8 @@ const ProfileCard: React.FC = () => {
                     alt="Current profile photo"
                 />
                 <div className="ml-4">
-                    <div className="text-xs text-slate-50 dark:text-slate-400">
-                        Connecté en tant que
-                    </div>
-                    <div className={`text-sm text-slate-50 ${!firstName && "underline"}`}>{`${
+                    <div className="text-xs dark:text-slate-400">Connecté en tant que</div>
+                    <div className={`text-sm ${!firstName && "underline"}`}>{`${
                         firstName ? firstName + " " + lastName?.[0] + "." : "Compléter son profil"
                     }`}</div>
                 </div>
@@ -50,7 +48,6 @@ const ProfileCard: React.FC = () => {
                 icon={<RiLogoutCircleRLine className="text-red-500 " size={26} />}
                 onClick={(e: any) => handleLogout(e)}
                 isLoading={loading}
-                noBg
             />
         </div>
     )

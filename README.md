@@ -19,9 +19,8 @@ _Front end part of the peanut note._
 | TailwindCSS | Framework CSS           |
 | Redux       | Centralized state       |
 | Toastify    | Notification inside App |
-| ViteJS      | Build tool              |
 
-Vite ⚡️ : lightning-fast frontend build tool  
+ViteJS ⚡️ : lightning-fast frontend build tool  
 ESLint / Prettier for beautiful code 🥰
 
 ## How to clone/use the project :
@@ -38,6 +37,7 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 ## Utils
 
 -   Github (Github CI)
+-   Vercel (CD)
 -   NoSQL (MongoDB Atlas)
 -   Trello
 -   🌍 [Production](https://pi-notes.vercel.app)
@@ -53,13 +53,15 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Create folder, sub-folder and assign note
 -   Download note as PDF
 -   Got Preview link (read only)
--   Checkout with Stripe (Be Premium)
--   Update state of note (junk/public/achived)
+-   Checkout with Stripe (Be Premium) and can cancel sub
+-   Search on all notes
+-   Update state of note (junk/public/achived, delete)
 
 ## To do
 
 -   [ ] WYSIWYG
 -   [ ] Share note if Premium
+-   [ ] Preview note
 -   [ ] User shared permission
 
 ## :art: Prototype

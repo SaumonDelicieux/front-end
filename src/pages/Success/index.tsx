@@ -10,8 +10,6 @@ import { useAppDispatch } from "../../store"
 import api from "../../helpers/api"
 import { urls } from "../../helpers/urls"
 
-import "../../assets/css/dot-loading.css"
-
 const Success: React.FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -60,7 +58,7 @@ const Success: React.FC = () => {
                 )}
             </span>
             {isLoading ? (
-                <ReactLoading type="spin" color="white" width={40} />
+                <ReactLoading type="spin" color="white" width={50} />
             ) : (
                 <div className="flex items-end text-lg">
                     {message} <span className="mb-1 ml-6 text-lg dot-typing"></span>
