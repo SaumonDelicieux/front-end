@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <Navbar />
-            <div className="flex-1 p-2 ml-5 mr-5">
+            <div className="text-slate-900 dark:text-slate-200 flex-1 p-2 ml-5 mr-5">
                 <div className="flex">
                     <Button
                         title="Publier"
