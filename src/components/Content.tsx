@@ -1,14 +1,4 @@
 import React from "react"
-import {
-    AiOutlineAlignRight,
-    AiOutlineAlignLeft,
-    AiOutlineAlignCenter,
-    AiOutlineBold,
-    AiOutlineItalic,
-    AiOutlinePaperClip,
-    AiOutlineOrderedList,
-    AiOutlineUnorderedList,
-} from "react-icons/ai"
 
 import { updateNote } from "../actions/notes"
 
