@@ -14,6 +14,7 @@ interface ButtonProps {
     colorBg?: string
     textColor?: string
     roundedSize?: string
+    padding?: string
     className?: string
 }
 
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
     colorBg = "bg-white",
     textColor = "text-gray-700",
     roundedSize = "rounded-xl",
+    padding = "py-4",
     type = "button",
 }) => {
     const { theme } = useAppSelector(state => state.user)
@@ -38,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
                 className={
                     noBg
                         ? "rounded-xl p-1 dark:text-gray-200 text-blue-900 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : `${roundedSize} m-6 py-4 px-8 ${textColor} font-bold ${colorBg} transition-colors`
+                        : `${roundedSize} m-6 ${padding} px-8 ${textColor} font-bold ${colorBg} transition-colors`
                 }
                 title={message}
             >
