@@ -166,9 +166,11 @@ export const updateUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: 
             )
             localStorage.setItem("token", data.token)
 
-            toast("Vos informations ont bien été mises à jour", {
-                type: "success",
-            })
+            if (data.success) {
+                toast("Vos informations ont bien été mises à jour", {
+                    type: "success",
+                })
+            }
 
             return { id, firstName, lastName, email, isPremium, phoneNumber, token: data.token }
         } catch (error) {

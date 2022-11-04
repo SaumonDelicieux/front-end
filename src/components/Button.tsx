@@ -10,11 +10,6 @@ interface ButtonProps {
     type?: "submit" | "button"
     isLoading?: boolean
     icon?: any
-    noBg?: boolean
-    colorBg?: string
-    textColor?: string
-    roundedSize?: string
-    padding?: string
     className?: string
 }
 
@@ -24,26 +19,13 @@ const Button: React.FC<ButtonProps> = ({
     message,
     isLoading,
     icon = null,
-    noBg = false,
-    colorBg = "bg-white",
-    textColor = "text-gray-700",
-    roundedSize = "rounded-xl",
-    padding = "py-4",
     type = "button",
+    className,
 }) => {
     const { theme } = useAppSelector(state => state.user)
     return (
-        <div>
-            <button
-                onClick={onClick}
-                type={type}
-                className={
-                    noBg
-                        ? "rounded-xl p-1 dark:text-gray-200 text-blue-900 underline underline-offset-1 text-xs hover:scale-105 transition-all"
-                        : `${roundedSize} m-6 ${padding} px-8 ${textColor} font-bold ${colorBg} transition-colors`
-                }
-                title={message}
-            >
+        <div className="mx-1">
+            <button onClick={onClick} type={type} className={className} title={message}>
                 {isLoading ? (
                     <ReactLoading
                         type="spin"

@@ -2,9 +2,9 @@ name: Master CI
 
 on:
     push:
-        branches: ['master']
+        branches: ["master"]
     pull_request:
-        branches: ['master']
+        branches: ["master"]
 
 jobs:
     build:
@@ -20,10 +20,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
-            - run: npm i yarn
-            - run: yarn
-            - run: yarn lint:fix
-            - run: yarn format
-            - run: yarn test
-            - run: yarn build
+                  cache: "npm"
+            - run: npx yarn
+            - run: npm run lint:fix
+            - run: npm run format
+            - run: npm run test
+            - run: npm run build

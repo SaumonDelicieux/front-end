@@ -10,6 +10,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
     ],
     parser: "@typescript-eslint/parser",
+    ignorePatterns: [".eslintrc.cjs", "tailwind.config.cjs"],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,

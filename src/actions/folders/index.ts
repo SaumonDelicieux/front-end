@@ -47,9 +47,11 @@ export const createFolder = createAsyncThunk(
                     },
                 },
             )
-            toast("Dossier créé avec succès !", { type: "success" })
 
-            return data
+            if (data.success) {
+                toast(data.message, { type: "success" })
+                return data
+            }
         } catch (error) {
             toast("Erreur lors de la création du dossier", { type: "warning" })
         }
@@ -64,7 +66,11 @@ export const deleteFolder = createAsyncThunk("folders/deleteFolder", async (fold
             },
             params: { folderId },
         })
-        toast("Dossier supprimé avec succès !", { type: "success" })
+
+        if (data.success) {
+            toast(data.message, { type: "success" })
+            return data
+        }
 
         return data
     } catch (error) {
