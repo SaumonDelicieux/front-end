@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { KeyboardEvent, useState } from "react"
 import { GrFormClose } from "react-icons/gr"
 import { BsCheck } from "react-icons/bs"
+import { toast } from "react-toastify"
 
 import { createFolder } from "../actions/folders"
 
@@ -17,9 +18,26 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
     const [newFolder, setNewFolder] = useState("")
 
     const handleCreateFolder = async () => {
+        if (newFolder === "") {
+            setIsNewFolder(false)
+            setNewFolder("")
+            return toast("Le titre du dossier est vide")
+        }
+
         dispatch(createFolder({ title: newFolder, userId: userId! }))
         setIsNewFolder(false)
         setNewFolder("")
+    }
+
+    const keyPressed = async (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            await handleCreateFolder()
+        }
+
+        if (e.key === "Escape") {
+            setIsNewFolder(false)
+            setNewFolder("")
+        }
     }
 
     return (
@@ -31,6 +49,7 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
                 type="text"
                 value={newFolder}
                 onChange={e => setNewFolder(e.target.value)}
+                onKeyDown={keyPressed}
             />
             <div className="absolute top-2 right-2 flex">
                 <GrFormClose
