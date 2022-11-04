@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import React, { KeyboardEvent, useState } from "react"
 import { AiFillCaretRight, AiFillFolderAdd } from "react-icons/ai"
 import { GrFormClose } from "react-icons/gr"
 import { FaRegStickyNote } from "react-icons/fa"
 import { BsCheck } from "react-icons/bs"
 import { BiTrashAlt } from "react-icons/bi"
+import { toast } from "react-toastify"
 
 import { IFolder } from "../types/IFolder"
 import { INote } from "../types/INote"
@@ -23,7 +24,12 @@ interface FolderItemProps {
     notes?: INote[]
 }
 
+type Item = "note" | "folder"
+
 const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes }) => {
+    const NOTE = "note"
+    const FOLDER = "folder"
+
     const { id } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
 
@@ -36,12 +42,24 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
     const [isNewNote, setIsNewNote] = useState(false)
 
     const handleCreateFolder = async () => {
+        if (newFolder === "") {
+            setIsNewFolder(false)
+            setNewFolder("")
+            return toast("Le titre du dossier est vide")
+        }
+
         dispatch(createFolder({ title: newFolder, userId: id!, parentId: folderId }))
         setIsNewFolder(false)
         setNewFolder("")
     }
 
     const handleCreateNote = async () => {
+        if (newNote === "") {
+            setIsNewNote(false)
+            setNewNote("")
+            return toast("Le titre de la note est vide")
+        }
+
         dispatch(createNote({ title: newNote, folderId, userId: id! }))
         setIsNewNote(false)
         setNewNote("")
@@ -52,16 +70,27 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
         dispatch(deleteFolder(folderId!))
     }
 
-    document.addEventListener("keypress", function (e) {
+    const keyPressed = async (e: KeyboardEvent<HTMLInputElement>, type: Item) => {
         if (e.key === "Enter") {
-            setIsActive(false)
-        } else if (e.key === "Escape") {
-            setIsNewFolder(false)
-            setNewFolder("")
-            setIsNewNote(false)
-            setNewNote("")
+            if (type === "note") {
+                await handleCreateNote()
+            }
+            if (type === "folder") {
+                await handleCreateFolder()
+            }
         }
-    })
+
+        if (e.key === "Escape") {
+            if (type === "note") {
+                setIsNewNote(false)
+                setNewNote("")
+            }
+            if (type === "folder") {
+                setIsNewFolder(false)
+                setNewFolder("")
+            }
+        }
+    }
 
     return (
         <div className="pl-2 mb-3">
@@ -76,7 +105,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     <Button
                         icon={<BiTrashAlt size={15} />}
                         onClick={(e: Event) => handleDeleteFolder(e)}
-                        message="Delete"
+                        message="Supprimer"
                     />
                     <Button
                         icon={<FaRegStickyNote size={14} />}
@@ -84,7 +113,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsActive(true)
                             setIsNewNote(true)
                         }}
-                        message="New note"
+                        message="Nouvelle note"
                     />
                     <Button
                         icon={<AiFillFolderAdd size={16} />}
@@ -92,7 +121,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                             setIsActive(true)
                             setIsNewFolder(true)
                         }}
-                        message="New Folder"
+                        message="Nouveau dossier"
                     />
                     <AiFillCaretRight
                         className={`${isActive && "rotate-90"} ml-2 transition-all`}
@@ -110,6 +139,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     type="text"
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)}
+                    onKeyDown={e => keyPressed(e, NOTE)}
                 />
                 <div className="absolute top-2 right-2 flex">
                     <GrFormClose
@@ -143,6 +173,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folders, folderId, title, notes
                     type="text"
                     value={newFolder}
                     onChange={e => setNewFolder(e.target.value)}
+                    onKeyDown={e => keyPressed(e, FOLDER)}
                 />
                 <div className="absolute top-2 right-2 flex">
                     <GrFormClose
