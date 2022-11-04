@@ -1,22 +1,55 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AiFillCaretLeft } from "react-icons/ai"
+import { loadStripe } from "@stripe/stripe-js"
+import jwtDecode from "jwt-decode"
 
 import { urls } from "../../helpers/urls"
+import { createSession } from "../../helpers/checkout/createSession"
 
 import Button from "../../components/Button"
+
+import { IUser } from "../../types/IUser"
 
 import { useAppSelector } from "../../store"
 
 const Subscribe: React.FC = () => {
     const navigate = useNavigate()
-    const { isPremium, error, loading } = useAppSelector(state => state.user)
+    const { id, isPremium, theme } = useAppSelector(state => state.user)
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleCheckout = async () => {
+        try {
+            setIsLoading(true)
+            const stripeClient = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY)
+            const session = await createSession({ userId: id! })
+
+            stripeClient?.redirectToCheckout({
+                sessionId: session.id,
+            })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (token) {
+            const { isPremium }: IUser = jwtDecode(token)
+            if (isPremium) {
+                navigate(urls.APP.DASHBOARD)
+            }
+        }
+    }, [])
 
     return (
         <div className="w-full h-full relative bg-slate-200 dark:bg-slate-900 text-p-2 text-base transition-colors">
             <div className="absolute top-14 left-14">
                 <Button
-                    icon={<AiFillCaretLeft color="white" size={20} />}
+                    icon={<AiFillCaretLeft color={theme ? "text-blue-900" : "white"} size={20} />}
                     onClick={() => !isPremium && navigate(urls.APP.DASHBOARD)}
                     noBg
                 />
@@ -37,7 +70,7 @@ const Subscribe: React.FC = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="flex-auto justify-items-center bg-blue-900">
+                    <div className="flex-auto justify-items-center bg-blue-500 dark:bg-blue-900">
                         <div className="text-slate-200 text-center text-2xl py-8">
                             Offre Premium
                         </div>
@@ -57,10 +90,10 @@ const Subscribe: React.FC = () => {
                                 </li>
                                 <div className="py-16 text-center">
                                     <Button
-                                        isLoading={loading}
-                                        onClick={(e: any) => e}
+                                        isLoading={isLoading}
+                                        onClick={() => handleCheckout()}
                                         title="Souscrire à l'abonnement"
-                                        colorBg="bg-slate-900"
+                                        colorBg="bg-yellow-500"
                                         textColor="bg-slate-200"
                                         roundedSize="rounded"
                                     />

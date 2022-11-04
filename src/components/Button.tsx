@@ -1,6 +1,8 @@
 import React from "react"
 import ReactLoading from "react-loading"
 
+import { useAppSelector } from "../store"
+
 interface ButtonProps {
     onClick?: any
     title?: string
@@ -22,11 +24,12 @@ const Button: React.FC<ButtonProps> = ({
     isLoading,
     icon = null,
     noBg = false,
-    colorBg = "bg-slate-200",
+    colorBg = "bg-white",
     textColor = "text-gray-700",
     roundedSize = "rounded-xl",
     type = "button",
 }) => {
+    const { theme } = useAppSelector(state => state.user)
     return (
         <div>
             <button
@@ -40,7 +43,12 @@ const Button: React.FC<ButtonProps> = ({
                 title={message}
             >
                 {isLoading ? (
-                    <ReactLoading type="spin" color="white" height={27} width={27} />
+                    <ReactLoading
+                        type="spin"
+                        color={theme ? "text-blue-900" : "white"}
+                        height={27}
+                        width={27}
+                    />
                 ) : (
                     title || icon
                 )}

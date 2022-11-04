@@ -24,7 +24,7 @@ const ForgottenPassword: React.FC = () => {
     }
 
     return (
-        <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
+        <div className="w-screen h-screen relative bg-blue-400 dark:bg-slate-900 text-p-2 text-base transition-colors">
             <div>
                 <Button icon={<IoIosArrowBack />} onClick={() => navigate(urls.APP.LOGIN)} />
                 <div className="mt-20 pt-10">
