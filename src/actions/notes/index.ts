@@ -38,9 +38,10 @@ export const createNote = createAsyncThunk(
                     },
                 },
             )
-            toast("Note créé avec succès !", { type: "success" })
-
-            return data
+            if (data.success) {
+                toast(data.message, { type: "success" })
+                return data
+            }
         } catch (error) {
             toast("Erreur lors de la création de la note", { type: "warning" })
         }
@@ -73,7 +74,10 @@ export const deleteNote = createAsyncThunk("notes/deleteNote", async (noteId: st
             },
         })
 
-        return data
+        if (data.success) {
+            toast(data.message, { type: "success" })
+            return data
+        }
     } catch (error) {
         console.log(error)
     }
@@ -97,9 +101,11 @@ export const updateNote = createAsyncThunk(
                     },
                 },
             )
-            toast("Note modifié avec succès !", { type: "success" })
+            if (data.success) {
+                toast(data.message, { type: "success" })
+            }
 
-            return data
+            return data.note
         } catch (error) {
             toast("Erreur lors de la modification de la note", { type: "warning" })
         }

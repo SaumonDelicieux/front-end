@@ -8,16 +8,10 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch }) => {
     return (
-        <div
-            className={
-                "mb-10 flex w-full h-7 items-center gap-1 p-1 bg-searchBlue rounded-lg focus:outline-blue-800"
-            }
-        >
+        <div className="mb-7 flex w-full items-center gap-1 p-1 bg-searchBlue rounded-lg focus:outline-blue-800">
             <AiOutlineSearch size="20px" />
             <input
-                className={
-                    "text-white w-full placeholder:text-white bg-transparent focus:outline-none"
-                }
+                className="text-white w-full placeholder:text-white bg-transparent focus:outline-none"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search note"

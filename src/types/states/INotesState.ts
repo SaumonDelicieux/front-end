@@ -9,5 +9,5 @@ export interface INotesState {
     categoryDisplay?: CategoryDisplay
     loading?: boolean
     error?: string
-    clickedOnPublish?: boolean
+    clickedOnShare?: boolean
 }

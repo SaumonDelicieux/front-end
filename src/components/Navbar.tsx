@@ -28,47 +28,39 @@ const Navbar: React.FC = () => {
     }, [search])
 
     return (
-        <nav className="p-2 max-w-xs flex flex-col justify-between bg-blue-500 dark:bg-blue-900">
+        <nav className="p-2 max-w-xs flex flex-col justify-between bg-slate-400 dark:bg-blue-900 text-slate-50">
             <Header isPremium={isPremium} displayNewFolder={setIsNewFolder} />
             <SearchBar search={search} setSearch={setSearch} />
             {search.length > 0 ? (
                 <div className="flex flex-col flex-1">
-                    <div className="text-slate-50">
-                        <div className="flex flex-col">
-                            {filtredNotes!.length > 0 ? (
-                                filtredNotes?.map((note: INote) => (
-                                    <NoteItem key={note._id} title={note.title} noteId={note._id} />
-                                ))
-                            ) : (
-                                <div className="flex items-center gap-1 justify-center">
-                                    Aucune note trouvée <CgSmileSad size="20px" />
-                                </div>
-                            )}
+                    {filtredNotes!.length > 0 ? (
+                        filtredNotes?.map((note: INote) => <NoteItem key={note._id} note={note} />)
+                    ) : (
+                        <div className="flex items-center gap-1 justify-center">
+                            Aucune note trouvée <CgSmileSad size="20px" />
                         </div>
-                    </div>
+                    )}
                 </div>
             ) : (
                 <>
                     <SortNotes />
-                    <div className="flex flex-col flex-1">
-                        <div className="text-slate-50">
-                            <div className="flex flex-col">
-                                {folders?.map((folder: IFolder) => {
-                                    if (!folder.parentId) {
-                                        return (
-                                            <FolderItem
-                                                title={folder.title}
-                                                folders={folders}
-                                                folderId={folder._id}
-                                                key={folder._id}
-                                                notes={notesDisplay}
-                                            />
-                                        )
-                                    } else {
-                                        return
-                                    }
-                                })}
-                            </div>
+                    <div className="flex flex-col flex-1 overflow-y-auto hide-scrollbar">
+                        <div className="flex flex-col">
+                            {folders?.map((folder: IFolder) => {
+                                if (!folder.parentId) {
+                                    return (
+                                        <FolderItem
+                                            title={folder.title}
+                                            folders={folders}
+                                            folderId={folder._id}
+                                            key={folder._id}
+                                            notes={notesDisplay}
+                                        />
+                                    )
+                                } else {
+                                    return
+                                }
+                            })}
                         </div>
                         <CreateInput
                             isNewFolder={isNewFolder}
