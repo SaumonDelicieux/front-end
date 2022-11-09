@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import AsyncSelect from "react-select/async"
 
-import { GrClose } from "react-icons/gr"
+import { AiOutlineClose } from "react-icons/ai"
+import { TiDelete } from "react-icons/ti"
 
 import { urls } from "../helpers/urls"
 import api from "../helpers/api"
@@ -124,9 +125,10 @@ const Popup: React.FC = () => {
 
     return (
         <div className="rounded-md bg-slate-400 dark:bg-blue-900 w-6/12 h-3/4 fixed top-40 right-80">
-            <GrClose
-                color="red"
-                className="cursor-pointer absolute right-0 mt-2 mr-2"
+            <AiOutlineClose
+                color="#e74c3c"
+                size={25}
+                className="cursor-pointer absolute right-0 mt-2 mr-2 text-red-500"
                 onClick={() => dispatch(changeOnShareState())}
             />
             <div className="flex flex-col items-center justify-start">
@@ -162,8 +164,9 @@ const Popup: React.FC = () => {
                         className="flex items-center justify-between m-3 pb-2 border-solid border-b-2"
                     >
                         <p>{userNames.userName}</p>
-                        <GrClose
-                            color="red"
+                        <TiDelete
+                            color="#e74c3c"
+                            size={30}
                             className="cursor-pointer"
                             onClick={() => deleteUserFromSharedList(userNames.userId)}
                         />
