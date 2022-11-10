@@ -1,14 +1,4 @@
 import React from "react"
-import {
-    AiOutlineAlignRight,
-    AiOutlineAlignLeft,
-    AiOutlineAlignCenter,
-    AiOutlineBold,
-    AiOutlineItalic,
-    AiOutlinePaperClip,
-    AiOutlineOrderedList,
-    AiOutlineUnorderedList,
-} from "react-icons/ai"
 
 import { updateNote } from "../actions/notes"
 
@@ -16,12 +6,13 @@ import { changeOnShareState } from "../features/notes/notesSlice"
 
 import { INote } from "../types/INote"
 
-import { useAppDispatch } from "../store"
+import { useAppDispatch, useAppSelector } from "../store"
 
 import { convertToPDF } from "../helpers/convertToPDF"
 
 import Button from "./Button"
 import WYSIWYG from "./WYSIWYG"
+import Popup from "./Popup"
 
 interface ContentProps {
     note: INote
@@ -29,6 +20,7 @@ interface ContentProps {
 
 const Content: React.FC<ContentProps> = ({ note }) => {
     const dispatch = useAppDispatch()
+    const { clickedOnShare } = useAppSelector(state => state.notes)
 
     return (
         <div className="flex-1">
@@ -74,6 +66,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                     className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
                 />
             </div>
+            {clickedOnShare && <Popup />}
             <WYSIWYG selectedNote={note} />
         </div>
     )

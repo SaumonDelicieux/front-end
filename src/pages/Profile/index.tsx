@@ -21,6 +21,7 @@ const Profil: React.FC = () => {
     const { error, loading } = useAppSelector(state => state.user)
 
     const [user, setUser] = useState<IUser>({
+        id: "",
         firstName: "",
         lastName: "",
         email: "",
@@ -36,9 +37,10 @@ const Profil: React.FC = () => {
     useEffect(() => {
         const tokenUser = localStorage.getItem("token")
         if (tokenUser) {
-            const { firstName, lastName, email, isPremium, phoneNumber }: IUser =
+            const { id, firstName, lastName, email, isPremium, phoneNumber }: IUser =
                 jwtDecode(tokenUser)
             setUser({
+                id,
                 firstName: firstName ?? " ",
                 lastName: lastName ?? " ",
                 email: email ?? " ",
