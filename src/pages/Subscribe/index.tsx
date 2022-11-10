@@ -51,7 +51,6 @@ const Subscribe: React.FC = () => {
                 <Button
                     icon={<AiFillCaretLeft color={theme ? "text-blue-900" : "white"} size={20} />}
                     onClick={() => !isPremium && navigate(urls.APP.DASHBOARD)}
-                    noBg
                 />
             </div>
             <div className="flex justify-center items-center w-full h-full">
@@ -93,9 +92,6 @@ const Subscribe: React.FC = () => {
                                         isLoading={isLoading}
                                         onClick={() => handleCheckout()}
                                         title="Souscrire à l'abonnement"
-                                        colorBg="bg-yellow-500"
-                                        textColor="bg-slate-200"
-                                        roundedSize="rounded"
                                     />
                                 </div>
                             </ul>

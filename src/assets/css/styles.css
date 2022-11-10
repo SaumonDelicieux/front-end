@@ -1,5 +1,7 @@
 @import "./_tailwind.css";
 @import "./_fonts.css";
+@import "./tips.css";
+@import "./dot-loading.css";
 
 html {
     font-family: "Moderat-Regular";

@@ -16,7 +16,7 @@ const Unconnected: React.FC = () => {
     }, [token])
 
     return (
-        <div className="flex h-full w-full text-slate-200 bg-slate-50 dark:bg-slate-900 dark:text-slate-50">
+        <div className="flex h-full w-full text-slate-800 dark:text-slate-200 bg-slate-400 dark:bg-slate-900 transition-colors">
             <Outlet />
         </div>
     )
