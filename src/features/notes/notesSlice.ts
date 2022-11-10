@@ -15,6 +15,7 @@ const initialState: INotesState = {
     notesDisplay: [],
     loading: false,
     error: "",
+    clickedOnShare: false,
 }
 
 export const notesSlice = createSlice({
@@ -38,6 +39,10 @@ export const notesSlice = createSlice({
         setCategoryDisplay: (state, action: PayloadAction<CategoryDisplay>) => {
             state.categoryDisplay = action.payload
             state.notesDisplay = state.notes?.filter((note: INote) => note.state === action.payload)
+        },
+        changeOnShareState: state => {
+            if (state.clickedOnShare) state.clickedOnShare = false
+            else state.clickedOnShare = true
         },
     },
     extraReducers: builder => {
@@ -113,7 +118,7 @@ export const notesSlice = createSlice({
     },
 })
 
-export const { setNote, setCategoryDisplay, unselectNote } = notesSlice.actions
+export const { setNote, setCategoryDisplay, unselectNote, changeOnShareState } = notesSlice.actions
 
 export const notes = (state: RootState) => state.notes
 

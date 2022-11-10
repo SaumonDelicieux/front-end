@@ -12,6 +12,8 @@ import {
 
 import { updateNote } from "../actions/notes"
 
+import { changeOnShareState } from "../features/notes/notesSlice"
+
 import { INote } from "../types/INote"
 
 import { useAppDispatch } from "../store"
@@ -48,7 +50,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                 <Button
                     title="Partager"
                     onClick={() => {
-                        console.log("partager")
+                        dispatch(changeOnShareState())
                     }}
                     className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
                 />
