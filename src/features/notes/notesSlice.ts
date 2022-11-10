@@ -15,16 +15,23 @@ const initialState: INotesState = {
     notesDisplay: [],
     loading: false,
     error: "",
+    clickedOnShare: false,
 }
 
 export const notesSlice = createSlice({
     name: "notes",
     initialState,
     reducers: {
-        setNote: (state, action: PayloadAction<string>) => {
-            const noteIndex = state.notes?.findIndex((note: INote) => note._id === action.payload)
+        setNote: (state, action: PayloadAction<INote>) => {
+            const noteIndex = state.notes?.findIndex(
+                (note: INote) => note._id === action.payload._id,
+            )
 
             state.selectedNote = state.notes?.[noteIndex!]
+            state.categoryDisplay = state.selectedNote?.state
+            state.notesDisplay = state.notes?.filter(
+                (note: INote) => note.state === action.payload.state,
+            )
         },
         unselectNote: state => {
             state.selectedNote = undefined
@@ -32,6 +39,10 @@ export const notesSlice = createSlice({
         setCategoryDisplay: (state, action: PayloadAction<CategoryDisplay>) => {
             state.categoryDisplay = action.payload
             state.notesDisplay = state.notes?.filter((note: INote) => note.state === action.payload)
+        },
+        changeOnShareState: state => {
+            if (state.clickedOnShare) state.clickedOnShare = false
+            else state.clickedOnShare = true
         },
     },
     extraReducers: builder => {
@@ -89,13 +100,14 @@ export const notesSlice = createSlice({
                 state.error = ""
             })
             .addCase(updateNote.fulfilled, (state, { payload }) => {
-                if (state.selectedNote?._id === payload.noteId) {
-                    state.selectedNote = undefined
-                }
-                state.notes = state.notes?.filter((note: INote) => note._id != payload.noteId)
+                state.notes = state.notes?.filter((note: INote) => note._id != payload._id)
+                state.notes?.push(payload)
+
+                state.categoryDisplay = payload.state
                 state.notesDisplay = state.notes?.filter(
                     (note: INote) => note.state === state.categoryDisplay,
                 )
+                state.selectedNote = payload
                 state.loading = false
                 state.error = ""
             })
@@ -106,7 +118,7 @@ export const notesSlice = createSlice({
     },
 })
 
-export const { setNote, setCategoryDisplay, unselectNote } = notesSlice.actions
+export const { setNote, setCategoryDisplay, unselectNote, changeOnShareState } = notesSlice.actions
 
 export const notes = (state: RootState) => state.notes
 
