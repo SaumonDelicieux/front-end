@@ -20,7 +20,7 @@ interface ContentProps {
 
 const Content: React.FC<ContentProps> = ({ note }) => {
     const dispatch = useAppDispatch()
-    const { clickedOnPublish } = useAppSelector(state => state.notes)
+    const { clickedOnShare } = useAppSelector(state => state.notes)
 
     return (
         <div className="flex-1">
@@ -66,7 +66,7 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                     className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
                 />
             </div>
-            {clickedOnPublish && <Popup />}
+            {clickedOnShare && <Popup />}
             <WYSIWYG selectedNote={note} />
         </div>
     )
