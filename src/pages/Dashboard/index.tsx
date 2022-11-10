@@ -3,6 +3,7 @@ import ReactLoading from "react-loading"
 
 import Navbar from "../../components/Navbar"
 import Content from "../../components/Content"
+import Popup from "../../components/Popup"
 import NoteCard from "../../components/NoteCard"
 
 import { INote } from "../../types/INote"
@@ -10,16 +11,17 @@ import { INote } from "../../types/INote"
 import { useAppSelector } from "../../store"
 
 const Dashboard: React.FC = () => {
-    const { selectedNote, notes } = useAppSelector(state => state.notes)
+    const { clickedOnShare, selectedNote, notes } = useAppSelector(state => state.notes)
 
     if (selectedNote) {
         return (
             <>
                 <Navbar />
-                <div className="flex-1 flex flex-col p-2 overflow-y-auto">
+                <div className={`flex-1 p-2 ${clickedOnShare && "blur-2xl"}`}>
                     <div className="mb-10 text-2xl font-bold">{selectedNote?.title}</div>
                     <Content note={selectedNote} />
                 </div>
+                {clickedOnShare && <Popup />}
             </>
         )
     }

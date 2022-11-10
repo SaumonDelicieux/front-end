@@ -8,17 +8,33 @@ import { TiDelete } from "react-icons/ti"
 import { urls } from "../helpers/urls"
 import api from "../helpers/api"
 
-import { changeOnPublishState } from "../features/notes/notesSlice"
+import { changeOnShareState } from "../features/notes/notesSlice"
 
 import { useAppSelector, useAppDispatch } from "../store"
 
 const Popup: React.FC = () => {
     const [search, setSearch] = useState("")
-    const [usersToSuggest, setUsersToSuggest] = useState<{ id: string; email: string }[]>([])
+    const [usersToSuggest, setUsersToSuggest] = useState<{ value: string; label: string }[]>([])
     const [selectedUsers, setSelectedUsers] = useState<string[]>([])
+    const [sharedWithList, setSharedWithList] = useState<{ userName: string; userId: string }[]>([])
 
     const { selectedNote } = useAppSelector(state => state.notes)
     const dispatch = useAppDispatch()
+
+    const promiseOptions = () =>
+        new Promise<any[]>(resolve => {
+            setTimeout(() => {
+                resolve(usersToSuggest)
+            }, 100)
+        })
+
+    const usersToSend = async (users: any[]) => {
+        const usersInInput: string[] = []
+        users.forEach((user: any) => {
+            usersInInput.push(user.value)
+        })
+        setSelectedUsers([...usersInInput])
+    }
 
     const getUsersToShare = async () => {
         if (search.length > 0) {
@@ -72,7 +88,7 @@ const Popup: React.FC = () => {
                     },
                 )
                 toast("Note partagé avec les utilisateurs séléctionnés", { type: "success" })
-                setSelectedUsers([...selectedUsers])
+                getSharedWithList()
             } catch (err) {
                 toast("Une erreur est survenue", { type: "warning" })
             }
@@ -81,18 +97,48 @@ const Popup: React.FC = () => {
         }
     }
 
+    const getSharedWithList = async () => {
+        try {
+            const { data } = await api.get(urls.API.GET_SHARED_WITH_LIST, {
+                params: {
+                    noteId: selectedNote?._id,
+                },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+            return setSharedWithList(data.usersNames)
+        } catch (err) {
+            toast("Une erreur est survenue", { type: "warning" })
+        }
+    }
+
+    const deleteUserFromSharedList = async (userId: string) => {
+        try {
+            await api.put(
+                urls.API.DELETE_FROM_SHARED_WITH_LIST,
+                {
+                    noteId: selectedNote?._id,
+                    userId: userId,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                },
+            )
+            toast("L'utilisateur a bien été supprimé", { type: "success" })
+            getSharedWithList()
+        } catch (err) {
+            toast("Une erreur est survenue", { type: "warning" })
+        }
+    }
+
     useEffect(() => {
-        getUsersToShare()
-    }, [search, selectedUsers])
+        getSharedWithList()
+    }, [])
 
     return (
-        <div className="flex flex-col items-center justify-start rounded-md bg-slate-400 w-6/12 h-2/5 fixed top-60 right-80">
-            <h1 className="text-xl">Ajouter un participant</h1>
-            <input
-                className="p-1 rounded-md mt-6 w-10/12 h-1/6 text-black focus:outline-none focus:ring focus:border-green-500"
-                type="text"
-                placeholder="E.g joe"
-                onChange={e => setSearch(e.target.value)}
         <div className="rounded-md bg-slate-400 dark:bg-blue-900 w-6/12 h-3/4 fixed top-40 right-80">
             <AiOutlineClose
                 color="#e74c3c"
@@ -100,18 +146,19 @@ const Popup: React.FC = () => {
                 className="cursor-pointer absolute right-0 mt-2 mr-2 text-red-500"
                 onClick={() => dispatch(changeOnShareState())}
             />
-            <div className="flex">
-                <input
-                    className="cursor-pointer"
-                    type="submit"
-                    value="Partager"
-                    onClick={() => submitUsers()}
-                />
-                <input
-                    className="cursor-pointer"
-                    type="submit"
-                    value="Annuler"
-                    onClick={() => dispatch(changeOnPublishState())}
+            <div className="flex flex-col items-center justify-start">
+                <h1 className="text-xl mb-3 mt-3">Ajouter des participants</h1>
+                <AsyncSelect
+                    className="w-10/12 text-black"
+                    isMulti
+                    inputId="my_field"
+                    loadOptions={promiseOptions}
+                    noOptionsMessage={() => "User not found"}
+                    onInputChange={newValue => {
+                        setSearch(newValue)
+                        getUsersToShare()
+                    }}
+                    onChange={users => usersToSend(users as any)}
                 />
                 <div className="flex">
                     <input
