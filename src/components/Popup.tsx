@@ -57,6 +57,21 @@ const Popup: React.FC = () => {
         }
     }
 
+    const selectUser = (id: string) => {
+        const index = selectedUsers.indexOf(id)
+        if (index > -1) {
+            const tempArray = selectedUsers
+            for (let i = 0; i < selectedUsers.length; i++) {
+                if (tempArray[i] === id) {
+                    tempArray.splice(i, 1)
+                    setSelectedUsers([...tempArray])
+                }
+            }
+        } else {
+            setSelectedUsers(selectedUsers => [...selectedUsers, id])
+        }
+    }
+
     const submitUsers = async () => {
         if (selectedUsers.length > 0) {
             try {
@@ -173,6 +188,17 @@ const Popup: React.FC = () => {
                     </div>
                 ))}
             </div>
+            {usersToSuggest.map((user: any, index: number) => (
+                <p
+                    key={index}
+                    className={`mt-3 cursor-pointer ${
+                        selectedUsers.includes(user.id) ? "text-green-600" : ""
+                    }`}
+                    onClick={() => selectUser(user.id)}
+                >
+                    {user.email}
+                </p>
+            ))}
         </div>
     )
 }

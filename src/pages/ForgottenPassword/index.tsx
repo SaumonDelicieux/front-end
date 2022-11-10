@@ -34,7 +34,7 @@ const ForgottenPassword: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <p className="my-10">
+                        <p className="my-10 text-center">
                             Indiquez votre adresse e-mail ou votre numéro de téléphone pour recevoir
                             un lien de réinitialisation de mot de passe dans votre boîte mail
                         </p>

@@ -19,9 +19,9 @@ const UpdatePassword: React.FC = () => {
 
     const queryParams = new URLSearchParams(window.location.search)
 
-    const token = queryParams.get("token")!.toString()
-
     const verifyToken = async () => {
+        const token = queryParams.get("token")!.toString()
+
         try {
             const { data } = await api.post(urls.API.CHECK_TOKEN, {
                 token,
@@ -42,13 +42,12 @@ const UpdatePassword: React.FC = () => {
 
         if (password === secondPassword) {
             try {
-                await api.post(
-                    urls.API.UPDATE_PASSWORD,
-                    {
-                        password,
-                    },
-                    { headers: { authorization: token } },
-                )
+                const token = queryParams.get("token")!.toString()
+
+                await api.put(urls.API.UPDATE_PASSWORD, {
+                    password,
+                    token,
+                })
 
                 navigate(urls.APP.LOGIN)
                 toast(
