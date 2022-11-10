@@ -118,6 +118,10 @@ export const notesSlice = createSlice({
                 state.loading = false
                 state.error = ""
             })
+            .addCase(updateNote.rejected, state => {
+                state.loading = false
+                state.error = ""
+            })
             .addCase(getSharedNotes.rejected, state => {
                 state.loading = false
                 state.error = ""
@@ -128,10 +132,6 @@ export const notesSlice = createSlice({
             })
             .addCase(getSharedNotes.fulfilled, (state, { payload }) => {
                 state.sharedNotes = payload
-                state.loading = false
-                state.error = ""
-            })
-            .addCase(updateNote.rejected, state => {
                 state.loading = false
                 state.error = ""
             })

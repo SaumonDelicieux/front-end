@@ -21,7 +21,7 @@ const Connected: React.FC = () => {
         } else {
             dispatch(getUserDetails())
             dispatch(getAllNotes(token))
-            dispatch(getSharedNotes(token))
+            // dispatch(getSharedNotes(token))
             dispatch(getAllFolders(token))
         }
     }, [token])
