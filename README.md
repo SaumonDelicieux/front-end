@@ -8,7 +8,7 @@
 	</a>
 </p>
 
-# 🗒📌 Pin Notes
+# 🗒📌 Pi'Notes
 
 _Front end part of the peanut note._
 
