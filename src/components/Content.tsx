@@ -21,6 +21,7 @@ interface ContentProps {
 const Content: React.FC<ContentProps> = ({ note }) => {
     const dispatch = useAppDispatch()
     const { clickedOnShare } = useAppSelector(state => state.notes)
+    const { isPremium } = useAppSelector(state => state.user)
 
     return (
         <div className="flex-1">
@@ -39,13 +40,15 @@ const Content: React.FC<ContentProps> = ({ note }) => {
                     }}
                     className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
                 />
-                <Button
-                    title="Partager"
-                    onClick={() => {
-                        dispatch(changeOnShareState())
-                    }}
-                    className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
-                />
+                {isPremium && (
+                    <Button
+                        title="Partager"
+                        onClick={() => {
+                            dispatch(changeOnShareState())
+                        }}
+                        className="rounded-md p-2 bg-slate-100 dark:text-slate-900"
+                    />
+                )}
                 <Button
                     title="Télécharger"
                     onClick={() => convertToPDF(note.title!, note.text)}

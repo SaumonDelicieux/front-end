@@ -29,6 +29,7 @@ export const urls = {
         VERIFY_PAYMENT: "/checkout/verifyPayment",
         GET_EMAILS_TO_SHARE: "/commons/getEmailsToShare",
         SHARE_NOTE: "/commons/shareNote",
+        GET_SHARED_NOTES: "/commons/getSharedNotes",
         GET_SHARED_WITH_LIST: "/commons/sharedWithList",
         DELETE_FROM_SHARED_WITH_LIST: "/commons/deleteFromSharedWith",
     },

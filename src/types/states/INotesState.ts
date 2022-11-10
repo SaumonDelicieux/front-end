@@ -10,4 +10,5 @@ export interface INotesState {
     loading?: boolean
     error?: string
     clickedOnShare?: boolean
+    sharedNotes: INote[]
 }

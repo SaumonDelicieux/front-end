@@ -6,7 +6,13 @@ import { INote } from "../../types/INote"
 
 import type { RootState } from "../../store"
 
-import { createNote, deleteNote, getAllNotes, updateNote } from "../../actions/notes"
+import {
+    createNote,
+    deleteNote,
+    getAllNotes,
+    getSharedNotes,
+    updateNote,
+} from "../../actions/notes"
 
 const initialState: INotesState = {
     notes: [],
@@ -16,6 +22,7 @@ const initialState: INotesState = {
     loading: false,
     error: "",
     clickedOnShare: false,
+    sharedNotes: [],
 }
 
 export const notesSlice = createSlice({
@@ -108,6 +115,19 @@ export const notesSlice = createSlice({
                     (note: INote) => note.state === state.categoryDisplay,
                 )
                 state.selectedNote = payload
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(getSharedNotes.rejected, state => {
+                state.loading = false
+                state.error = ""
+            })
+            .addCase(getSharedNotes.pending, state => {
+                state.loading = true
+                state.error = ""
+            })
+            .addCase(getSharedNotes.fulfilled, (state, { payload }) => {
+                state.sharedNotes = payload
                 state.loading = false
                 state.error = ""
             })

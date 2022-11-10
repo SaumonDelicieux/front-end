@@ -17,7 +17,7 @@ import { useAppSelector } from "../store"
 const Navbar: React.FC = () => {
     const { id, isPremium } = useAppSelector(state => state.user)
     const { folders } = useAppSelector(state => state.folders)
-    const { notesDisplay } = useAppSelector(state => state.notes)
+    const { notesDisplay, sharedNotes } = useAppSelector(state => state.notes)
 
     const [isNewFolder, setIsNewFolder] = useState(false)
     const [search, setSearch] = useState("")
@@ -68,6 +68,11 @@ const Navbar: React.FC = () => {
                             userId={id}
                         />
                     </div>
+                    {sharedNotes.length > 0 && (
+                        <>
+                            <div className="font-bold">Notes partagés </div>
+                        </>
+                    )}
                 </>
             )}
             <ProfileCard />
