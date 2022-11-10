@@ -34,6 +34,12 @@ yarn dev
 
 _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 
+## Workflow (Git) :
+
+feature/XXXXXX : pour un feature  
+hotfix|fix/XXXXX : pour corriger un bug
+Release : pour staging vers master (prod)
+
 ## Utils
 
 -   Github (Github CI)
