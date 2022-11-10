@@ -40,7 +40,7 @@ export const notesSlice = createSlice({
             state.categoryDisplay = action.payload
             state.notesDisplay = state.notes?.filter((note: INote) => note.state === action.payload)
         },
-        changeOnPublishState: state => {
+        changeOnShareState: state => {
             if (state.clickedOnPublish) state.clickedOnPublish = false
             else state.clickedOnPublish = true
         },
