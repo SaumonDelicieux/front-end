@@ -38,7 +38,7 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 
 feature/XXXXXX : pour un feature  
 hotfix|fix/XXXXX : pour corriger un bug  
-Release : pour staging vers master (prod)
+Release/X.X.X : pour staging vers master (prod)
 
 ## Utils
 
