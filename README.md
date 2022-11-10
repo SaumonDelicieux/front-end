@@ -56,10 +56,11 @@ _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
 -   Checkout with Stripe (Be Premium) and can cancel sub
 -   Search on all notes
 -   Update state of note (junk/public/achived, delete)
+-   WYSIWYG
+-   Auto-save
 
 ## To do
 
--   [ ] WYSIWYG
 -   [ ] Share note if Premium
 -   [ ] Preview note
 -   [ ] User shared permission

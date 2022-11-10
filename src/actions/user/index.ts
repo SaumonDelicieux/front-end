@@ -144,11 +144,12 @@ export const forgottenPassword = createAsyncThunk(
 export const updateUser = createAsyncThunk<IUser, IUserRegister, { rejectValue: UserError }>(
     "user/updateUser",
     async (updatedUser: IUser, thunkApi) => {
+        console.log(updatedUser)
         try {
             const { data } = await api.put(
                 urls.API.PROFILE,
                 {
-                    userId: updatedUser.id,
+                    _id: updatedUser.id,
                     firstName: updatedUser.firstName,
                     lastName: updatedUser.lastName,
                     email: updatedUser.email,

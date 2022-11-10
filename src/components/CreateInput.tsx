@@ -45,7 +45,7 @@ const CreateInput: React.FC<CreateInputProps> = ({ isNewFolder, setIsNewFolder, 
             className={`${!isNewFolder && "hidden"} relative ml-2 mb-2 transition-all duration-500`}
         >
             <input
-                className="w-full p-1 bg-slate-500 dark:bg-blue-700 rounded-md"
+                className="w-full p-1 bg-slate-500 dark:bg-blue-700 rounded-md focus:outline-none"
                 type="text"
                 value={newFolder}
                 onChange={e => setNewFolder(e.target.value)}
