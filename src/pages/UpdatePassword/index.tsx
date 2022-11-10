@@ -33,8 +33,8 @@ const UpdatePassword: React.FC = () => {
 
             return data
         } catch {
-            navigate(urls.APP.LOGIN)
             toast("Une erreur est survenue", { type: "warning" })
+            return navigate(urls.APP.LOGIN)
         }
     }
 
