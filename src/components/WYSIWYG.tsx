@@ -13,6 +13,7 @@ import {
 } from "react-icons/ai"
 import { FiCheckCircle } from "react-icons/fi"
 import ReactLoading from "react-loading"
+import ReactHtmlParser from "react-html-parser"
 
 import { updateNote } from "../actions/notes"
 
@@ -33,7 +34,7 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
     const dispatch = useAppDispatch()
     const { theme } = useAppSelector(state => state.user)
 
-    const [text, setText] = useState<TextProps>()
+    const [text, setText] = useState<TextProps>(selectedNote.text)
     const [isSending, setIsSending] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
     const [image, setImage] = useState<HTMLImageElement | ImgProps>()
@@ -140,16 +141,18 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                     <div className="absolute right-10 z-50">
                         <Button
                             title="Enregistrer"
-                            onClick={() =>
-                                dispatch(
+                            onClick={async () => {
+                                setIsSending(true)
+                                await dispatch(
                                     updateNote({
                                         id: selectedNote._id!,
                                         title: selectedNote.title!,
-                                        text: text!,
+                                        text: document.getElementById("content-note")!.innerHTML,
                                         state: selectedNote.state!,
                                     }),
                                 )
-                            }
+                                setIsSending(false)
+                            }}
                             className="p-2 bg-slate-700 text-slate-100"
                         />
                     </div>
@@ -167,11 +170,12 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                     </div>
                 </div>
                 <div
-                    className="focus:outline-none p-2 break-words border rounded-md min-h-full"
+                    className="focus:outline-none p-2 break-words border rounded-md h-[20rem] overflow-auto"
                     contentEditable
                     suppressContentEditableWarning
+                    id="content-note"
                 >
-                    {text}
+                    {ReactHtmlParser(text as string)}
                 </div>
                 <div className="mt-5">
                     <input

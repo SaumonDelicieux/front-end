@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 import { getUserDetails } from "../features/user/userSlice"
 
 import { getAllFolders } from "../actions/folders"
-import { getAllNotes } from "../actions/notes"
+import { getAllNotes, getSharedNotes } from "../actions/notes"
 
 import { useAppDispatch, useAppSelector } from "../store"
 
@@ -21,6 +21,7 @@ const Connected: React.FC = () => {
         } else {
             dispatch(getUserDetails())
             dispatch(getAllNotes(token))
+            // dispatch(getSharedNotes(token))
             dispatch(getAllFolders(token))
         }
     }, [token])
