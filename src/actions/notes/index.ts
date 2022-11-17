@@ -111,3 +111,20 @@ export const updateNote = createAsyncThunk(
         }
     },
 )
+
+export const getSharedNotes = createAsyncThunk("notes/sharedNotes", async (token: string) => {
+    try {
+        const { data } = await api.get(urls.API.GET_SHARED_NOTES, {
+            headers: {
+                Authorization: token,
+            },
+        })
+        if (data.success) {
+            toast(data.message, { type: "success" })
+        }
+
+        return data.notes
+    } catch (error) {
+        toast("Erreur lors de la modification de la note", { type: "warning" })
+    }
+})

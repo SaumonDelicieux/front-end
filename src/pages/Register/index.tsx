@@ -54,7 +54,7 @@ const Register: React.FC = () => {
                         size="large"
                         className="mb-4"
                     />
-                    <div className="text-red-800 mb-5">{error}</div>
+                    <div className="text-red-500 mb-5">{error}</div>
                     <div className="mb-5">
                         <Button
                             isLoading={loading}

@@ -8,7 +8,7 @@
 	</a>
 </p>
 
-# 🗒📌 Pin Notes
+# 🗒📌 Pi'Notes
 
 _Front end part of the peanut note._
 
@@ -33,6 +33,12 @@ yarn dev
 ```
 
 _⚠️ Don't forget to set .env.local (copy/paste/edit .env.example)_
+
+## Workflow (Git) :
+
+feature/XXXXXX : pour un feature  
+hotfix|fix/XXXXX : pour corriger un bug  
+Release/X.X.X : pour staging vers master (prod)
 
 ## Utils
 
