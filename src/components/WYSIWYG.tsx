@@ -13,6 +13,7 @@ import {
 } from "react-icons/ai"
 import { FiCheckCircle } from "react-icons/fi"
 import ReactLoading from "react-loading"
+import ReactHtmlParser from "react-html-parser"
 
 import { updateNote } from "../actions/notes"
 
@@ -101,7 +102,7 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
         }
 
         setText(selectedNote.text)
-    }, [selectedFile, selectedNote])
+    }, [selectedFile])
 
     return (
         <>
@@ -169,12 +170,12 @@ const WYSIWYG: React.FC<WYSIWYGProps> = ({ selectedNote }) => {
                     </div>
                 </div>
                 <div
-                    className="focus:outline-none p-2 break-words border rounded-md min-h-full"
+                    className="focus:outline-none p-2 break-words border rounded-md h-[20rem] overflow-auto"
                     contentEditable
                     suppressContentEditableWarning
                     id="content-note"
                 >
-                    {text}
+                    {ReactHtmlParser(text as string)}
                 </div>
                 <div className="mt-5">
                     <input

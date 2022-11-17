@@ -24,7 +24,11 @@ const Navbar: React.FC = () => {
     const [filtredNotes, setFiltredNote] = useState<INote[]>()
 
     useEffect(() => {
-        setFiltredNote(notesDisplay?.filter((note: INote) => note.title?.includes(search)))
+        setFiltredNote(
+            notesDisplay?.filter((note: INote) =>
+                note.title?.toLowerCase().includes(search.toLowerCase()),
+            ),
+        )
     }, [search])
 
     return (

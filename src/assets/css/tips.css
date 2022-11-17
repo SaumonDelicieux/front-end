@@ -13,7 +13,7 @@
     transition: 0.5s ease;
 }
 
-.content-note-card p {
+.content-note-card div#text-render {
     opacity: 0;
     overflow-wrap: break-word;
     overflow: hidden;
@@ -27,7 +27,7 @@
     opacity: 1;
 }
 
-.show-all-content p {
+.show-all-content div#text-render {
     opacity: 1 !important;
 }
 

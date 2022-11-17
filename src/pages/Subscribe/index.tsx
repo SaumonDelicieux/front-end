@@ -92,7 +92,7 @@ const Subscribe: React.FC = () => {
                                         isLoading={isLoading}
                                         onClick={() => handleCheckout()}
                                         title="Souscrire à l'abonnement"
-                                        className="bg-yellow-600"
+                                        className="bg-yellow-600 p-4 rounded-md"
                                     />
                                 </div>
                             </ul>
