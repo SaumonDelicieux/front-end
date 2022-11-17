@@ -72,7 +72,7 @@ const UpdatePassword: React.FC = () => {
     return (
         <div className="w-screen h-screen relative bg-slate-900 text-p-2 text-base transition-colors">
             <div className="flex justify-center items-center w-full h-full">
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
                     <Input
                         label="Nouveau mot de passe"
                         type="password"
@@ -95,6 +95,7 @@ const UpdatePassword: React.FC = () => {
                             handleClick(e)
                         }}
                         title="Confirmer"
+                        className="border rounded-md p-2 bg-slate-100 dark:text-slate-900 mb-5"
                     />
                 </div>
             </div>

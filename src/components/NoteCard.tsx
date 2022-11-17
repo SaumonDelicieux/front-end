@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import ReactHtmlParser from "react-html-parser"
 
 import { setNote } from "../features/notes/notesSlice"
 
@@ -32,7 +33,9 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
                 } flex flex-col h-full`}
             >
                 <div className="mb-2 font-bold">{note.title}</div>
-                <p className={`text-sm ${isShowed && "show-content"}`}>{note.text}</p>
+                <div id="text-render" className={`text-sm ${isShowed && "show-content"}`}>
+                    {ReactHtmlParser(note.text as string)}
+                </div>
             </div>
         </div>
     )
