@@ -45,7 +45,7 @@ Release/X.X.X : pour staging vers master (prod)
 -   Github (Github CI)
 -   Vercel (CD)
 -   NoSQL (MongoDB Atlas)
--   Trello
+-   [Trello](https://trello.com/invite/b/myE9AJBx/ATTI3e58a3f5c2450d1b5c5f1c5bc637b2144A18CF20/pi-notes)
 -   🌍 [Production](https://pi-notes.vercel.app)
 -   🌍 [Staging](https://pi-notes-git-staging-saumon-delicieux.vercel.app)
 -   🌍 [Develop](https://pi-notes-git-develop-saumon-delicieux.vercel.app)
@@ -120,7 +120,9 @@ Release/X.X.X : pour staging vers master (prod)
 ```
 
 ## 👯‍♂️ Collaborators
-
+  
+Groupe 2  
+  
 -   Enzo CANDOTTI [@ecandotti](https://github.com/ecandotti)
 -   Lamine ADEL [@A-Lamine](https://github.com/A-Lamine)
 -   Walid MOKHTARI [@walidmokhtari](https://github.com/walidmokhtari)
