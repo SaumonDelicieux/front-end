@@ -64,10 +64,10 @@ Release/X.X.X : pour staging vers master (prod)
 -   Update state of note (junk/public/achived, delete)
 -   WYSIWYG
 -   Auto-save
+-   Share note if Premium
 
 ## To do
 
--   [ ] Share note if Premium
 -   [ ] Preview note
 -   [ ] User shared permission
 
